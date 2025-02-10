@@ -1,14 +1,4 @@
-/MvcAppToModernize/MvcWebApplication/bin
-/MvcAppToModernize/MvcWebApplication/obj
+/MvcAppToModernize/WebApplication/bin
+/MvcAppToModernize/WebApplication/obj
 
-/MvcAppToModernize/Entity/bin
-/MvcAppToModernize/Entity/obj
-
-/MvcAppToModernize/Model/bin
-/MvcAppToModernize/Model/obj
-
-/MvcAppToModernize/RepositoryLayer/bin
-/MvcAppToModernize/RepositoryLayer/obj
-
-/MvcAppToModernize/ServiceLayer/bin
-/MvcAppToModernize/ServiceLayer/obj
+.fake
