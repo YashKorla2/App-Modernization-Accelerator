@@ -1,16 +1,18 @@
 using System.Web.Mvc;
-using WebApplication.Services;
-using WebApplication.Models;
+using Services;
+using Models;
 
 namespace WebApplication.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly HomeService _homeService;
+        private readonly IHomeService _homeService;
 
-        public HomeController()
+        public HomeController() {}
+
+        public HomeController(IHomeService homeService)
         {
-            _homeService = new HomeService();
+            _homeService = homeService;
         }
 
         public ActionResult Index()

@@ -1,4 +1,10 @@
 /MvcAppToModernize/WebApplication/bin
 /MvcAppToModernize/WebApplication/obj
 
+/MvcAppToModernize/Models/bin
+/MvcAppToModernize/Models/obj
+
+/MvcAppToModernize/Services/bin
+/MvcAppToModernize/Services/obj
+
 .fake
