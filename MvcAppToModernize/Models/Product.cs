@@ -1,6 +1,6 @@
 using System;
 
-namespace WebApplication.Models
+namespace Models
 {
     public class Product
     {

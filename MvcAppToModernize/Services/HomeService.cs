@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
-using WebApplication.Models;
+using Models;
 
-namespace WebApplication.Services
+namespace Services
 {
-    public class HomeService
+    public class HomeService : IHomeService
     {
         private readonly string _jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data", "products.json");
 

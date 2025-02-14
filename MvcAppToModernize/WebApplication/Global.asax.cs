@@ -11,6 +11,8 @@ namespace WebApplication
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            UnityConfig.RegisterUnity();
         }
     }
 }
