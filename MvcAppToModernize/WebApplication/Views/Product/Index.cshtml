@@ -37,7 +37,8 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }, new { @class = "btn btn-primary btn-sm" }) |
             @Html.ActionLink("Details", "Details", new { id=item.ProductId }, new { @class = "btn btn-info btn-sm" }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId }, new { @class = "btn btn-danger btn-sm" })
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId }, new { @class = "btn btn-danger btn-sm" }) |
+            @Html.ActionLink("Add to Cart", "", new { id=item.ProductId }, new { @class = "btn btn-danger btn-sm" })
         </td>
     </tr>
 }

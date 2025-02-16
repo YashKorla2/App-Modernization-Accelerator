@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Mvc; 
 using Services;
+using Repositories;
 
 namespace WebApplication
 {
@@ -19,7 +20,8 @@ namespace WebApplication
         private static void RegisterDependencies(IUnityContainer unityContainer)
         {
             // Register your services and repositories here
-            unityContainer.RegisterType<IHomeService, HomeService>();
+            unityContainer.RegisterType<IProductRepository, ProductRepository>();
+            unityContainer.RegisterType<IProductService, ProductService>();
         }
 
         public static void RegisterUnity()
