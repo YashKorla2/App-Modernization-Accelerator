@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Models;
 using Repositories;
 
@@ -26,6 +27,8 @@ namespace Services
         public void AddProduct(Product product)
         {
             var products = _productRepository.GetAllProducts();
+            int maxId = products.Any() ? products.Max(p => p.ProductId) : 0;
+            product.ProductId = maxId + 1;
             products.Add(product);
             _productRepository.SaveProducts(products);
         }

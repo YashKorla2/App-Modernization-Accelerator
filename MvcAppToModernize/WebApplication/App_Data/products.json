@@ -198,5 +198,25 @@
     "ProductPrice": 24.99,
     "ProductAvailableQuantity": 80,
     "ProductDiscount": 5.0
+  },
+  {
+    "ProductId": 21,
+    "ProductName": "Trial",
+    "ProductDescription": "Adding trial product",
+    "ProductCategory": null,
+    "ProductRating": 0.0,
+    "ProductPrice": 0.0,
+    "ProductAvailableQuantity": 0,
+    "ProductDiscount": 0.0
+  },
+  {
+    "ProductId": 22,
+    "ProductName": "Trial 2",
+    "ProductDescription": "adding second trial product",
+    "ProductCategory": "Home",
+    "ProductRating": 5.0,
+    "ProductPrice": 1.00,
+    "ProductAvailableQuantity": 0,
+    "ProductDiscount": 0.00
   }
 ]
