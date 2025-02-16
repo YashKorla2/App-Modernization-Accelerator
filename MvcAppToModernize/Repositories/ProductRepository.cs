@@ -4,13 +4,13 @@ using System.IO;
 using Newtonsoft.Json;
 using Models;
 
-namespace Services
+namespace Repositories
 {
-    public class HomeService : IHomeService
+    public class ProductRepository : IProductRepository
     {
         private readonly string _jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data", "products.json");
 
-        public HomeService()
+        public ProductRepository()
         {
             string directory = Path.GetDirectoryName(_jsonFilePath);
             if (!Directory.Exists(directory))
@@ -36,36 +36,10 @@ namespace Services
             return products.Find(p => p.ProductId == productId);
         }
 
-        public void AddProduct(Product product)
-        {
-            var products = GetAllProducts();
-            products.Add(product);
-            SaveProducts(products);
-        }
-
-        public void UpdateProduct(Product updatedProduct)
-        {
-            var products = GetAllProducts();
-            int index = products.FindIndex(p => p.ProductId == updatedProduct.ProductId);
-            if (index != -1)
-            {
-                products[index] = updatedProduct;
-                SaveProducts(products);
-            }
-        }
-
-        public void DeleteProduct(int productId)
-        {
-            var products = GetAllProducts();
-            products.RemoveAll(p => p.ProductId == productId);
-            SaveProducts(products);
-        }
-
-        private void SaveProducts(List<Product> products)
+        public void SaveProducts(List<Product> products)
         {
             string jsonContent = JsonConvert.SerializeObject(products, Formatting.Indented);
             File.WriteAllText(_jsonFilePath, jsonContent);
         }
-        // Add your service methods here
     }
 }

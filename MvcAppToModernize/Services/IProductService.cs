@@ -3,7 +3,7 @@ using Models;
 
 namespace Services
 {
-    public interface IHomeService
+    public interface IProductService
     {
         List<Product> GetAllProducts();
         Product GetProductById(int productId);

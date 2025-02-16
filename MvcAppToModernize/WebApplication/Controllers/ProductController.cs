@@ -4,26 +4,26 @@ using Models;
 
 namespace WebApplication.Controllers
 {
-    public class HomeController : Controller
+    public class ProductController : Controller
     {
-        private readonly IHomeService _homeService;
+        private readonly IProductService _productService;
 
-        public HomeController() {}
+        public ProductController() {}
 
-        public HomeController(IHomeService homeService)
+        public ProductController(IProductService productService)
         {
-            _homeService = homeService;
+            _productService = productService;
         }
 
         public ActionResult Index()
         {
-            var products = _homeService.GetAllProducts();
+            var products = _productService.GetAllProducts();
             return View(products);
         }
 
         public ActionResult Details(int id)
         {
-            var product = _homeService.GetProductById(id);
+            var product = _productService.GetProductById(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -41,7 +41,7 @@ namespace WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                _homeService.AddProduct(product);
+                _productService.AddProduct(product);
                 return RedirectToAction("Index");
             }
             return View(product);
@@ -49,7 +49,7 @@ namespace WebApplication.Controllers
 
         public ActionResult Edit(int id)
         {
-            var product = _homeService.GetProductById(id);
+            var product = _productService.GetProductById(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -62,7 +62,7 @@ namespace WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                _homeService.UpdateProduct(product);
+                _productService.UpdateProduct(product);
                 return RedirectToAction("Index");
             }
             return View(product);
@@ -70,7 +70,7 @@ namespace WebApplication.Controllers
 
         public ActionResult Delete(int id)
         {
-            var product = _homeService.GetProductById(id);
+            var product = _productService.GetProductById(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -81,7 +81,7 @@ namespace WebApplication.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            _homeService.DeleteProduct(id);
+            _productService.DeleteProduct(id);
             return RedirectToAction("Index");
         }
     }

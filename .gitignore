@@ -4,6 +4,9 @@
 /MvcAppToModernize/Models/bin
 /MvcAppToModernize/Models/obj
 
+/MvcAppToModernize/Repositories/bin
+/MvcAppToModernize/Repositories/obj
+
 /MvcAppToModernize/Services/bin
 /MvcAppToModernize/Services/obj
 
