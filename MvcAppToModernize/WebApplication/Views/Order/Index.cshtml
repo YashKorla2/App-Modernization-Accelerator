@@ -1,0 +1,41 @@
+@model List<List<Models.Cart>>
+@{
+    ViewBag.Title = "Orders";
+}
+
+<div class="d-flex justify-content-between mb-3">
+    <h2>Orders</h2>
+    <div class="d-flex align-items-center">
+        <p class="mx-2">
+            @Html.ActionLink("Products", "Index", "Product", null, new { @class = "btn btn-primary" })
+        </p>
+        <p class="mx-2">
+            @Html.ActionLink("Cart", "Index", "Cart", null, new { @class = "btn btn-secondary" })
+        </p>
+        <p class="mx-2 btn btn-dark"><strong>Total Orders: @ViewBag.OrderCount</strong></p>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var order in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Order #@(Model.IndexOf(order) + 1)</h5>
+                </div>
+                <div class="card-body">
+                    @foreach (var item in order)
+                    {
+                        <div class="order-item mb-3">
+                            <h6>@item.ProductName</h6>
+                            <p class="px-4">Quantity: @item.Quantity</p>
+                            <p class="px-4">Price: $@item.ProductPrice</p>
+                            <p class="px-4">Total: $@item.TotalPrice</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
