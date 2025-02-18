@@ -11,10 +11,15 @@ namespace WebApplication.Controllers
         {
             _cartService = cartService;
         }
-
-        public ActionResult Index()
+        
+        public ActionResult Index(string searchTerm)
         {
-            var Carts = _cartService.GetCarts();
+            var Carts = string.IsNullOrEmpty(searchTerm)
+                ? _cartService.GetCarts()
+                : _cartService.SearchCart(searchTerm);
+
+            ViewBag.SearchTerm = searchTerm;
+
             return View(Carts);
         }
 

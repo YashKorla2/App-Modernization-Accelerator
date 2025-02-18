@@ -17,9 +17,11 @@ namespace WebApplication.Controllers
             _cartService = cartService;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string searchTerm)
         {
-            var products = _productService.GetAllProducts();
+            var products = string.IsNullOrEmpty(searchTerm)
+                ? _productService.GetAllProducts()
+                : _productService.SearchProducts(searchTerm);
             var cartItems = _cartService.GetCarts();
 
             var viewModel = new ProductViewModel
@@ -27,6 +29,8 @@ namespace WebApplication.Controllers
                 Products = products,
                 CartItemCount = cartItems.Count
             };
+
+            ViewBag.SearchTerm = searchTerm;
 
             return View(viewModel);
         }

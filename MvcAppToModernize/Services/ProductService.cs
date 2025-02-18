@@ -50,5 +50,15 @@ namespace Services
             products.RemoveAll(p => p.ProductId == productId);
             _productRepository.SaveProducts(products);
         }
+
+        public List<Product> SearchProducts(string searchTerm)
+        {
+            var products = _productRepository.GetAllProducts();
+            return products.Where(
+                p => p.ProductName.ToLower().Contains(searchTerm.ToLower()) || 
+                p.ProductDescription.ToLower().Contains(searchTerm.ToLower()) ||
+                p.ProductCategory.ToLower().Contains(searchTerm.ToLower())
+            ).ToList();
+        }
     }
 }

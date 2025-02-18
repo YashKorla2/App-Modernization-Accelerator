@@ -63,6 +63,26 @@ namespace Services
             cartItems.RemoveAll(c => selectedProductIds.Contains(c.ProductId));
             _cartRepository.SaveCart(cartItems);
         }
+
+        public List<Cart> SearchCart(string searchTerm)
+        {
+            var carts = _cartRepository.GetCart();
+            return carts.Where(
+                cart => cart.ProductName.ToLower().Contains(searchTerm.ToLower())
+            ).ToList();
+        }
+
+        public List<List<Cart>> SearchOrders(string searchTerm)
+        {
+            var orders = _cartRepository.GetOrders();
+            return orders
+            .Select(orderList => orderList
+                .Where(cart => cart.ProductName.ToLower().Contains(searchTerm.ToLower()))
+                .ToList()
+            )
+            .Where(filteredList => filteredList.Count > 0) // Remove empty lists
+            .ToList();
+        }
     }
 
 }

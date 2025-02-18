@@ -13,11 +13,16 @@ namespace WebApplication.Controllers
             _cartService = cartService;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string searchTerm)
         {
-            var orders = _cartService.GetOrders(); // Get all orders from the service
-            var orderCount = orders.Count; // Get total number of orders
+            var orders = string.IsNullOrEmpty(searchTerm)
+                ? _cartService.GetOrders()
+                : _cartService.SearchOrders(searchTerm);
+            
+            var orderCount = orders.Count;
+
             ViewBag.OrderCount = orderCount;
+            ViewBag.SearchTerm = searchTerm;
 
             return View(orders);
         }

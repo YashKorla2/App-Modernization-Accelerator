@@ -10,5 +10,6 @@ namespace Services
         void AddProduct(Product product);
         void UpdateProduct(Product updatedProduct);
         void DeleteProduct(int productId);
+        List<Product> SearchProducts(string searchTerm);
     }
 }
