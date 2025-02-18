@@ -11,5 +11,7 @@ namespace Services
         void DeleteCartItem(int itemId);
         List<List<Cart>> GetOrders();
         void Checkout(int[] selectedProductIds);
+        List<Cart> SearchCart(string searchTerm);
+        List<List<Cart>> SearchOrders(string searchTerm);
     }
 }
