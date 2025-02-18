@@ -22,6 +22,9 @@ namespace WebApplication
             // Register your services and repositories here
             unityContainer.RegisterType<IProductRepository, ProductRepository>();
             unityContainer.RegisterType<IProductService, ProductService>();
+            
+            unityContainer.RegisterType<ICartRepository, CartRepository>();
+            unityContainer.RegisterType<ICartService, CartService>();
         }
 
         public static void RegisterUnity()
