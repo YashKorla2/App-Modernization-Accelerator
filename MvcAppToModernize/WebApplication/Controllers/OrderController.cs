@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Services;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +16,11 @@ namespace WebApplication.Controllers
 
         public ActionResult Index(string searchTerm)
         {
-            IEnumerable<object> orders = string.IsNullOrEmpty(searchTerm)
+            var orders = string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetOrders()
                 : _cartService.SearchOrders(searchTerm);
-
-            int orderCount = orders is ICollection<object> collection ? collection.Count : orders.Count();
+            
+            var orderCount = orders.Count;
 
             ViewBag.OrderCount = orderCount;
             ViewBag.SearchTerm = searchTerm;
