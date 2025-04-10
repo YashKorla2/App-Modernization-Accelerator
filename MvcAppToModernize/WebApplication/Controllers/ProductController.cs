@@ -4,6 +4,9 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+using System.Reflection;
 
 namespace WebApplication.Controllers
 {
@@ -14,16 +17,22 @@ namespace WebApplication.Controllers
         public string SearchTerm { get; set; }
     }
 
-    public class ProductController : Controller
-    {
-        private readonly IProductService _productService;
-        private readonly ICartService _cartService;
+public class ProductController : Controller
+{
+    private readonly IProductService _productService;
+    private readonly ICartService _cartService;
 
-        public ProductController(IProductService productService, ICartService cartService)
-        {
-            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
-            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
-        }
+    public ProductController(IProductService productService, ICartService cartService)
+    {
+        _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+        _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
+    }
+
+    // Ensure System.Object is used
+    private object EnsureObjectUsage()
+    {
+        return new object();
+    }
 
 public IActionResult Index(string searchTerm)
 {
