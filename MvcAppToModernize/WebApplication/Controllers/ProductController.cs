@@ -4,8 +4,6 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 
 namespace WebApplication.Controllers
 {
@@ -25,13 +23,6 @@ namespace WebApplication.Controllers
         {
             _productService = productService ?? throw new ArgumentNullException(nameof(productService));
             _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
-        }
-
-        // Dummy method to ensure System.Object is recognized
-        private void EnsureSystemObjectIsRecognized()
-        {
-            object obj = new object();
-            Type type = typeof(object);
         }
 
 public IActionResult Index(string searchTerm)
