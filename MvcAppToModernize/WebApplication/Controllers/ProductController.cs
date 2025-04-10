@@ -4,7 +4,6 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -60,11 +59,11 @@ public IActionResult Index(string searchTerm)
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Product product)
+        public IActionResult Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                await _productService.AddProductAsync(product);
+                _productService.AddProduct(product);
                 return RedirectToAction("Index");
             }
             return View(product);
