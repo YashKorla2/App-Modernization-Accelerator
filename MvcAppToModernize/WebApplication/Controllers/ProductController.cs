@@ -4,6 +4,7 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -77,6 +78,42 @@ public IActionResult Index(string searchTerm)
                 return NotFound();
             }
             return View(product);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, [Bind("Id,Name,Price,Description")] Product product)
+        {
+            if (id != product.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _productService.UpdateProduct(product);
+                }
+                catch (Exception)
+                {
+                    if (!ProductExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(product);
+        }
+
+        private bool ProductExists(int id)
+        {
+            return _productService.GetProductById(id) != null;
         }
 
         [HttpPost]
