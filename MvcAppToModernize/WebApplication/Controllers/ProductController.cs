@@ -27,7 +27,7 @@ namespace WebApplication.Controllers
 
 public IActionResult Index(string searchTerm)
 {
-    System.Collections.Generic.IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
+    IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
         ? _productService.GetAllProducts()
         : _productService.SearchProducts(searchTerm);
     var cartItems = _cartService.GetCarts();
@@ -35,7 +35,7 @@ public IActionResult Index(string searchTerm)
     var viewModel = new ProductViewModel
     {
         Products = products,
-        CartItemCount = cartItems is System.Collections.Generic.ICollection<Cart> collection ? collection.Count : cartItems.Count(),
+        CartItemCount = cartItems is ICollection<Cart> collection ? collection.Count : cartItems.Count(),
         SearchTerm = searchTerm
     };
 
