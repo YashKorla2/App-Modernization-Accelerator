@@ -14,7 +14,9 @@ namespace WebApplication.Controllers
         public string SearchTerm { get; set; }
     }
 
-    public class ProductController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
@@ -25,22 +27,23 @@ namespace WebApplication.Controllers
             _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
         }
 
-public IActionResult Index(string searchTerm)
-{
-    System.Collections.Generic.IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
-        ? _productService.GetAllProducts()
-        : _productService.SearchProducts(searchTerm);
-    var cartItems = _cartService.GetCarts();
+        [HttpGet]
+        public ActionResult<ProductViewModel> Index(string searchTerm)
+        {
+            IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
+                ? _productService.GetAllProducts()
+                : _productService.SearchProducts(searchTerm);
+            var cartItems = _cartService.GetCarts();
 
-    var viewModel = new ProductViewModel
-    {
-        Products = products,
-        CartItemCount = cartItems is System.Collections.Generic.ICollection<Cart> collection ? collection.Count : cartItems.Count(),
-        SearchTerm = searchTerm
-    };
+            var viewModel = new ProductViewModel
+            {
+                Products = products,
+                CartItemCount = cartItems is ICollection<Cart> collection ? collection.Count : cartItems.Count(),
+                SearchTerm = searchTerm
+            };
 
-    return View(viewModel);
-}
+            return viewModel;
+        }
 
         [HttpGet("{id}")]
         public ActionResult<Product> Details(int id)
@@ -50,73 +53,82 @@ public IActionResult Index(string searchTerm)
             {
                 return NotFound();
             }
-            return Ok(product);
+            return product;
         }
 
-        public IActionResult Create()
+        [HttpGet("Create")]
+        public ActionResult<Product> Create()
         {
-            return View();
+            return new Product();
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public IActionResult Create(Product product)
         {
             if (ModelState.IsValid)
             {
                 _productService.AddProduct(product);
-                return RedirectToAction("Index");
+                return CreatedAtAction(nameof(Details), new { id = product.Id }, product);
             }
-            return View(product);
+            return BadRequest(ModelState);
         }
 
-        public IActionResult Edit(int id)
+        [HttpGet("Edit/{id}")]
+        public ActionResult<Product> Edit(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
             {
                 return NotFound();
             }
-            return View(product);
+            return product;
         }
 
-        [HttpPost]
-        public IActionResult Edit(Product product)
+        [HttpPut("Edit/{id}")]
+        public IActionResult Edit(int id, Product product)
         {
+            if (id != product.Id)
+            {
+                return BadRequest();
+            }
+
             if (ModelState.IsValid)
             {
                 _productService.UpdateProduct(product);
-                return RedirectToAction("Index");
+                return NoContent();
             }
-            return View(product);
+            return BadRequest(ModelState);
         }
 
-        public IActionResult Delete(int id)
+        [HttpGet("Delete/{id}")]
+        public ActionResult<Product> Delete(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
             {
                 return NotFound();
             }
-            return View(product);
+            return product;
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpDelete("Delete/{id}")]
         public IActionResult DeleteConfirmed(int id)
         {
             _productService.DeleteProduct(id);
-            return RedirectToAction("Index");
+            return NoContent();
         }
 
-        [HttpPost]
+        [HttpPost("AddToCart")]
         public IActionResult AddToCart(int productId, int quantity = 1)
         {
             var product = _productService.GetProductById(productId);
             if (product != null)
             {
                 _cartService.AddProductToCart(product, quantity);
+                return Ok();
             }
 
-            return RedirectToAction("Index");
+            return NotFound();
         }
     }
 }
