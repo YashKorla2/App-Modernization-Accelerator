@@ -1,9 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-
 
 namespace WebApplication.Controllers
 {
@@ -20,7 +21,7 @@ namespace WebApplication.Controllers
             _cartService = cartService;
         }
 
-        public ActionResult Index(string searchTerm)
+        public IActionResult Index(string searchTerm)
         {
             var products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
@@ -38,7 +39,7 @@ namespace WebApplication.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -48,7 +49,7 @@ namespace WebApplication.Controllers
             return View(product);
         }
 
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -64,7 +65,7 @@ namespace WebApplication.Controllers
             return View(product);
         }
 
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -85,7 +86,7 @@ namespace WebApplication.Controllers
             return View(product);
         }
 
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -96,14 +97,14 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             _productService.DeleteProduct(id);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult AddToCart(int productId, int quantity = 1)
+        public IActionResult AddToCart(int productId, int quantity = 1)
         {
             var product = _productService.GetProductById(productId);
             if (product != null)
