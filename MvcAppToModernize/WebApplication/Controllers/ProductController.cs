@@ -4,7 +4,6 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -26,7 +25,7 @@ namespace WebApplication.Controllers
             _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
         }
 
-public async Task<IActionResult> Index(string searchTerm)
+public IActionResult Index(string searchTerm)
 {
     System.Collections.Generic.IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
         ? _productService.GetAllProducts()
@@ -81,12 +80,12 @@ public async Task<IActionResult> Index(string searchTerm)
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Product product)
+        public IActionResult Edit(Product product)
         {
             if (ModelState.IsValid)
             {
-                await Task.Run(() => _productService.UpdateProduct(product));
-                return RedirectToAction(nameof(Index));
+                _productService.UpdateProduct(product);
+                return RedirectToAction("Index");
             }
             return View(product);
         }
@@ -109,15 +108,15 @@ public async Task<IActionResult> Index(string searchTerm)
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddToCart(int productId, int quantity = 1)
+        public IActionResult AddToCart(int productId, int quantity = 1)
         {
-            var product = await Task.Run(() => _productService.GetProductById(productId));
+            var product = _productService.GetProductById(productId);
             if (product != null)
             {
-                await Task.Run(() => _cartService.AddProductToCart(product, quantity));
+                _cartService.AddProductToCart(product, quantity);
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
     }
 }
