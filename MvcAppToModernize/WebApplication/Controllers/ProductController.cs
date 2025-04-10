@@ -1,19 +1,20 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
 
 namespace WebApplication.Controllers
 {
-    public class ProductController : Controller
-    {
-        private readonly IProductService _productService;
-        private readonly ICartService _cartService;
+public class ProductController : Controller
+{
+    private readonly IProductService _productService;
+    private readonly ICartService _cartService;
 
-        public ProductController(IProductService productService, ICartService cartService)
-        {
-            _productService = productService;
-            _cartService = cartService;
-        }
+    public ProductController(IProductService productService, ICartService cartService)
+    {
+        _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+        _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
+    }
 
         public IActionResult Index(string searchTerm)
         {
