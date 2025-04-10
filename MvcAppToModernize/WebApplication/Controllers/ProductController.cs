@@ -20,18 +20,18 @@ namespace WebApplication.Controllers
             _cartService = cartService;
         }
 
-        public ActionResult Index(string searchTerm)
-        {
-            var products = string.IsNullOrEmpty(searchTerm)
-                ? _productService.GetAllProducts()
-                : _productService.SearchProducts(searchTerm);
-            var cartItems = _cartService.GetCarts();
+public ActionResult Index(string searchTerm)
+{
+    var products = string.IsNullOrEmpty(searchTerm)
+        ? _productService.GetAllProducts()
+        : _productService.SearchProducts(searchTerm);
+    var cartItems = _cartService.GetCarts();
 
-            var viewModel = new ProductViewModel
-            {
-                Products = products,
-                CartItemCount = cartItems.Count
-            };
+    var viewModel = new ProductViewModel
+    {
+        Products = products,
+        CartItemCount = ((System.Collections.Generic.List<object>)cartItems).Count
+    };
 
             ViewBag.SearchTerm = searchTerm;
 
