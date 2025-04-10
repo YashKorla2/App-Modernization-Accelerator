@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
+using System;
+using System.Collections.Generic;
 
 namespace WebApplication.Controllers
 {
@@ -25,7 +27,7 @@ namespace WebApplication.Controllers
             var viewModel = new ProductViewModel
             {
                 Products = products,
-                CartItemCount = cartItems.Count
+                CartItemCount = cartItems is ICollection<object> collection ? collection.Count : ((IEnumerable<object>)cartItems).Count()
             };
 
             ViewBag.SearchTerm = searchTerm;
