@@ -35,7 +35,7 @@ public IActionResult Index(string searchTerm)
     var viewModel = new ProductViewModel
     {
         Products = products,
-        CartItemCount = cartItems is System.Collections.Generic.ICollection<Cart> collection ? collection.Count : cartItems.Count(),
+        CartItemCount = cartItems is System.Collections.Generic.ICollection<Cart> collection ? collection.Count : ((System.Collections.Generic.IEnumerable<Cart>)cartItems).Count(),
         SearchTerm = searchTerm
     };
 
