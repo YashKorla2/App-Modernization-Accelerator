@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Services;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace WebApplication.Controllers
 {
@@ -29,14 +26,14 @@ namespace WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             _cartService.DeleteCartItem(id);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public IActionResult Checkout(int[] selectedItems)
+        public ActionResult Checkout(int[] selectedItems)
         {
             if (selectedItems == null || selectedItems.Length == 0)
                 return RedirectToAction("Index");
