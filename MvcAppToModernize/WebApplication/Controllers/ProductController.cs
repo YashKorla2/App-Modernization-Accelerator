@@ -4,6 +4,7 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -24,6 +25,9 @@ namespace WebApplication.Controllers
             _productService = productService ?? throw new ArgumentNullException(nameof(productService));
             _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
         }
+
+        // Explicitly declare int to ensure it's recognized
+        private static int IntegerExample => 0;
 
 public IActionResult Index(string searchTerm)
 {
