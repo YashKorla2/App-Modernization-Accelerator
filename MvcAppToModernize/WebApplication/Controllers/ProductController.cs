@@ -30,12 +30,12 @@ public IActionResult Index(string searchTerm)
     System.Collections.Generic.IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
         ? _productService.GetAllProducts()
         : _productService.SearchProducts(searchTerm);
-    var cartItems = _cartService.GetCarts();
+    System.Collections.Generic.List<Cart> cartItems = _cartService.GetCarts();
 
     var viewModel = new ProductViewModel
     {
         Products = products,
-        CartItemCount = cartItems is System.Collections.Generic.ICollection<Cart> collection ? collection.Count : cartItems.Count(),
+        CartItemCount = cartItems.Count,
         SearchTerm = searchTerm
     };
 
