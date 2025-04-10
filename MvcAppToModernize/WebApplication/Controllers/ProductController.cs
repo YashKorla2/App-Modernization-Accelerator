@@ -6,6 +6,12 @@ using Services;
 
 namespace WebApplication.Controllers
 {
+    public class ProductViewModel
+    {
+        public IEnumerable<Product> Products { get; set; }
+        public int CartItemCount { get; set; }
+    }
+
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
