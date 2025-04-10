@@ -4,7 +4,6 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace WebApplication.Controllers
 {
@@ -91,7 +90,7 @@ public IActionResult Index(string searchTerm)
             return View(product);
         }
 
-        public IActionResult Delete(System.Int32 id)
+        public IActionResult Delete(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
