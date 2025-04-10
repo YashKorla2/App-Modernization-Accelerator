@@ -8,7 +8,7 @@ namespace WebApplication.Controllers
 {
     public class ProductViewModel
     {
-        public IEnumerable<Product> Products { get; set; }
+        public System.Collections.Generic.IEnumerable<Product> Products { get; set; }
         public int CartItemCount { get; set; }
         public string SearchTerm { get; set; }
     }
@@ -28,7 +28,7 @@ namespace WebApplication.Controllers
 
         public ActionResult<ProductViewModel> Index(string searchTerm)
         {
-            IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
+            System.Collections.Generic.IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
             var cartItems = _cartService.GetCarts();
@@ -36,7 +36,7 @@ namespace WebApplication.Controllers
             var viewModel = new ProductViewModel
             {
                 Products = products,
-                CartItemCount = cartItems is ICollection<Cart> collection ? collection.Count : cartItems.Count(),
+                CartItemCount = cartItems is System.Collections.Generic.ICollection<Cart> collection ? collection.Count : ((System.Collections.Generic.IEnumerable<Cart>)cartItems).Count(),
                 SearchTerm = searchTerm
             };
 
