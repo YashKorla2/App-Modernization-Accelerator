@@ -4,6 +4,7 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
 
 namespace WebApplication.Controllers
 {
@@ -31,7 +32,7 @@ public IActionResult Index(string searchTerm)
     System.Collections.Generic.IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
         ? _productService.GetAllProducts()
         : _productService.SearchProducts(searchTerm);
-    var cartItems = _cartService.GetCarts();
+    System.Collections.Generic.IEnumerable<Cart> cartItems = _cartService.GetCarts();
 
     var viewModel = new ProductViewModel
     {
