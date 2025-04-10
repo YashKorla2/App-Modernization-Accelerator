@@ -1,6 +1,9 @@
-using System.Web.Mvc;
 using Services;
 using Models;
+using Microsoft.AspNetCore.Mvc;
+
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+
 
 namespace WebApplication.Controllers
 {
@@ -40,7 +43,7 @@ namespace WebApplication.Controllers
             var product = _productService.GetProductById(id);
             if (product == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(product);
         }
@@ -66,7 +69,7 @@ namespace WebApplication.Controllers
             var product = _productService.GetProductById(id);
             if (product == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(product);
         }
@@ -87,7 +90,7 @@ namespace WebApplication.Controllers
             var product = _productService.GetProductById(id);
             if (product == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(product);
         }

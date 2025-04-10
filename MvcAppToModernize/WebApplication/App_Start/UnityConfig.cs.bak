@@ -1,9 +1,11 @@
 using System;
-using System.Web.Mvc;
-using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Mvc; 
 using Services;
 using Repositories;
+using Microsoft.AspNetCore.Mvc;
+
+using Unity;
+
 
 namespace WebApplication
 {
@@ -29,7 +31,8 @@ namespace WebApplication
 
         public static void RegisterUnity()
         {
-            DependencyResolver.SetResolver(new UnityDependencyResolver(Container));
+            /* Added by CTA: This method is not supported. Use the startup class to register dependency containers */
+DependencyResolver.SetResolver(new UnityDependencyResolver(Container));
         }
     }
 }
