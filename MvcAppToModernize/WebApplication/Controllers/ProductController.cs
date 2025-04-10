@@ -7,27 +7,27 @@ using System.Linq;
 
 namespace WebApplication.Controllers
 {
-public class ProductViewModel
-{
-    public IEnumerable<Product> Products { get; set; }
-    public int CartItemCount { get; set; }
-    public string SearchTerm { get; set; }
-}
-
-public class ProductController : Controller
-{
-    private readonly IProductService _productService;
-    private readonly ICartService _cartService;
-
-    public ProductController(IProductService productService, ICartService cartService)
+    public class ProductViewModel
     {
-        _productService = productService ?? throw new ArgumentNullException(nameof(productService));
-        _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
+        public IEnumerable<Product> Products { get; set; }
+        public int CartItemCount { get; set; }
+        public string SearchTerm { get; set; }
     }
+
+    public class ProductController : Controller
+    {
+        private readonly IProductService _productService;
+        private readonly ICartService _cartService;
+
+        public ProductController(IProductService productService, ICartService cartService)
+        {
+            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
+        }
 
 public IActionResult Index(string searchTerm)
 {
-    IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
+    System.Collections.Generic.IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
         ? _productService.GetAllProducts()
         : _productService.SearchProducts(searchTerm);
     var cartItems = _cartService.GetCarts();
@@ -35,7 +35,7 @@ public IActionResult Index(string searchTerm)
     var viewModel = new ProductViewModel
     {
         Products = products,
-        CartItemCount = cartItems is ICollection<Cart> collection ? collection.Count : cartItems.Count(),
+        CartItemCount = cartItems is System.Collections.Generic.ICollection<Cart> collection ? collection.Count : cartItems.Count(),
         SearchTerm = searchTerm
     };
 
