@@ -14,18 +14,18 @@ namespace WebApplication.Controllers
             _cartService = cartService;
         }
 
-public ActionResult Index(string searchTerm)
-{
-    System.Collections.Generic.List<Models.Order> orders = string.IsNullOrEmpty(searchTerm)
-        ? _cartService.GetOrders()
-        : _cartService.SearchOrders(searchTerm);
+        public ActionResult Index(string searchTerm)
+        {
+            var orders = string.IsNullOrEmpty(searchTerm)
+                ? _cartService.GetOrders()
+                : _cartService.SearchOrders(searchTerm);
+            
+            var orderCount = orders.Count;
 
-    int orderCount = orders.Count;
+            ViewBag.OrderCount = orderCount;
+            ViewBag.SearchTerm = searchTerm;
 
-    ViewBag.OrderCount = orderCount;
-    ViewBag.SearchTerm = searchTerm;
-
-    return View(orders);
-}
+            return View(orders);
+        }
     }
 }
