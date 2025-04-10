@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WebApplication.Controllers
 {
@@ -11,15 +13,17 @@ namespace WebApplication.Controllers
         public int CartItemCount { get; set; }
     }
 
-    public class ProductController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
 
         public ProductController(IProductService productService, ICartService cartService)
         {
-            _productService = productService;
-            _cartService = cartService;
+            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
         }
 
 public IActionResult Index(string searchTerm)
@@ -40,14 +44,15 @@ public IActionResult Index(string searchTerm)
     return View(viewModel);
 }
 
-        public IActionResult Details(int id)
+        [HttpGet("{id}")]
+        public ActionResult<Product> Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
             {
                 return NotFound();
             }
-            return View((object)product);
+            return Ok(product);
         }
 
         public IActionResult Create()
