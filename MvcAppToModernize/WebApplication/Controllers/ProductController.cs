@@ -90,7 +90,7 @@ public IActionResult Index(string searchTerm)
             return View(product);
         }
 
-        public IActionResult Delete(int id)
+        public IActionResult Delete(System.Int32 id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -101,7 +101,7 @@ public IActionResult Index(string searchTerm)
         }
 
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(System.Int32 id)
         {
             _productService.DeleteProduct(id);
             return RedirectToAction("Index");
