@@ -1,9 +1,7 @@
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-
 
 namespace WebApplication.Controllers
 {
