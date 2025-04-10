@@ -1,19 +1,18 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
+
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+
 
 namespace WebApplication.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class ProductController : ControllerBase
+    public class ProductController : Controller
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
+
+        public ProductController() {}
 
         public ProductController(IProductService productService, ICartService cartService)
         {
@@ -21,8 +20,7 @@ namespace WebApplication.Controllers
             _cartService = cartService;
         }
 
-        [HttpGet]
-        public ActionResult<ProductViewModel> Index(string searchTerm)
+        public ActionResult Index(string searchTerm)
         {
             var products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
@@ -35,9 +33,9 @@ namespace WebApplication.Controllers
                 CartItemCount = cartItems.Count
             };
 
-            ViewData["SearchTerm"] = searchTerm;
+            ViewBag.SearchTerm = searchTerm;
 
-            return viewModel;
+            return View(viewModel);
         }
 
         public ActionResult Details(int id)
