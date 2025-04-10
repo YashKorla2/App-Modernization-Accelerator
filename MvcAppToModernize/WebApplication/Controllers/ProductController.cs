@@ -4,6 +4,7 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace WebApplication.Controllers
 {
@@ -69,7 +70,7 @@ public IActionResult Index(string searchTerm)
             return View(product);
         }
 
-        public IActionResult Edit(int id)
+        public IActionResult Edit(System.Int32 id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
