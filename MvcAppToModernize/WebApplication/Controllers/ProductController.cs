@@ -1,9 +1,9 @@
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
+
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System;
-using System.Collections.Generic;
+
 
 namespace WebApplication.Controllers
 {
@@ -85,7 +85,7 @@ namespace WebApplication.Controllers
             return View(product);
         }
 
-        public ActionResult Delete(System.Int32 id)
+        public ActionResult Delete(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
