@@ -1,9 +1,11 @@
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -111,7 +113,7 @@ namespace WebApplication.Controllers
                 _cartService.AddProductToCart(product, quantity);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }
