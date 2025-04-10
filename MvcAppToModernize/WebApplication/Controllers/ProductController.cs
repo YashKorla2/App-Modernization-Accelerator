@@ -4,7 +4,6 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -25,9 +24,6 @@ namespace WebApplication.Controllers
             _productService = productService ?? throw new ArgumentNullException(nameof(productService));
             _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
         }
-
-        // Explicitly specify return type for all action methods
-        [HttpGet]
 
 public IActionResult Index(string searchTerm)
 {
@@ -89,7 +85,7 @@ public IActionResult Index(string searchTerm)
             if (ModelState.IsValid)
             {
                 _productService.UpdateProduct(product);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
             return View(product);
         }
