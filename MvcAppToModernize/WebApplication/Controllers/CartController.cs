@@ -1,4 +1,3 @@
-using System;
 using Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,7 +33,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult Checkout(int[] selectedItems)
+        public ActionResult Checkout(int[] selectedItems)
         {
             if (selectedItems == null || selectedItems.Length == 0)
                 return RedirectToAction("Index");
