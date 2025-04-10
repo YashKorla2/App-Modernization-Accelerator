@@ -4,6 +4,7 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -23,6 +24,12 @@ namespace WebApplication.Controllers
         {
             _productService = productService ?? throw new ArgumentNullException(nameof(productService));
             _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
+        }
+
+        // Ensure that Controller class is properly recognized
+        static ProductController()
+        {
+            typeof(Controller).ToString();
         }
 
 public IActionResult Index(string searchTerm)
