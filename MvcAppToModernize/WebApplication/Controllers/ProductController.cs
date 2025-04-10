@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
-using WebApplication.ViewModels; // Add this line to import the ProductViewModel
 
 namespace WebApplication.Controllers
 {
