@@ -1,17 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Services;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace WebApplication.Controllers
 {
-    public class CartController : Controller
-    {
-        private readonly ICartService _cartService;
+public class CartController : Controller
+{
+    private readonly ICartService _cartService;
 
-        public CartController(ICartService cartService)
-        {
-            _cartService = cartService;
-        }
+    public CartController(ICartService cartService)
+    {
+        _cartService = cartService;
+    }
+
+    // Explicitly define the return type as IActionResult
         
         public ActionResult Index(string searchTerm)
         {
@@ -24,13 +28,13 @@ namespace WebApplication.Controllers
             return View(Carts);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
-        {
-            _cartService.DeleteCartItem(id);
-            return RedirectToAction("Index");
-        }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        _cartService.DeleteCartItem(id);
+        return RedirectToAction("Index");
+    }
 
         [HttpPost]
         public ActionResult Checkout(int[] selectedItems)
