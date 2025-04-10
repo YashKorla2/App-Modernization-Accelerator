@@ -4,7 +4,6 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 
 namespace WebApplication.Controllers
 {
@@ -44,7 +43,7 @@ public IActionResult Index(string searchTerm)
 }
 
         [HttpGet("{id}")]
-        public ActionResult<Product> Details(System.Int32 id)
+        public ActionResult<Product> Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
