@@ -4,7 +4,6 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -102,9 +101,9 @@ public IActionResult Index(string searchTerm)
         }
 
         [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            await Task.Run(() => _productService.DeleteProduct(id));
+            _productService.DeleteProduct(id);
             return RedirectToAction("Index");
         }
 
