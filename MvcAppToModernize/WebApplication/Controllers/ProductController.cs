@@ -9,7 +9,7 @@ namespace WebApplication.Controllers
 {
     public class ProductViewModel
     {
-        public IEnumerable<Models.Product> Products { get; set; }
+        public IEnumerable<Product> Products { get; set; }
         public int CartItemCount { get; set; }
         public string SearchTerm { get; set; }
     }
@@ -29,7 +29,7 @@ namespace WebApplication.Controllers
 
         public ActionResult<ProductViewModel> Index(string searchTerm)
         {
-            IEnumerable<Models.Product> products = string.IsNullOrEmpty(searchTerm)
+            IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
             var cartItems = _cartService.GetCarts();
@@ -37,7 +37,7 @@ namespace WebApplication.Controllers
             var viewModel = new ProductViewModel
             {
                 Products = products,
-                CartItemCount = cartItems is ICollection<Models.Cart> collection ? collection.Count : cartItems.Count(),
+                CartItemCount = cartItems is ICollection<Cart> collection ? collection.Count : cartItems.Count(),
                 SearchTerm = searchTerm
             };
 
