@@ -6,40 +6,40 @@ using Services;
 
 namespace WebApplication.Controllers
 {
-    public class ProductViewModel
+public class ProductViewModel
+{
+    public IEnumerable<Product> Products { get; set; }
+    public int CartItemCount { get; set; }
+}
+
+public class ProductController : Controller
+{
+    private readonly IProductService _productService;
+    private readonly ICartService _cartService;
+
+    public ProductController(IProductService productService, ICartService cartService)
     {
-        public IEnumerable<Product> Products { get; set; }
-        public int CartItemCount { get; set; }
+        _productService = productService;
+        _cartService = cartService;
     }
 
-    public class ProductController : Controller
+    public IActionResult Index(string searchTerm)
     {
-        private readonly IProductService _productService;
-        private readonly ICartService _cartService;
+        IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
+            ? _productService.GetAllProducts()
+            : _productService.SearchProducts(searchTerm);
+        IEnumerable<Cart> cartItems = _cartService.GetCarts();
 
-        public ProductController(IProductService productService, ICartService cartService)
+        var viewModel = new ProductViewModel
         {
-            _productService = productService;
-            _cartService = cartService;
-        }
+            Products = products,
+            CartItemCount = cartItems.Count()
+        };
 
-        public IActionResult Index(string searchTerm)
-        {
-            var products = string.IsNullOrEmpty(searchTerm)
-                ? _productService.GetAllProducts()
-                : _productService.SearchProducts(searchTerm);
-            var cartItems = _cartService.GetCarts();
+        ViewBag.SearchTerm = searchTerm;
 
-            var viewModel = new ProductViewModel
-            {
-                Products = products,
-                CartItemCount = cartItems.Count
-            };
-
-            ViewBag.SearchTerm = searchTerm;
-
-            return View(viewModel);
-        }
+        return View(viewModel);
+    }
 
         public IActionResult Details(int id)
         {
