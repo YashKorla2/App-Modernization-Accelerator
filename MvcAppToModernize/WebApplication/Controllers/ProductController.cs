@@ -11,11 +11,10 @@ namespace WebApplication.Controllers
     {
         public IEnumerable<Product> Products { get; set; }
         public int CartItemCount { get; set; }
+        public string SearchTerm { get; set; }
     }
 
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductController : Controller
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
@@ -36,10 +35,9 @@ public IActionResult Index(string searchTerm)
     var viewModel = new ProductViewModel
     {
         Products = products,
-        CartItemCount = cartItems is System.Collections.Generic.ICollection<Cart> collection ? collection.Count : cartItems.Count()
+        CartItemCount = cartItems is System.Collections.Generic.ICollection<Cart> collection ? collection.Count : cartItems.Count(),
+        SearchTerm = searchTerm
     };
-
-    ViewBag.SearchTerm = searchTerm;
 
     return View(viewModel);
 }
