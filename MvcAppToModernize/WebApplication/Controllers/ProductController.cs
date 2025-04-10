@@ -4,16 +4,15 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace WebApplication.Controllers
 {
-    public class ProductViewModel
-    {
-        public IEnumerable<Product> Products { get; set; }
-        public int CartItemCount { get; set; }
-        public string SearchTerm { get; set; }
-    }
+public class ProductViewModel
+{
+    public System.Collections.Generic.IEnumerable<Product> Products { get; set; }
+    public int CartItemCount { get; set; }
+    public string SearchTerm { get; set; }
+}
 
     public class ProductController : Controller
     {
@@ -36,7 +35,7 @@ public IActionResult Index(string searchTerm)
     var viewModel = new ProductViewModel
     {
         Products = products,
-        CartItemCount = cartItems is System.Collections.Generic.ICollection<Cart> collection ? collection.Count : cartItems.Count(),
+        CartItemCount = cartItems is System.Collections.Generic.ICollection<Models.Cart> collection ? collection.Count : ((System.Collections.Generic.IEnumerable<Models.Cart>)cartItems).Count(),
         SearchTerm = searchTerm
     };
 
