@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,18 +15,18 @@ namespace WebApplication.Controllers
             _cartService = cartService;
         }
 
-        public ActionResult Index(string searchTerm)
-        {
-            var orders = string.IsNullOrEmpty(searchTerm)
-                ? _cartService.GetOrders()
-                : _cartService.SearchOrders(searchTerm);
-            
-            var orderCount = orders.Count;
+public ActionResult Index(string searchTerm)
+{
+    var orders = string.IsNullOrEmpty(searchTerm)
+        ? _cartService.GetOrders()
+        : _cartService.SearchOrders(searchTerm);
 
-            ViewBag.OrderCount = orderCount;
-            ViewBag.SearchTerm = searchTerm;
+    var orderCount = orders.Count();
 
-            return View(orders);
-        }
+    ViewBag.OrderCount = orderCount;
+    ViewBag.SearchTerm = searchTerm;
+
+    return View(orders);
+}
     }
 }
