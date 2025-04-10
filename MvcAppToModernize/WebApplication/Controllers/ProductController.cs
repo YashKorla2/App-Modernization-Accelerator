@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
-using Models;
-using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Models;
+using Services;
 
 namespace WebApplication.Controllers
 {
@@ -14,7 +14,9 @@ namespace WebApplication.Controllers
         public string SearchTerm { get; set; }
     }
 
-    public class ProductController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
@@ -25,22 +27,22 @@ namespace WebApplication.Controllers
             _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
         }
 
-public IActionResult Index(string searchTerm)
-{
-    System.Collections.Generic.IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
-        ? _productService.GetAllProducts()
-        : _productService.SearchProducts(searchTerm);
-    var cartItems = _cartService.GetCarts();
+        public ActionResult<ProductViewModel> Index(string searchTerm)
+        {
+            IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
+                ? _productService.GetAllProducts()
+                : _productService.SearchProducts(searchTerm);
+            var cartItems = _cartService.GetCarts();
 
-    var viewModel = new ProductViewModel
-    {
-        Products = products,
-        CartItemCount = cartItems is System.Collections.Generic.ICollection<Cart> collection ? collection.Count : cartItems.Count(),
-        SearchTerm = searchTerm
-    };
+            var viewModel = new ProductViewModel
+            {
+                Products = products,
+                CartItemCount = cartItems is ICollection<Cart> collection ? collection.Count : cartItems.Count(),
+                SearchTerm = searchTerm
+            };
 
-    return View(viewModel);
-}
+            return Ok(viewModel);
+        }
 
         [HttpGet("{id}")]
         public ActionResult<Product> Details(int id)
