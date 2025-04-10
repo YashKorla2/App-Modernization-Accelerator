@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
@@ -40,7 +42,7 @@ namespace WebApplication.Controllers
             {
                 return NotFound();
             }
-            return View(product);
+            return View((object)product);
         }
 
         public IActionResult Create()
