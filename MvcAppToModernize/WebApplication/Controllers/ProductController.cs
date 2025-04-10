@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
@@ -35,7 +33,7 @@ namespace WebApplication.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Details(System.Int32 id)
+        public IActionResult Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
