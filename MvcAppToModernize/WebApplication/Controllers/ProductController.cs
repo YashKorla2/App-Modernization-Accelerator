@@ -4,7 +4,6 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace WebApplication.Controllers
 {
@@ -77,7 +76,7 @@ public IActionResult Index(string searchTerm)
             {
                 return NotFound();
             }
-            return View((object)product);
+            return View(product);
         }
 
         [HttpPost]
