@@ -1,6 +1,7 @@
 using Services;
 using Microsoft.AspNetCore.Mvc;
-
+using System;
+using System.Linq;
 
 namespace WebApplication.Controllers
 {
@@ -12,8 +13,8 @@ namespace WebApplication.Controllers
         {
             _cartService = cartService;
         }
-        
-        public ActionResult Index(string searchTerm)
+
+        public IActionResult Index(string searchTerm)
         {
             var Carts = string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetCarts()
@@ -26,20 +27,20 @@ namespace WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             _cartService.DeleteCartItem(id);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
-        public ActionResult Checkout(int[] selectedItems)
+        public IActionResult Checkout(int[] selectedItems)
         {
-            if (selectedItems == null || selectedItems.Length == 0)
-                return RedirectToAction("Index");
+            if (selectedItems == null || !selectedItems.Any())
+                return RedirectToAction(nameof(Index));
 
             _cartService.Checkout(selectedItems);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }
