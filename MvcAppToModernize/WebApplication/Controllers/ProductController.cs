@@ -22,10 +22,10 @@ namespace WebApplication.Controllers
 
         public ActionResult Index(string searchTerm)
         {
-            var products = string.IsNullOrEmpty(searchTerm)
+            System.Collections.Generic.List<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
-            var cartItems = _cartService.GetCarts();
+            System.Collections.Generic.List<CartItem> cartItems = _cartService.GetCarts();
 
             var viewModel = new ProductViewModel
             {
