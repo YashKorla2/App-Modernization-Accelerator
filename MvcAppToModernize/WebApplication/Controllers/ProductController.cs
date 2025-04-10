@@ -4,7 +4,6 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Object;
 
 namespace WebApplication.Controllers
 {
@@ -47,7 +46,7 @@ public IActionResult Index(string searchTerm)
         public ActionResult<Product> Details(int id)
         {
             var product = _productService.GetProductById(id);
-            if (object.ReferenceEquals(product, null))
+            if (product == null)
             {
                 return NotFound();
             }
