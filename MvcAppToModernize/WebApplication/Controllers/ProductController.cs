@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using Services;
-using Models;
-using Microsoft.AspNetCore.Mvc;
-
 namespace WebApplication.Controllers
 {
     public class ProductController : Controller
