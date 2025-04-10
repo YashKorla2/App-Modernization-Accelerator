@@ -28,7 +28,7 @@ namespace WebApplication.Controllers
 
 public IActionResult Index(string searchTerm)
 {
-    System.Collections.Generic.IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
+    System.Collections.Generic.IEnumerable<Models.Product> products = string.IsNullOrEmpty(searchTerm)
         ? _productService.GetAllProducts()
         : _productService.SearchProducts(searchTerm);
     var cartItems = _cartService.GetCarts();
