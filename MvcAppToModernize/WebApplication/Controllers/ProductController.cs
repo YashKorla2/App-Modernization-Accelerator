@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
@@ -8,7 +9,7 @@ namespace WebApplication.Controllers
 {
     public class ProductViewModel
     {
-        public IEnumerable<Product> Products { get; set; }
+        public System.Collections.Generic.IEnumerable<Product> Products { get; set; }
         public int CartItemCount { get; set; }
     }
 
