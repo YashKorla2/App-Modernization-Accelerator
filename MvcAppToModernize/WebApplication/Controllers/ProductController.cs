@@ -1,9 +1,8 @@
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-
+using System.Collections.Generic;
 
 namespace WebApplication.Controllers
 {
@@ -22,9 +21,9 @@ namespace WebApplication.Controllers
 
         public ActionResult Index(string searchTerm)
         {
-            var products = string.IsNullOrEmpty(searchTerm)
+            List<Product> products = (string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
-                : _productService.SearchProducts(searchTerm);
+                : _productService.SearchProducts(searchTerm)).ToList();
             var cartItems = _cartService.GetCarts();
 
             var viewModel = new ProductViewModel
