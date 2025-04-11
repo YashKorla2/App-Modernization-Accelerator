@@ -1,88 +1,99 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Models;
-using Repositories;
+using ExternalAPI;
+using Newtonsoft.Json;
 
 namespace Services
 {
     public class CartService : ICartService
     {
-        private readonly ICartRepository _cartRepository;
+        private readonly ExternalApi _externalApi;
+        private const string CartFileName = "cart.json";
+        private const string OrdersFileName = "orders.json";
 
-        public CartService(ICartRepository cartRepository)
+        public CartService(ExternalApi externalApi)
         {
-            _cartRepository = cartRepository;
+            _externalApi = externalApi;
         }
 
-        public List<Cart> GetCarts()
+        public async Task<List<Cart>> GetCartsAsync()
         {
-            return _cartRepository.GetCart();
+            string jsonData = await _externalApi.ReadFileAsync(CartFileName);
+            return string.IsNullOrEmpty(jsonData) ? new List<Cart>() : JsonConvert.DeserializeObject<List<Cart>>(jsonData);
         }
 
-        public void AddProductToCart(Product product, int quantity)
+        public async Task AddProductToCartAsync(Product product, int quantity)
         {
-            var Cart = new Cart
+            var cartItems = await GetCartsAsync();
+
+            var existingItem = cartItems.FirstOrDefault(c => c.ProductId == product.ProductId);
+            if (existingItem != null)
             {
-                ProductId = product.ProductId,
-                ProductName = product.ProductName,
-                ProductPrice = product.ProductPrice,
-                Quantity = quantity
-            };
+                existingItem.Quantity += quantity;
+            }
+            else
+            {
+                var newCartItem = new Cart
+                {
+                    ProductId = product.ProductId,
+                    ProductName = product.ProductName,
+                    ProductPrice = product.ProductPrice,
+                    Quantity = quantity
+                };
+                cartItems.Add(newCartItem);
+            }
 
-            _cartRepository.AddToCart(Cart);
+            await _externalApi.UploadFileAsync(CartFileName, cartItems);
         }
 
-        public void DeleteCartItem(int itemId)
+        public async Task DeleteCartItemAsync(int itemId)
         {
-            var items = _cartRepository.GetCart();
-            items.RemoveAll(item => item.ProductId == itemId);
-            _cartRepository.SaveCart(items);
+            var cartItems = await GetCartsAsync();
+            cartItems.RemoveAll(item => item.ProductId == itemId);
+            await _externalApi.UploadFileAsync(CartFileName, cartItems);
         }
 
-        public List<List<Cart>> GetOrders()
+        public async Task<List<List<Cart>>> GetOrdersAsync()
         {
-            return _cartRepository.GetOrders();
+            string jsonData = await _externalApi.ReadFileAsync(OrdersFileName);
+            return string.IsNullOrEmpty(jsonData) ? new List<List<Cart>>() : JsonConvert.DeserializeObject<List<List<Cart>>>(jsonData);
         }
 
-        public void Checkout(int[] selectedProductIds)
+        public async Task CheckoutAsync(int[] selectedProductIds)
         {
-            var cartItems = _cartRepository.GetCart();
+            var cartItems = await GetCartsAsync();
             var selectedItems = cartItems.Where(c => selectedProductIds.Contains(c.ProductId)).ToList();
 
             if (selectedItems.Count == 0) return;
 
-            // Get existing orders as a list of lists
-            var orderList = _cartRepository.GetOrders();
+            var orders = await GetOrdersAsync();
+            orders.Add(selectedItems);
 
-            // Add selected items as a new separate order list
-            orderList.Add(selectedItems);
-            _cartRepository.SaveOrders(orderList);
+            await _externalApi.UploadFileAsync(OrdersFileName, orders);
 
-            // Remove selected items from cart
             cartItems.RemoveAll(c => selectedProductIds.Contains(c.ProductId));
-            _cartRepository.SaveCart(cartItems);
+            await _externalApi.UploadFileAsync(CartFileName, cartItems);
         }
 
-        public List<Cart> SearchCart(string searchTerm)
+        public async Task<List<Cart>> SearchCartAsync(string searchTerm)
         {
-            var carts = _cartRepository.GetCart();
-            return carts.Where(
-                cart => cart.ProductName.ToLower().Contains(searchTerm.ToLower())
-            ).ToList();
+            var carts = await GetCartsAsync();
+            return carts.Where(cart => cart.ProductName.ToLower().Contains(searchTerm.ToLower())).ToList();
         }
 
-        public List<List<Cart>> SearchOrders(string searchTerm)
+        public async Task<List<List<Cart>>> SearchOrdersAsync(string searchTerm)
         {
-            var orders = _cartRepository.GetOrders();
+            var orders = await GetOrdersAsync();
             return orders
-            .Select(orderList => orderList
-                .Where(cart => cart.ProductName.ToLower().Contains(searchTerm.ToLower()))
-                .ToList()
-            )
-            .Where(filteredList => filteredList.Count > 0) // Remove empty lists
-            .ToList();
+                .Select(orderList => orderList
+                    .Where(cart => cart.ProductName.ToLower().Contains(searchTerm.ToLower()))
+                    .ToList()
+                )
+                .Where(filteredList => filteredList.Count > 0)
+                .ToList();
         }
     }
-
 }

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Services;
 
@@ -13,15 +13,13 @@ namespace WebApplication.Controllers
             _cartService = cartService;
         }
 
-        public ActionResult Index(string searchTerm)
+        public async Task<ActionResult> Index(string searchTerm)
         {
             var orders = string.IsNullOrEmpty(searchTerm)
-                ? _cartService.GetOrders()
-                : _cartService.SearchOrders(searchTerm);
-            
-            var orderCount = orders.Count;
+                ? await _cartService.GetOrdersAsync()
+                : await _cartService.SearchOrdersAsync(searchTerm);
 
-            ViewBag.OrderCount = orderCount;
+            ViewBag.OrderCount = orders.Count;
             ViewBag.SearchTerm = searchTerm;
 
             return View(orders);

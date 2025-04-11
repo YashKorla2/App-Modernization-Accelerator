@@ -1,4 +1,5 @@
 @model List<List<Models.Cart>>
+
 @{
     ViewBag.Title = "Orders";
 }
@@ -6,12 +7,12 @@
 <div class="d-flex justify-content-between mb-3">
     <h2>Orders</h2>
 
-    @using (Html.BeginForm("Index", "Order", FormMethod.Get)) 
+    @using (Html.BeginForm("Index", "Order", FormMethod.Get))
     {
         <div class="d-flex align-items-center">
-            <input type="text" class="form-control mx-2" name="searchTerm" value="@ViewBag.SearchTerm" placeholder="Search products..." />
+            <input type="text" class="form-control mx-2" name="searchTerm" value="@ViewBag.SearchTerm" placeholder="Search orders..." />
             <button type="submit" class="btn btn-primary">Search</button>
-        </div>   
+        </div>
     }
 
     <div class="d-flex align-items-center">
@@ -25,26 +26,33 @@
     </div>
 </div>
 
-<div class="row">
-    @foreach (var order in Model)
-    {
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Order #@(Model.IndexOf(order) + 1)</h5>
-                </div>
-                <div class="card-body">
-                    @foreach (var item in order)
-                    {
-                        <div class="order-item mb-3">
-                            <h6>@item.ProductName</h6>
-                            <p class="px-4">Quantity: @item.Quantity</p>
-                            <p class="px-4">Price: $@item.ProductPrice</p>
-                            <p class="px-4">Total: $@item.TotalPrice</p>
-                        </div>
-                    }
+@if (Model != null && Model.Any())
+{
+    <div class="row">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">Order #@(i + 1)</h5>
+                    </div>
+                    <div class="card-body">
+                        @foreach (var item in Model[i])
+                        {
+                            <div class="order-item mb-3 border-bottom pb-2">
+                                <h6 class="mb-1">@item.ProductName</h6>
+                                <p class="text-muted mb-1">Quantity: @item.Quantity</p>
+                                <p class="text-muted mb-1">Price: @String.Format("{0:C}", item.ProductPrice)</p>
+                                <p class="text-muted">Total: @String.Format("{0:C}", item.TotalPrice)</p>
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
+}
+else
+{
+    <p class="text-muted text-center">No orders found.</p>
+}

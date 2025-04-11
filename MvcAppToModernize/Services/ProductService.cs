@@ -1,63 +1,69 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Models;
-using Repositories;
+using ExternalAPI;
+using Newtonsoft.Json;
 
 namespace Services
 {
     public class ProductService : IProductService
     {
-        private readonly IProductRepository _productRepository;
+        private readonly ExternalApi _externalApi;
+        private const string FileName = "products.json";
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(ExternalApi externalApi)
         {
-            _productRepository = productRepository;
+            _externalApi = externalApi;
         }
 
-        public List<Product> GetAllProducts()
+        public async Task<List<Product>> GetAllProductsAsync()
         {
-            return _productRepository.GetAllProducts();
+            string jsonData = await _externalApi.ReadFileAsync(FileName);
+            return string.IsNullOrEmpty(jsonData) ? new List<Product>() : JsonConvert.DeserializeObject<List<Product>>(jsonData);
         }
 
-        public Product GetProductById(int productId)
+        public async Task<Product> GetProductByIdAsync(int productId)
         {
-            return _productRepository.GetProductById(productId);
+            var products = await GetAllProductsAsync();
+            return products.FirstOrDefault(p => p.ProductId == productId);
         }
 
-        public void AddProduct(Product product)
+        public async Task AddProductAsync(Product product)
         {
-            var products = _productRepository.GetAllProducts();
+            var products = await GetAllProductsAsync();
             int maxId = products.Any() ? products.Max(p => p.ProductId) : 0;
             product.ProductId = maxId + 1;
             products.Add(product);
-            _productRepository.SaveProducts(products);
+            await _externalApi.UploadFileAsync(FileName, products);
         }
 
-        public void UpdateProduct(Product updatedProduct)
+        public async Task UpdateProductAsync(Product updatedProduct)
         {
-            var products = _productRepository.GetAllProducts();
+            var products = await GetAllProductsAsync();
             int index = products.FindIndex(p => p.ProductId == updatedProduct.ProductId);
             if (index != -1)
             {
                 products[index] = updatedProduct;
-                _productRepository.SaveProducts(products);
+                await _externalApi.UploadFileAsync(FileName, products);
             }
         }
 
-        public void DeleteProduct(int productId)
+        public async Task DeleteProductAsync(int productId)
         {
-            var products = _productRepository.GetAllProducts();
+            var products = await GetAllProductsAsync();
             products.RemoveAll(p => p.ProductId == productId);
-            _productRepository.SaveProducts(products);
+            await _externalApi.UploadFileAsync(FileName, products);
         }
 
-        public List<Product> SearchProducts(string searchTerm)
+        public async Task<List<Product>> SearchProductsAsync(string searchTerm)
         {
-            var products = _productRepository.GetAllProducts();
+            var products = await GetAllProductsAsync();
             return products.Where(
-                p => p.ProductName.ToLower().Contains(searchTerm.ToLower()) || 
-                p.ProductDescription.ToLower().Contains(searchTerm.ToLower()) ||
-                p.ProductCategory.ToLower().Contains(searchTerm.ToLower())
+                p => p.ProductName.ToLower().Contains(searchTerm.ToLower()) ||
+                     p.ProductDescription.ToLower().Contains(searchTerm.ToLower()) ||
+                     p.ProductCategory.ToLower().Contains(searchTerm.ToLower())
             ).ToList();
         }
     }

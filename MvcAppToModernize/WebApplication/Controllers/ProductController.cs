@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Services;
 using Models;
@@ -17,12 +18,13 @@ namespace WebApplication.Controllers
             _cartService = cartService;
         }
 
-        public ActionResult Index(string searchTerm)
+        public async Task<ActionResult> Index(string searchTerm)
         {
             var products = string.IsNullOrEmpty(searchTerm)
-                ? _productService.GetAllProducts()
-                : _productService.SearchProducts(searchTerm);
-            var cartItems = _cartService.GetCarts();
+                ? await _productService.GetAllProductsAsync()
+                : await _productService.SearchProductsAsync(searchTerm);
+
+            var cartItems = await _cartService.GetCartsAsync();
 
             var viewModel = new ProductViewModel
             {
@@ -31,13 +33,12 @@ namespace WebApplication.Controllers
             };
 
             ViewBag.SearchTerm = searchTerm;
-
             return View(viewModel);
         }
 
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            var product = _productService.GetProductById(id);
+            var product = await _productService.GetProductByIdAsync(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -51,19 +52,19 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Product product)
+        public async Task<ActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                _productService.AddProduct(product);
+                await _productService.AddProductAsync(product);
                 return RedirectToAction("Index");
             }
             return View(product);
         }
 
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            var product = _productService.GetProductById(id);
+            var product = await _productService.GetProductByIdAsync(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -72,19 +73,19 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Product product)
+        public async Task<ActionResult> Edit(Product product)
         {
             if (ModelState.IsValid)
             {
-                _productService.UpdateProduct(product);
+                await _productService.UpdateProductAsync(product);
                 return RedirectToAction("Index");
             }
             return View(product);
         }
 
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var product = _productService.GetProductById(id);
+            var product = await _productService.GetProductByIdAsync(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -93,19 +94,19 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            _productService.DeleteProduct(id);
+            await _productService.DeleteProductAsync(id);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult AddToCart(int productId, int quantity = 1)
+        public async Task<ActionResult> AddToCart(int productId, int quantity = 1)
         {
-            var product = _productService.GetProductById(productId);
+            var product = await _productService.GetProductByIdAsync(productId);
             if (product != null)
             {
-                _cartService.AddProductToCart(product, quantity);
+                await _cartService.AddProductToCartAsync(product, quantity);
             }
 
             return RedirectToAction("Index");

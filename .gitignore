@@ -10,4 +10,7 @@
 /MvcAppToModernize/Services/bin
 /MvcAppToModernize/Services/obj
 
+/MvcAppToModernize/ExternalAPI/bin
+/MvcAppToModernize/ExternalAPI/obj
+
 .fake

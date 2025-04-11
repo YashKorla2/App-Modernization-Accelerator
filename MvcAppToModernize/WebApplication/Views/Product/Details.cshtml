@@ -4,69 +4,47 @@
     ViewBag.Title = "Product Details";
 }
 
-<h2>Product Details</h2>
+<h2 class="mb-3">Product Details</h2>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductId)
-        </dd>
+<div class="card shadow-sm p-4">
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="row">
+                <dt class="col-sm-5">@Html.DisplayNameFor(model => model.ProductId)</dt>
+                <dd class="col-sm-7">@Html.DisplayFor(model => model.ProductId)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
+                <dt class="col-sm-5">@Html.DisplayNameFor(model => model.ProductName)</dt>
+                <dd class="col-sm-7">@Html.DisplayFor(model => model.ProductName)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductDescription)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductDescription)
-        </dd>
+                <dt class="col-sm-5">@Html.DisplayNameFor(model => model.ProductCategory)</dt>
+                <dd class="col-sm-7">@Html.DisplayFor(model => model.ProductCategory)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductCategory)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductCategory)
-        </dd>
+                <dt class="col-sm-5">@Html.DisplayNameFor(model => model.ProductRating)</dt>
+                <dd class="col-sm-7">@Html.DisplayFor(model => model.ProductRating) ⭐</dd>
+            </dl>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductRating)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductRating)
-        </dd>
+        <div class="col-md-6">
+            <dl class="row">
+                <dt class="col-sm-5">@Html.DisplayNameFor(model => model.ProductPrice)</dt>
+                <dd class="col-sm-7">@String.Format("{0:C}", Model.ProductPrice)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductPrice)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductPrice)
-        </dd>
+                <dt class="col-sm-5">@Html.DisplayNameFor(model => model.ProductAvailableQuantity)</dt>
+                <dd class="col-sm-7">@Html.DisplayFor(model => model.ProductAvailableQuantity)</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductAvailableQuantity)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductAvailableQuantity)
-        </dd>
+                <dt class="col-sm-5">@Html.DisplayNameFor(model => model.ProductDiscount)</dt>
+                <dd class="col-sm-7">@Html.DisplayFor(model => model.ProductDiscount)%</dd>
+            </dl>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductDiscount)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ProductDiscount)
-        </dd>
-    </dl>
+        <div class="col-md-12">
+            <dt class="col-sm-12">@Html.DisplayNameFor(model => model.ProductDescription)</dt>
+            <dd class="col-sm-12">@Html.DisplayFor(model => model.ProductDescription)</dd>
+        </div>
+    </div>
 </div>
-<p>
+
+<div class="mt-3">
     @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
-</p>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+</div>
