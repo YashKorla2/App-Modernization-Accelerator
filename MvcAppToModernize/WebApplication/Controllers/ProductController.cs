@@ -6,7 +6,6 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -88,11 +87,11 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost("edit")]
-        public async Task<IActionResult> Edit(Product product)
+        public IActionResult Edit(Product product)
         {
             if (ModelState.IsValid)
             {
-                await _productService.UpdateProductAsync(product);
+                _productService.UpdateProduct(product);
                 return RedirectToAction("Index");
             }
             return BadRequest(ModelState);
