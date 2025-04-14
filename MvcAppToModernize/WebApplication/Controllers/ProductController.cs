@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
@@ -41,7 +40,7 @@ namespace WebApplication.Controllers
             var viewModel = new ProductViewModel
             {
                 Products = products,
-                CartItemCount = cartItems?.Sum(c => c.Quantity) ?? 0
+                CartItemCount = cartItems?.Sum(c => ((dynamic)c).Quantity) ?? 0
             };
 
             return Ok(viewModel);
