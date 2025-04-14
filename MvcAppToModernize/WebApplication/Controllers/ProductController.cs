@@ -35,7 +35,7 @@ namespace WebApplication.Controllers
             IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
-            System.Collections.Generic.List<Cart> cartItems = _cartService.GetCarts().ToList();
+            List<Cart> cartItems = _cartService.GetCarts().ToList();
 
             var viewModel = new ProductViewModel
             {
