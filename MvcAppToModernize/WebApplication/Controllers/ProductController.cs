@@ -12,7 +12,7 @@ namespace WebApplication.Controllers
     [Route("[controller]")]
 public class ProductViewModel
 {
-    public IEnumerable<Models.Product> Products { get; set; }
+    public IEnumerable<Product> Products { get; set; }
     public int CartItemCount { get; set; }
 }
 
@@ -32,10 +32,10 @@ public class ProductController : ControllerBase
     [HttpGet]
     public ActionResult<ProductViewModel> Index(string searchTerm)
     {
-        IEnumerable<Models.Product> products = string.IsNullOrEmpty(searchTerm)
+        IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
             ? _productService.GetAllProducts()
             : _productService.SearchProducts(searchTerm);
-        IEnumerable<Models.Cart> cartItems = _cartService.GetCarts();
+        IEnumerable<Cart> cartItems = _cartService.GetCarts();
 
         var viewModel = new ProductViewModel
         {
