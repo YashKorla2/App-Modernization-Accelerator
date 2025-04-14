@@ -34,11 +34,13 @@ namespace WebApplication.Controllers
             var viewModel = new ProductViewModel
             {
                 Products = products,
-                CartItemCount = cartItems.Count(),
-                SearchTerm = searchTerm
+                CartItemCount = cartItems.Count()
             };
 
-            return Ok(viewModel);
+            // Remove ViewBag usage as it's not available in ControllerBase
+            // Instead, we'll pass the searchTerm in the view model
+
+            return View(viewModel);
         }
 
         [HttpGet("{id}")]
