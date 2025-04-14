@@ -41,7 +41,7 @@ namespace WebApplication.Controllers
             var viewModel = new ProductViewModel
             {
                 Products = products,
-                CartItemCount = cartItems?.Sum(c => c.Quantity) ?? 0
+                CartItemCount = cartItems?.Sum(c => Convert.ToInt32(c.Quantity)) ?? 0
             };
 
             return Ok(viewModel);
