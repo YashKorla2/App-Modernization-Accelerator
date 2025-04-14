@@ -6,7 +6,6 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -57,12 +56,6 @@ namespace WebApplication.Controllers
                 return NotFound();
             }
             return Ok(product);
-        }
-
-        [NonAction]
-        private bool IsNull(object obj)
-        {
-            return obj == null;
         }
 
         [HttpGet("create")]
