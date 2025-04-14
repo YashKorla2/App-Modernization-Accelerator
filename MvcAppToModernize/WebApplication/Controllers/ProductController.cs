@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Services;
-using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -24,14 +23,14 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
-        public ActionResult<ProductViewModel> Index(string searchTerm)
+        public ActionResult<Models.ProductViewModel> Index(string searchTerm)
         {
-            IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
+            IEnumerable<Models.Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
-            IEnumerable<Cart> cartItems = _cartService.GetCarts();
+            IEnumerable<Models.Cart> cartItems = _cartService.GetCarts();
 
-            var viewModel = new ProductViewModel
+            var viewModel = new Models.ProductViewModel
             {
                 Products = products,
                 CartItemCount = cartItems.Count()
@@ -44,7 +43,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Product> Details(int id)
+        public ActionResult<Models.Product> Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -61,7 +60,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost("create")]
-        public ActionResult<Product> Create(Product product)
+        public ActionResult<Models.Product> Create(Models.Product product)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +71,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet("edit/{id}")]
-        public ActionResult<Product> Edit(int id)
+        public ActionResult<Models.Product> Edit(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -83,7 +82,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost("edit")]
-        public ActionResult<Product> Edit(Product product)
+        public ActionResult<Models.Product> Edit(Models.Product product)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +93,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet("delete/{id}")]
-        public ActionResult<Product> Delete(int id)
+        public ActionResult<Models.Product> Delete(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
