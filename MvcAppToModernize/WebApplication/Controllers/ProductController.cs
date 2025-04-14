@@ -11,7 +11,7 @@ namespace WebApplication.Controllers
 {
     public class ProductViewModel
     {
-        public IEnumerable<Product> Products { get; set; } = new List<Product>();
+        public IEnumerable<Product> Products { get; set; }
         public int CartItemCount { get; set; }
     }
 
@@ -22,16 +22,16 @@ namespace WebApplication.Controllers
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
 
-        public ProductController() : base() {}
+        public ProductController() {}
 
-        public ProductController(IProductService productService, ICartService cartService) : base()
+        public ProductController(IProductService productService, ICartService cartService)
         {
-            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
-            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
+            _productService = productService;
+            _cartService = cartService;
         }
 
         [HttpGet]
-        public ActionResult<ProductViewModel> Index(string? searchTerm)
+        public ActionResult<ProductViewModel> Index(string searchTerm)
         {
             IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
@@ -70,7 +70,7 @@ namespace WebApplication.Controllers
             if (ModelState.IsValid)
             {
                 _productService.AddProduct(product);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
             return BadRequest(ModelState);
         }
@@ -92,7 +92,7 @@ namespace WebApplication.Controllers
             if (ModelState.IsValid)
             {
                 _productService.UpdateProduct(product);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
             return BadRequest(ModelState);
         }
@@ -112,7 +112,7 @@ namespace WebApplication.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             _productService.DeleteProduct(id);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
 
         [HttpPost("addtocart")]
@@ -124,7 +124,7 @@ namespace WebApplication.Controllers
                 _cartService.AddProductToCart(product, quantity);
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
     }
 }
