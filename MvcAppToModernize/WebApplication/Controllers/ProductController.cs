@@ -6,9 +6,11 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Runtime.CompilerServices;
 
 namespace WebApplication.Controllers
 {
+    [CompilerGenerated]
     public class ProductViewModel
     {
         public IEnumerable<Product> Products { get; set; }
