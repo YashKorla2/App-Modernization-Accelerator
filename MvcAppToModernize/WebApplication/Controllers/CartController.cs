@@ -1,10 +1,13 @@
+using System;
+using System.Collections.Generic;
 using Services;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace WebApplication.Controllers
 {
-    public class CartController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class CartController : ControllerBase
     {
         private readonly ICartService _cartService;
 
@@ -12,34 +15,35 @@ namespace WebApplication.Controllers
         {
             _cartService = cartService;
         }
-        
-        public ActionResult Index(string searchTerm)
+
+        [HttpGet]
+        public ActionResult<IEnumerable<object>> Index(string searchTerm)
         {
-            var Carts = string.IsNullOrEmpty(searchTerm)
+            var carts = string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetCarts()
                 : _cartService.SearchCart(searchTerm);
 
-            ViewBag.SearchTerm = searchTerm;
+            ViewData["SearchTerm"] = searchTerm;
 
-            return View(Carts);
+            return View(carts);
         }
 
-        [HttpPost]
+        [HttpPost("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             _cartService.DeleteCartItem(id);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        public ActionResult Checkout(int[] selectedItems)
+        [HttpPost("Checkout")]
+        public IActionResult Checkout(int[] selectedItems)
         {
             if (selectedItems == null || selectedItems.Length == 0)
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
 
             _cartService.Checkout(selectedItems);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }
