@@ -22,17 +22,20 @@ namespace WebApplication.Controllers
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
 
-        public ProductController() {}
-
         public ProductController(IProductService productService, ICartService cartService)
         {
-            _productService = productService;
-            _cartService = cartService;
+            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
         }
 
         [HttpGet]
         public ActionResult<ProductViewModel> Index(string searchTerm)
         {
+            if (_productService == null || _cartService == null)
+            {
+                return StatusCode(500, "Services not initialized properly");
+            }
+
             IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
