@@ -17,7 +17,7 @@ namespace WebApplication.Controllers
 
     [ApiController]
     [Route("[controller]")]
-    public class ProductController : Controller
+    public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
@@ -61,7 +61,7 @@ namespace WebApplication.Controllers
         [HttpGet("create")]
         public IActionResult Create()
         {
-            return View();
+            return Ok();
         }
 
         [HttpPost("create")]
@@ -72,7 +72,7 @@ namespace WebApplication.Controllers
                 _productService.AddProduct(product);
                 return RedirectToAction("Index");
             }
-            return View(product);
+            return BadRequest(ModelState);
         }
 
         [HttpGet("edit/{id}")]
@@ -83,7 +83,7 @@ namespace WebApplication.Controllers
             {
                 return NotFound();
             }
-            return View(product);
+            return Ok(product);
         }
 
         [HttpPost("edit")]
@@ -94,7 +94,7 @@ namespace WebApplication.Controllers
                 _productService.UpdateProduct(product);
                 return RedirectToAction("Index");
             }
-            return View(product);
+            return BadRequest(ModelState);
         }
 
         [HttpGet("delete/{id}")]
@@ -105,7 +105,7 @@ namespace WebApplication.Controllers
             {
                 return NotFound();
             }
-            return View(product);
+            return Ok(product);
         }
 
         [HttpPost("delete/{id}")]
