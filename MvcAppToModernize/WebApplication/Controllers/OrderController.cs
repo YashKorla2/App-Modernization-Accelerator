@@ -21,9 +21,9 @@ namespace WebApplication.Controllers
                 ? _cartService.GetOrders()
                 : _cartService.SearchOrders(searchTerm);
 
-            var orders = ordersEnumerable.ToList();
+            List<object> orders = new List<object>(ordersEnumerable);
 
-            var orderCount = orders.Count;
+            int orderCount = orders.Count;
 
             ViewBag.OrderCount = orderCount;
             ViewBag.SearchTerm = searchTerm;
