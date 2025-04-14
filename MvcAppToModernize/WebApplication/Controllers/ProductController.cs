@@ -12,7 +12,7 @@ namespace WebApplication.Controllers
     public class ProductViewModel
     {
         public IEnumerable<Product> Products { get; set; }
-        public System.Int32 CartItemCount { get; set; }
+        public int CartItemCount { get; set; }
     }
 
     [ApiController]
@@ -48,7 +48,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Product> Details(System.Int32 id)
+        public ActionResult<Product> Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -76,7 +76,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet("edit/{id}")]
-        public IActionResult Edit(System.Int32 id)
+        public IActionResult Edit(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -98,7 +98,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet("delete/{id}")]
-        public IActionResult Delete(System.Int32 id)
+        public IActionResult Delete(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -109,14 +109,14 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost("delete/{id}")]
-        public ActionResult DeleteConfirmed(System.Int32 id)
+        public ActionResult DeleteConfirmed(int id)
         {
             _productService.DeleteProduct(id);
             return RedirectToAction("Index");
         }
 
         [HttpPost("addtocart")]
-        public ActionResult AddToCart(System.Int32 productId, System.Int32 quantity = 1)
+        public ActionResult AddToCart(int productId, int quantity = 1)
         {
             var product = _productService.GetProductById(productId);
             if (product != null)
