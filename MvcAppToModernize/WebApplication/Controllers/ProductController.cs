@@ -109,7 +109,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost("delete/{id}")]
-        public ActionResult DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             _productService.DeleteProduct(id);
             return RedirectToAction("Index");
