@@ -5,6 +5,8 @@ using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Models.Entities;
+using Models.ViewModels;
 
 namespace WebApplication.Controllers
 {
@@ -34,13 +36,11 @@ namespace WebApplication.Controllers
             var viewModel = new ProductViewModel
             {
                 Products = products,
-                CartItemCount = cartItems.Count()
+                CartItemCount = cartItems.Count(),
+                SearchTerm = searchTerm
             };
 
-            // Remove ViewBag usage as it's not available in ControllerBase
-            // Instead, we'll pass the searchTerm in the view model
-
-            return View(viewModel);
+            return viewModel;
         }
 
         [HttpGet("{id}")]
