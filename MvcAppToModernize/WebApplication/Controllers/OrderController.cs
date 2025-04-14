@@ -18,7 +18,7 @@ namespace WebApplication.Controllers
         {
             var orders = (string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetOrders()
-                : _cartService.SearchOrders(searchTerm)).ToList();
+                : _cartService.SearchOrders(searchTerm)).ToList<object>();
 
             var orderCount = orders.Count;
 
