@@ -5,6 +5,7 @@ using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebApplication.Controllers
 {
@@ -16,7 +17,7 @@ namespace WebApplication.Controllers
 
     [ApiController]
     [Route("[controller]")]
-    public class ProductController : ControllerBase
+    public class ProductController : Controller
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
@@ -58,13 +59,13 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet("create")]
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost("create")]
-        public ActionResult<Product> Create(Product product)
+        public IActionResult Create(Product product)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +76,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet("edit/{id}")]
-        public ActionResult<Product> Edit(int id)
+        public IActionResult Edit(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -86,7 +87,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost("edit")]
-        public ActionResult<Product> Edit(Product product)
+        public IActionResult Edit(Product product)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +98,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet("delete/{id}")]
-        public ActionResult<Product> Delete(int id)
+        public IActionResult Delete(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
