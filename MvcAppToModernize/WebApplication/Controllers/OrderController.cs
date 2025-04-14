@@ -15,15 +15,15 @@ namespace WebApplication.Controllers
             _cartService = cartService;
         }
 
-        public IActionResult Index(string searchTerm)
+        public ActionResult Index(string searchTerm)
         {
             IEnumerable<object> ordersEnumerable = string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetOrders()
                 : _cartService.SearchOrders(searchTerm);
 
-            List<object> orders = ordersEnumerable.ToList();
+            var orders = ordersEnumerable.ToList();
 
-            int orderCount = orders.Count;
+            var orderCount = orders.Count;
 
             ViewBag.OrderCount = orderCount;
             ViewBag.SearchTerm = searchTerm;
