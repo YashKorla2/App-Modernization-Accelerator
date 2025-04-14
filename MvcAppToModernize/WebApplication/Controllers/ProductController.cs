@@ -17,7 +17,7 @@ namespace WebApplication.Controllers
 
     [ApiController]
     [Route("[controller]")]
-    public class ProductController : Controller
+    public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
@@ -31,7 +31,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(string searchTerm)
+        public ActionResult<ProductViewModel> Index(string searchTerm)
         {
             IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
@@ -48,7 +48,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Details(int id)
+        public ActionResult<Product> Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -109,14 +109,14 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost("delete/{id}")]
-        public IActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
             _productService.DeleteProduct(id);
             return RedirectToAction("Index");
         }
 
         [HttpPost("addtocart")]
-        public IActionResult AddToCart(int productId, int quantity = 1)
+        public ActionResult AddToCart(int productId, int quantity = 1)
         {
             var product = _productService.GetProductById(productId);
             if (product != null)
