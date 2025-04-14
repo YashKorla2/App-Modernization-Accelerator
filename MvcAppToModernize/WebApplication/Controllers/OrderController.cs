@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Services;
-using System.Collections.Generic;
 
 namespace WebApplication.Controllers
 {
@@ -22,9 +21,9 @@ namespace WebApplication.Controllers
                 ? _cartService.GetOrders()
                 : _cartService.SearchOrders(searchTerm);
 
-            List<object> orders = new List<object>(ordersEnumerable);
+            var orders = ordersEnumerable.ToList();
 
-            int orderCount = orders.Count;
+            var orderCount = orders.Count;
 
             ViewBag.OrderCount = orderCount;
             ViewBag.SearchTerm = searchTerm;
