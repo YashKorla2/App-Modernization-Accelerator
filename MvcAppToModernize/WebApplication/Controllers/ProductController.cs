@@ -6,7 +6,6 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -32,7 +31,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ProductViewModel>> Index(string searchTerm)
+        public ActionResult<ProductViewModel> Index(string searchTerm)
         {
             IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
@@ -117,12 +116,12 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost("addtocart")]
-        public async Task<ActionResult> AddToCart(int productId, int quantity = 1)
+        public ActionResult AddToCart(int productId, int quantity = 1)
         {
-            var product = await _productService.GetProductByIdAsync(productId);
+            var product = _productService.GetProductById(productId);
             if (product != null)
             {
-                await _cartService.AddProductToCartAsync(product, quantity);
+                _cartService.AddProductToCart(product, quantity);
             }
 
             return RedirectToAction("Index");
