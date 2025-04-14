@@ -1,5 +1,7 @@
 using Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 
 namespace WebApplication.Controllers
@@ -15,13 +17,13 @@ namespace WebApplication.Controllers
         
         public ActionResult Index(string searchTerm)
         {
-            var Carts = string.IsNullOrEmpty(searchTerm)
-                ? _cartService.GetCarts()
-                : _cartService.SearchCart(searchTerm);
+            IEnumerable<object> carts = string.IsNullOrEmpty(searchTerm)
+                ? _cartService.GetCarts().Cast<object>()
+                : _cartService.SearchCart(searchTerm).Cast<object>();
 
             ViewBag.SearchTerm = searchTerm;
 
-            return View(Carts);
+            return View(carts);
         }
 
         [HttpPost]
