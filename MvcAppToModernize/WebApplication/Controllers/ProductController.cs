@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace WebApplication.Controllers
 {
-using System;
     public class ProductViewModel
     {
         public IEnumerable<Product> Products { get; set; }
@@ -42,7 +41,7 @@ using System;
             var viewModel = new ProductViewModel
             {
                 Products = products,
-                CartItemCount = cartItems?.Sum(c => (System.Int32)c.Quantity) ?? 0
+                CartItemCount = cartItems?.Sum(c => c.Quantity) ?? 0
             };
 
             return Ok(viewModel);
