@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Services;
 using Microsoft.AspNetCore.Mvc;
-using Models; // Assuming Order is in the Models namespace
+
 
 namespace WebApplication.Controllers
 {
@@ -17,11 +16,11 @@ namespace WebApplication.Controllers
 
         public ActionResult Index(string searchTerm)
         {
-            List<Order> orders = string.IsNullOrEmpty(searchTerm)
+            var orders = string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetOrders()
                 : _cartService.SearchOrders(searchTerm);
-
-            int orderCount = orders.Count;
+            
+            var orderCount = orders.Count;
 
             ViewBag.OrderCount = orderCount;
             ViewBag.SearchTerm = searchTerm;
