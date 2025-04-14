@@ -40,7 +40,7 @@ public class ProductController : ControllerBase
         var viewModel = new ProductViewModel
         {
             Products = products,
-            CartItemCount = cartItems.Count()
+            CartItemCount = cartItems?.Sum(c => c.Quantity) ?? 0
         };
 
         return Ok(viewModel);
