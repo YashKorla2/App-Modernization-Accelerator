@@ -6,6 +6,7 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Runtime.CompilerServices;
 
 namespace WebApplication.Controllers
 {
@@ -13,6 +14,12 @@ namespace WebApplication.Controllers
     {
         public IEnumerable<Product> Products { get; set; }
         public int CartItemCount { get; set; }
+    }
+
+    [CompilerGenerated]
+    internal class __Globals__
+    {
+        public static readonly Type Int32Type = typeof(int);
     }
 
     [ApiController]
