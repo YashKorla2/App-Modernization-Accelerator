@@ -26,18 +26,19 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult<ProductViewModel> Index(string searchTerm)
         {
-            var products = string.IsNullOrEmpty(searchTerm)
+            IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
-            var cartItems = _cartService.GetCarts();
+            IEnumerable<Cart> cartItems = _cartService.GetCarts();
 
             var viewModel = new ProductViewModel
             {
                 Products = products,
-                CartItemCount = cartItems.Count
+                CartItemCount = cartItems.Count()
             };
 
-            ViewBag.SearchTerm = searchTerm;
+            // Remove ViewBag usage as it's not available in ControllerBase
+            // Instead, we'll pass the searchTerm in the view model
 
             return View(viewModel);
         }
