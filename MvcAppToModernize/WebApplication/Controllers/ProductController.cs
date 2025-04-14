@@ -37,10 +37,7 @@ namespace WebApplication.Controllers
                 CartItemCount = cartItems.Count()
             };
 
-            // Remove ViewBag usage as it's not available in ControllerBase
-            // Instead, we'll pass the searchTerm in the view model
-
-            return View(viewModel);
+            return Ok(viewModel);
         }
 
         [HttpGet("{id}")]
