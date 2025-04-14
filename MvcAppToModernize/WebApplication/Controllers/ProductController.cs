@@ -33,10 +33,10 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult<ProductViewModel> Index(string searchTerm)
         {
-            System.Collections.Generic.IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
+            IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
-            System.Collections.Generic.List<Cart> cartItems = new System.Collections.Generic.List<Cart>(_cartService.GetCarts());
+            List<Cart> cartItems = _cartService.GetCarts().ToList();
 
             var viewModel = new ProductViewModel
             {
