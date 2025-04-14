@@ -1,9 +1,9 @@
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WebApplication.Controllers
 {
@@ -30,7 +30,7 @@ namespace WebApplication.Controllers
             var viewModel = new ProductViewModel
             {
                 Products = products,
-                CartItemCount = cartItems.Count
+                CartItemCount = cartItems.Count()
             };
 
             ViewBag.SearchTerm = searchTerm;
