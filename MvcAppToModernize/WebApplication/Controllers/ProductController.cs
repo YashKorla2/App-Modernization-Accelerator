@@ -105,7 +105,7 @@ namespace WebApplication.Controllers
             {
                 return NotFound();
             }
-            return Ok(product);
+            return Ok((object)product);
         }
 
         [HttpPost("delete/{id}")]
