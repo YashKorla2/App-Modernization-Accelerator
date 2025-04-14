@@ -35,12 +35,12 @@ public class ProductController : ControllerBase
         IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
             ? _productService.GetAllProducts()
             : _productService.SearchProducts(searchTerm);
-        int cartItemCount = _cartService.GetCartItemCount();
+        IEnumerable<Cart> cartItems = _cartService.GetCarts();
 
         var viewModel = new ProductViewModel
         {
             Products = products,
-            CartItemCount = cartItemCount
+            CartItemCount = cartItems.Count()
         };
 
         return Ok(viewModel);
