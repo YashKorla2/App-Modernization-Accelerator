@@ -6,6 +6,7 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections;
 
 namespace WebApplication.Controllers
 {
@@ -41,7 +42,7 @@ namespace WebApplication.Controllers
             var viewModel = new ProductViewModel
             {
                 Products = products,
-                CartItemCount = cartItems?.Sum(c => c.Quantity) ?? 0
+                CartItemCount = cartItems?.Sum(c => (int?)c.Quantity) ?? 0
             };
 
             return Ok(viewModel);
