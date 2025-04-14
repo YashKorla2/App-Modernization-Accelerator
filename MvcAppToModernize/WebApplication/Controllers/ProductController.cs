@@ -6,7 +6,6 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -76,16 +75,16 @@ namespace WebApplication.Controllers
             return BadRequest(ModelState);
         }
 
-    [HttpGet("edit/{id}")]
-    public async Task<IActionResult> Edit(int id)
-    {
-        var product = await _productService.GetProductByIdAsync(id);
-        if (product == null)
+        [HttpGet("edit/{id}")]
+        public IActionResult Edit(int id)
         {
-            return NotFound();
+            var product = _productService.GetProductById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return Ok(product);
         }
-        return Ok(product);
-    }
 
         [HttpPost("edit")]
         public IActionResult Edit(Product product)
