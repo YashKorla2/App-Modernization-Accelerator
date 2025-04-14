@@ -6,6 +6,7 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Net;
 
 namespace WebApplication.Controllers
 {
@@ -48,15 +49,15 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Product> Details(int id)
+    public ActionResult<Product> Details(int id)
+    {
+        var product = _productService.GetProductById(id);
+        if (product == null)
         {
-            var product = _productService.GetProductById(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return Ok(product);
+            return NotFound();
         }
+        return Ok(product);
+    }
 
         [HttpGet("create")]
         public IActionResult Create()
