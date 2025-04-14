@@ -35,7 +35,7 @@ public class ProductController : ControllerBase
         IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
             ? _productService.GetAllProducts()
             : _productService.SearchProducts(searchTerm);
-        var cartItems = _cartService.GetCarts();
+        System.Collections.Generic.List<object> cartItems = _cartService.GetCarts();
 
         var viewModel = new ProductViewModel
         {
