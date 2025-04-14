@@ -17,12 +17,10 @@ namespace WebApplication.Controllers
 
     [ApiController]
     [Route("[controller]")]
-    public class ProductController : ControllerBase
+    public class ProductController : Controller
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
-
-        public ProductController() {}
 
         public ProductController(IProductService productService, ICartService cartService)
         {
