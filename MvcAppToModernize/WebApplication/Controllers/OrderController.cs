@@ -1,7 +1,5 @@
 using Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace WebApplication.Controllers
 {
@@ -16,11 +14,9 @@ namespace WebApplication.Controllers
 
         public ActionResult Index(string searchTerm)
         {
-            IEnumerable<object> ordersEnumerable = string.IsNullOrEmpty(searchTerm)
+            var orders = (string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetOrders()
-                : _cartService.SearchOrders(searchTerm);
-
-            var orders = ordersEnumerable.ToList();
+                : _cartService.SearchOrders(searchTerm)).ToList();
 
             var orderCount = orders.Count;
 
