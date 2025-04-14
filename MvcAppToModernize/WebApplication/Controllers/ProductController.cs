@@ -8,43 +8,43 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace WebApplication.Controllers
 {
+    public class ProductViewModel
+    {
+        public IEnumerable<Product> Products { get; set; }
+        public int CartItemCount { get; set; }
+    }
+
     [ApiController]
     [Route("[controller]")]
-public class ProductViewModel
-{
-    public IEnumerable<Product> Products { get; set; }
-    public int CartItemCount { get; set; }
-}
-
-public class ProductController : ControllerBase
-{
-    private readonly IProductService _productService;
-    private readonly ICartService _cartService;
-
-    public ProductController() {}
-
-    public ProductController(IProductService productService, ICartService cartService)
+    public class ProductController : ControllerBase
     {
-        _productService = productService;
-        _cartService = cartService;
-    }
+        private readonly IProductService _productService;
+        private readonly ICartService _cartService;
 
-    [HttpGet]
-    public ActionResult<ProductViewModel> Index(string searchTerm)
-    {
-        IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
-            ? _productService.GetAllProducts()
-            : _productService.SearchProducts(searchTerm);
-        var cartItems = _cartService.GetCarts();
+        public ProductController() {}
 
-        var viewModel = new ProductViewModel
+        public ProductController(IProductService productService, ICartService cartService)
         {
-            Products = products,
-            CartItemCount = cartItems?.Sum(c => ((dynamic)c).Quantity) ?? 0
-        };
+            _productService = productService;
+            _cartService = cartService;
+        }
 
-        return Ok(viewModel);
-    }
+        [HttpGet]
+        public ActionResult<ProductViewModel> Index(string searchTerm)
+        {
+            IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
+                ? _productService.GetAllProducts()
+                : _productService.SearchProducts(searchTerm);
+            var cartItems = _cartService.GetCarts();
+
+            var viewModel = new ProductViewModel
+            {
+                Products = products,
+                CartItemCount = cartItems?.Sum(c => ((dynamic)c).Quantity) ?? 0
+            };
+
+            return Ok(viewModel);
+        }
 
         [HttpGet("{id}")]
         public ActionResult<Product> Details(int id)
@@ -54,7 +54,7 @@ public class ProductController : ControllerBase
             {
                 return NotFound();
             }
-            return View(product);
+            return Ok(product);
         }
 
         [HttpGet("create")]
