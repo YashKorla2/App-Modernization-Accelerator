@@ -27,7 +27,6 @@
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NETStandard.Library" Version="2.0.3" />
     <PackageReference Include="Unity" Version="5.11.10" />
     <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters" Version="1.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
