@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace WebApplication.Controllers
 {
-using System;
     [ApiController]
     [Route("[controller]")]
 public class ProductViewModel
@@ -48,7 +47,7 @@ public class ProductController : ControllerBase
     }
 
         [HttpGet("{id}")]
-        public ActionResult<Product> Details(System.Int32 id)
+        public ActionResult<Product> Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
