@@ -35,12 +35,12 @@ public class ProductController : ControllerBase
         IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
             ? _productService.GetAllProducts()
             : _productService.SearchProducts(searchTerm);
-        var cartItems = _cartService.GetCarts();
+        IEnumerable<dynamic> cartItems = _cartService.GetCarts();
 
         var viewModel = new ProductViewModel
         {
             Products = products,
-            CartItemCount = cartItems?.Sum(c => ((dynamic)c).Quantity) ?? 0
+            CartItemCount = cartItems?.Sum(c => c.Quantity) ?? 0
         };
 
         return Ok(viewModel);
