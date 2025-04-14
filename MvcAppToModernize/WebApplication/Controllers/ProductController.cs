@@ -6,12 +6,14 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace WebApplication.Controllers
 {
     public class ProductViewModel
     {
-        public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<Product> Products { get; set; } = new List<Product>();
         public int CartItemCount { get; set; }
     }
 
@@ -21,13 +23,13 @@ namespace WebApplication.Controllers
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
+        private readonly ILogger<ProductController> _logger;
 
-        public ProductController() {}
-
-        public ProductController(IProductService productService, ICartService cartService)
+        public ProductController(IProductService productService, ICartService cartService, ILogger<ProductController> logger)
         {
-            _productService = productService;
-            _cartService = cartService;
+            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [HttpGet]
@@ -118,13 +120,26 @@ namespace WebApplication.Controllers
         [HttpPost("addtocart")]
         public ActionResult AddToCart(int productId, int quantity = 1)
         {
-            var product = _productService.GetProductById(productId);
-            if (product != null)
+            try
             {
-                _cartService.AddProductToCart(product, quantity);
-            }
+                var product = _productService.GetProductById(productId);
+                if (product != null)
+                {
+                    _cartService.AddProductToCart(product, quantity);
+                    _logger.LogInformation($"Added product {productId} to cart, quantity: {quantity}");
+                }
+                else
+                {
+                    _logger.LogWarning($"Attempted to add non-existent product {productId} to cart");
+                }
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error adding product {productId} to cart");
+                return StatusCode(500, "An error occurred while processing your request.");
+            }
         }
     }
 }
