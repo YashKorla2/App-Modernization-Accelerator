@@ -5,7 +5,6 @@ using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Collections;
 
 namespace WebApplication.Controllers
 {
@@ -36,7 +35,7 @@ namespace WebApplication.Controllers
             IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
-            IEnumerable<Cart> cartItems = _cartService.GetCarts();
+            List<Cart> cartItems = _cartService.GetCarts().ToList();
 
             var viewModel = new ProductViewModel
             {
