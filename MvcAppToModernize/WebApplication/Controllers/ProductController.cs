@@ -7,9 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-// Explicitly import System namespace
-using System;
-
 namespace WebApplication.Controllers
 {
     public class ProductViewModel
