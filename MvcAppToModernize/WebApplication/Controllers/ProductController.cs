@@ -6,7 +6,6 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Net;
 
 namespace WebApplication.Controllers
 {
@@ -107,12 +106,6 @@ namespace WebApplication.Controllers
                 return NotFound();
             }
             return Ok(product);
-        }
-
-        // Add a dummy method to ensure int is recognized
-        private int EnsureIntIsRecognized(int value)
-        {
-            return value;
         }
 
         [HttpPost("delete/{id}")]
