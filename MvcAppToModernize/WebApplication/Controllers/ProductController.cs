@@ -10,41 +10,41 @@ namespace WebApplication.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProductViewModel
+public class ProductViewModel
+{
+    public IEnumerable<Product> Products { get; set; }
+    public int CartItemCount { get; set; }
+}
+
+public class ProductController : ControllerBase
+{
+    private readonly IProductService _productService;
+    private readonly ICartService _cartService;
+
+    public ProductController() {}
+
+    public ProductController(IProductService productService, ICartService cartService)
     {
-        public IEnumerable<Product> Products { get; set; }
-        public int CartItemCount { get; set; }
+        _productService = productService;
+        _cartService = cartService;
     }
 
-    public class ProductController : ControllerBase
+    [HttpGet]
+    public ActionResult<ProductViewModel> Index(string searchTerm)
     {
-        private readonly IProductService _productService;
-        private readonly ICartService _cartService;
+        IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
+            ? _productService.GetAllProducts()
+            : _productService.SearchProducts(searchTerm);
+        IEnumerable<Cart> cartItems = _cartService.GetCarts();
 
-        public ProductController() {}
-
-        public ProductController(IProductService productService, ICartService cartService)
+        var viewModel = new ProductViewModel
         {
-            _productService = productService;
-            _cartService = cartService;
-        }
+            Products = products,
+            CartItemCount = cartItems.Count()
+        };
 
-        [HttpGet]
-        public ActionResult<ProductViewModel> Index(string searchTerm)
-        {
-            IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
-                ? _productService.GetAllProducts()
-                : _productService.SearchProducts(searchTerm);
-            IEnumerable<Cart> cartItems = _cartService.GetCarts();
-
-            var viewModel = new ProductViewModel
-            {
-                Products = products,
-                CartItemCount = cartItems.Count()
-            };
-
-            return Ok(viewModel);
-        }
+        return Ok(viewModel);
+    }
 
         [HttpGet("{id}")]
         public ActionResult<Product> Details(int id)
