@@ -17,13 +17,13 @@ namespace WebApplication.Controllers
 
         public ActionResult Index(string searchTerm)
         {
-            IEnumerable<Order> ordersEnumerable = string.IsNullOrEmpty(searchTerm)
+            IEnumerable<object> ordersEnumerable = string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetOrders()
                 : _cartService.SearchOrders(searchTerm);
 
-            List<Order> orders = ordersEnumerable.ToList();
+            var orders = ordersEnumerable.ToList();
 
-            int orderCount = orders.Count;
+            var orderCount = orders.Count;
 
             ViewBag.OrderCount = orderCount;
             ViewBag.SearchTerm = searchTerm;
