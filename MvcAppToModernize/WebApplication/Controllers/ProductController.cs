@@ -10,7 +10,7 @@ namespace WebApplication.Controllers
 {
     public class ProductViewModel
     {
-        public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<Product> Products { get; set; } = new List<Product>();
         public int CartItemCount { get; set; }
     }
 
@@ -39,7 +39,7 @@ namespace WebApplication.Controllers
 
             var viewModel = new ProductViewModel
             {
-                Products = products,
+                Products = products.ToList(),
                 CartItemCount = cartItems?.Sum(c => ((dynamic)c).Quantity) ?? 0
             };
 
