@@ -26,12 +26,12 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult<ProductViewModel> Index(string searchTerm)
         {
-            IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
+            System.Collections.Generic.IEnumerable<Models.Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
-            IEnumerable<Cart> cartItems = _cartService.GetCarts();
+            System.Collections.Generic.IEnumerable<Models.Cart> cartItems = _cartService.GetCarts();
 
-            var viewModel = new ProductViewModel
+            var viewModel = new Models.ProductViewModel
             {
                 Products = products,
                 CartItemCount = cartItems.Count()
