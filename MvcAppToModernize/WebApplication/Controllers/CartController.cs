@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,12 +14,12 @@ namespace WebApplication.Controllers
         {
             _cartService = cartService;
         }
-        
-        public ActionResult Index(string searchTerm)
+
+        public async Task<IActionResult> Index(string searchTerm)
         {
             var Carts = string.IsNullOrEmpty(searchTerm)
-                ? _cartService.GetCarts()
-                : _cartService.SearchCart(searchTerm);
+                ? await _cartService.GetCartsAsync()
+                : await _cartService.SearchCartAsync(searchTerm);
 
             ViewBag.SearchTerm = searchTerm;
 
@@ -26,19 +28,19 @@ namespace WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _cartService.DeleteCartItem(id);
+            await _cartService.DeleteCartItemAsync(id);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult Checkout(int[] selectedItems)
+        public async Task<IActionResult> Checkout(int[] selectedItems)
         {
             if (selectedItems == null || selectedItems.Length == 0)
                 return RedirectToAction("Index");
 
-            _cartService.Checkout(selectedItems);
+            await _cartService.CheckoutAsync(selectedItems);
             return RedirectToAction("Index");
         }
     }
