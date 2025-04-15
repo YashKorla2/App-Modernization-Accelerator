@@ -6,12 +6,13 @@ using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Web.Mvc;
 
 namespace WebApplication.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProductController : ControllerBase
+    public class ProductController : Controller
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
@@ -25,7 +26,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
-        public ActionResult<ProductViewModel> Index(string searchTerm)
+        public ActionResult Index(string searchTerm)
         {
             var products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
@@ -38,7 +39,7 @@ namespace WebApplication.Controllers
                 CartItemCount = cartItems.Count
             };
 
-            return viewModel;
+            return View(viewModel);
         }
 
         public ActionResult Details(int id)
