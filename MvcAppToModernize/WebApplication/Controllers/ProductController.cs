@@ -10,6 +10,12 @@ using System.Net;
 
 namespace WebApplication.Controllers
 {
+    public class ProductViewModel
+    {
+        public List<Product> Products { get; set; }
+        public int CartItemCount { get; set; }
+    }
+
     [ApiController]
     [Route("[controller]")]
     public class ProductController : ControllerBase
@@ -26,7 +32,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
-        public ActionResult<ProductViewModel> Index(string searchTerm)
+        public IActionResult Index(string searchTerm)
         {
             var products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
@@ -35,11 +41,11 @@ namespace WebApplication.Controllers
 
             var viewModel = new ProductViewModel
             {
-                Products = products,
+                Products = products.ToList(),
                 CartItemCount = cartItems.Count
             };
 
-            return viewModel;
+            return Ok(viewModel);
         }
 
         public ActionResult Details(int id)
