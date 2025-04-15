@@ -17,7 +17,7 @@ namespace WebApplication.Controllers
 
         public ActionResult Index(string searchTerm)
         {
-            IEnumerable<Order> orders = string.IsNullOrEmpty(searchTerm)
+            IEnumerable<object> orders = string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetOrders()
                 : _cartService.SearchOrders(searchTerm);
 
