@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Models;
 using Services;
+using Models;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication.Controllers
 {
@@ -19,6 +17,8 @@ namespace WebApplication.Controllers
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
+
+        public ProductController() {}
 
         public ProductController(IProductService productService, ICartService cartService)
         {
