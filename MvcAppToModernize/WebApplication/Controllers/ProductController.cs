@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace WebApplication.Controllers
 {
@@ -68,7 +69,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Edit(int id, [FromBody] Product product)
+        public ActionResult Edit(int id, [FromBody] Product product)
         {
             var existingProduct = _productService.GetProductById(id);
             if (existingProduct == null)
@@ -82,7 +83,7 @@ namespace WebApplication.Controllers
             }
 
             _productService.UpdateProduct(product);
-            return NoContent();
+            return new StatusCodeResult((int)HttpStatusCode.NoContent);
         }
 
         [HttpDelete("{id}")]
