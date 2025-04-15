@@ -67,7 +67,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult Edit(int id, [FromBody] Product product)
+        public IActionResult Edit(int id, [FromBody] Product product)
         {
             var existingProduct = _productService.GetProductById(id);
             if (existingProduct == null)
