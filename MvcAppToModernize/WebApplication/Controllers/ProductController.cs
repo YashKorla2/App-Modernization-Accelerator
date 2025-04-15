@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace WebApplication.Controllers
 {
-public class ProductViewModel
-{
-    public System.Collections.Generic.List<Product> Products { get; set; }
-    public int CartItemCount { get; set; }
-}
+    public class ProductViewModel
+    {
+        public List<Product> Products { get; set; }
+        public int CartItemCount { get; set; }
+    }
 
     [ApiController]
     [Route("[controller]")]
