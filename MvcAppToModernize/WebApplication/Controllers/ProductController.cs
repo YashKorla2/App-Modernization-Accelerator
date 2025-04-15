@@ -1,12 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Net;
 
 namespace WebApplication.Controllers
 {
@@ -58,70 +54,58 @@ namespace WebApplication.Controllers
             return Ok(product);
         }
 
-        public ActionResult Create()
+    [HttpPost]
+    public IActionResult Create([FromBody] Product product)
+    {
+        if (ModelState.IsValid)
         {
-            return View();
+            _productService.AddProduct(product);
+            return CreatedAtAction(nameof(Details), new { id = product.Id }, product);
+        }
+        return BadRequest(ModelState);
+    }
+
+    [HttpPut("{id}")]
+    public IActionResult Edit(int id, [FromBody] Product product)
+    {
+        var existingProduct = _productService.GetProductById(id);
+        if (existingProduct == null)
+        {
+            return NotFound();
         }
 
-        [HttpPost]
-        public ActionResult Create(Product product)
+        if (ModelState.IsValid)
         {
-            if (ModelState.IsValid)
-            {
-                _productService.AddProduct(product);
-                return RedirectToAction("Index");
-            }
-            return View(product);
+            _productService.UpdateProduct(product);
+            return NoContent();
+        }
+        return BadRequest(ModelState);
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        var product = _productService.GetProductById(id);
+        if (product == null)
+        {
+            return NotFound();
         }
 
-        public ActionResult Edit(int id)
+        _productService.DeleteProduct(id);
+        return NoContent();
+    }
+
+    [HttpPost("AddToCart")]
+    public IActionResult AddToCart(int productId, int quantity = 1)
+    {
+        var product = _productService.GetProductById(productId);
+        if (product == null)
         {
-            var product = _productService.GetProductById(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return View(product);
+            return NotFound();
         }
 
-        [HttpPost]
-        public ActionResult Edit(Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                _productService.UpdateProduct(product);
-                return RedirectToAction("Index");
-            }
-            return View(product);
-        }
-
-        public ActionResult Delete(int id)
-        {
-            var product = _productService.GetProductById(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return View(product);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            _productService.DeleteProduct(id);
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public ActionResult AddToCart(int productId, int quantity = 1)
-        {
-            var product = _productService.GetProductById(productId);
-            if (product != null)
-            {
-                _cartService.AddProductToCart(product, quantity);
-            }
-
-            return RedirectToAction("Index");
-        }
+        _cartService.AddProductToCart(product, quantity);
+        return Ok();
+    }
     }
 }
