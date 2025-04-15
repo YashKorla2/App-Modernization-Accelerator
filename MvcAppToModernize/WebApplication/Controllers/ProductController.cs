@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Services;
@@ -84,7 +85,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
