@@ -7,12 +7,13 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Net;
+using System.Collections.Generic;
 
 namespace WebApplication.Controllers
 {
     public class ProductViewModel
     {
-        public List<Product> Products { get; set; }
+        public System.Collections.Generic.List<Product> Products { get; set; }
         public int CartItemCount { get; set; }
     }
 
@@ -41,7 +42,7 @@ namespace WebApplication.Controllers
 
             var viewModel = new ProductViewModel
             {
-                Products = products.ToList(),
+                Products = products.ToList<Product>(),
                 CartItemCount = cartItems.Count
             };
 
