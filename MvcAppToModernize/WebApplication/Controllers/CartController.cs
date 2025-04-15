@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Services;
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace WebApplication.Controllers
 {
@@ -12,7 +15,7 @@ namespace WebApplication.Controllers
         {
             _cartService = cartService;
         }
-        
+
         public ActionResult Index(string searchTerm)
         {
             var Carts = string.IsNullOrEmpty(searchTerm)
