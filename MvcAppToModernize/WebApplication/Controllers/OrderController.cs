@@ -1,8 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Services;
-using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-
+using Microsoft.AspNetCore.Mvc;
+using Services;
 
 namespace WebApplication.Controllers
 {
@@ -17,7 +17,7 @@ namespace WebApplication.Controllers
 
         public ActionResult Index(string searchTerm)
         {
-            IEnumerable<object> orders = string.IsNullOrEmpty(searchTerm)
+            System.Collections.Generic.IEnumerable<object> orders = string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetOrders()
                 : _cartService.SearchOrders(searchTerm);
 
