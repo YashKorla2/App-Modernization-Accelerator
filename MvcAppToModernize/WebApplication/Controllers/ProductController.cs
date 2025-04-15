@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace WebApplication.Controllers
 {
@@ -16,16 +15,14 @@ namespace WebApplication.Controllers
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
 
-        public ProductController() {}
-
         public ProductController(IProductService productService, ICartService cartService)
         {
-            _productService = productService;
-            _cartService = cartService;
+            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
         }
 
         [HttpGet]
-        public ActionResult<ProductViewModel> Index(string searchTerm)
+        public ActionResult<ProductViewModel> Index(string? searchTerm)
         {
             var products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
