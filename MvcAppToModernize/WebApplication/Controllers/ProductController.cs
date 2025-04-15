@@ -1,15 +1,15 @@
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
+using System;
 using System.Linq;
 
 namespace WebApplication.Controllers
 {
     public class ProductViewModel
     {
-        public List<Product> Products { get; set; } = new List<Product>();
+        public List<Product> Products { get; set; }
         public int CartItemCount { get; set; }
     }
 
@@ -63,7 +63,7 @@ namespace WebApplication.Controllers
             }
 
             _productService.AddProduct(product);
-            return CreatedAtAction(nameof(Details), new { id = product.Id }, product);
+            return CreatedAtAction(nameof(Details), new { id = product }, product);
         }
 
         [HttpPut("{id}")]
