@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace WebApplication.Controllers
 {
@@ -24,7 +25,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
-        public ActionResult<ProductViewModel> Index(string? searchTerm)
+        public ActionResult<ProductViewModel> Index(string searchTerm)
         {
             var products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
