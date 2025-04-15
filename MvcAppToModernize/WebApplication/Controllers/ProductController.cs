@@ -25,7 +25,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(string searchTerm)
+        public ActionResult<ProductViewModel> Index(string searchTerm)
         {
             var products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
@@ -38,7 +38,7 @@ namespace WebApplication.Controllers
                 CartItemCount = cartItems.Count
             };
 
-            return Ok(viewModel);
+            return viewModel;
         }
 
         public ActionResult Details(int id)
