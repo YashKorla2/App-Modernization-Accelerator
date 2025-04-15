@@ -1,7 +1,6 @@
 using Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
+
 
 namespace WebApplication.Controllers
 {
@@ -13,16 +12,16 @@ namespace WebApplication.Controllers
         {
             _cartService = cartService;
         }
-
+        
         public ActionResult Index(string searchTerm)
         {
-            IEnumerable<Cart> carts = string.IsNullOrEmpty(searchTerm)
+            var Carts = string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetCarts()
                 : _cartService.SearchCart(searchTerm);
 
             ViewBag.SearchTerm = searchTerm;
 
-            return View(carts.ToList());
+            return View(Carts);
         }
 
         [HttpPost]
