@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace WebApplication.Controllers
 {
@@ -44,7 +45,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Product> Details(int id)
+        public ActionResult<Product> Details(System.Int32 id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -67,7 +68,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Edit(int id, [FromBody] Product product)
+        public IActionResult Edit(System.Int32 id, [FromBody] Product product)
         {
             var existingProduct = _productService.GetProductById(id);
             if (existingProduct == null)
@@ -85,7 +86,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(System.Int32 id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -98,7 +99,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost("AddToCart")]
-        public IActionResult AddToCart(int productId, int quantity = 1)
+        public IActionResult AddToCart(System.Int32 productId, System.Int32 quantity = 1)
         {
             var product = _productService.GetProductById(productId);
             if (product == null)
