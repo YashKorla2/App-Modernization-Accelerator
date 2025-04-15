@@ -1,10 +1,9 @@
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
+using System;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -68,9 +67,9 @@ namespace WebApplication.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, [FromBody] Product product)
+        public IActionResult Edit(int id, [FromBody] Product product)
         {
-            var existingProduct = await _productService.GetProductByIdAsync(id);
+            var existingProduct = _productService.GetProductById(id);
             if (existingProduct == null)
             {
                 return NotFound();
@@ -81,7 +80,7 @@ namespace WebApplication.Controllers
                 return BadRequest(ModelState);
             }
 
-            await _productService.UpdateProductAsync(product);
+            _productService.UpdateProduct(product);
             return NoContent();
         }
 
