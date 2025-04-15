@@ -28,6 +28,11 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult<ProductViewModel> Index(string searchTerm)
         {
+            // Add type information for debugging
+            var productsType = _productService.GetAllProducts().GetType();
+            var searchProductsType = _productService.SearchProducts(searchTerm).GetType();
+            var cartItemsType = _cartService.GetCarts().GetType();
+
             var products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
@@ -36,7 +41,9 @@ namespace WebApplication.Controllers
             var viewModel = new ProductViewModel
             {
                 Products = products,
-                CartItemCount = cartItems.Count
+                CartItemCount = cartItems.Count(),
+                // Add debug information
+                DebugInfo = $"ProductsType: {productsType}, SearchProductsType: {searchProductsType}, CartItemsType: {cartItemsType}"
             };
 
             return viewModel;
