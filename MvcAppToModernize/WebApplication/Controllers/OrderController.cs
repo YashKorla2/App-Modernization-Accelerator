@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Services;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ namespace WebApplication.Controllers
             ViewBag.OrderCount = orderCount;
             ViewBag.SearchTerm = searchTerm;
 
-            return View(orders);
+            return View(orders.ToList());
         }
     }
 }
