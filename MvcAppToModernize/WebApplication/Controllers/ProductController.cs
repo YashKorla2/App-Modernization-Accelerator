@@ -13,6 +13,8 @@ namespace WebApplication.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
+        // Ensure List<T> is recognized
+        private List<int> _dummy = new List<int>();
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
 
@@ -27,14 +29,14 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult<ProductViewModel> Index(string searchTerm)
         {
-            var products = string.IsNullOrEmpty(searchTerm)
+            IEnumerable<Product> productEnumerable = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
             var cartItems = _cartService.GetCarts();
 
             var viewModel = new ProductViewModel
             {
-                Products = products,
+                Products = productEnumerable.ToList(),
                 CartItemCount = cartItems.Count
             };
 
