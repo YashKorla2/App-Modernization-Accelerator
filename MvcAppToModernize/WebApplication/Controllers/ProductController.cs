@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
+
+[assembly: TypeForwardedTo(typeof(System.Int32))]
 
 namespace WebApplication.Controllers
 {
