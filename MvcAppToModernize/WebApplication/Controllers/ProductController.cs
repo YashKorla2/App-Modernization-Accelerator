@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 
 namespace WebApplication.Controllers
 {
@@ -83,7 +82,7 @@ namespace WebApplication.Controllers
             }
 
             _productService.UpdateProduct(product);
-            return StatusCode(StatusCodes.Status204NoContent);
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
