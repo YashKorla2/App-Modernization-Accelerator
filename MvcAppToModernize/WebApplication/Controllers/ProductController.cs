@@ -1,10 +1,10 @@
+using Services;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Services;
-using Models;
+using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -68,7 +68,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Edit(System.Int32 id, [FromBody] Product product)
+        public IActionResult Edit(int id, [FromBody] Product product)
         {
             var existingProduct = _productService.GetProductById(id);
             if (existingProduct == null)
