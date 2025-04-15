@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Services;
@@ -20,14 +19,16 @@ namespace WebApplication.Controllers
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
 
+        public ProductController() {}
+
         public ProductController(IProductService productService, ICartService cartService)
         {
-            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
-            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
+            _productService = productService;
+            _cartService = cartService;
         }
 
         [HttpGet]
-        public ActionResult<ProductViewModel> Index(string searchTerm)
+        public IActionResult Index(string searchTerm)
         {
             var products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
@@ -40,53 +41,46 @@ namespace WebApplication.Controllers
                 CartItemCount = cartItems.Count()
             };
 
-            return viewModel;
+            return Ok(viewModel);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Product> Details(int id)
+        public IActionResult Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
             {
                 return NotFound();
             }
-            return product;
+            return Ok(product);
         }
 
         [HttpPost]
-        public ActionResult<Product> Create([FromBody] Product product)
+        public IActionResult Create([FromBody] Product product)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                _productService.AddProduct(product);
+                return CreatedAtAction(nameof(Details), new { id = product }, product);
             }
-
-            _productService.AddProduct(product);
-            return CreatedAtAction(nameof(Details), new { id = product.Id }, product);
+            return BadRequest(ModelState);
         }
 
         [HttpPut("{id}")]
         public IActionResult Edit(int id, [FromBody] Product product)
         {
-            if (id != product.Id)
-            {
-                return BadRequest();
-            }
-
             var existingProduct = _productService.GetProductById(id);
             if (existingProduct == null)
             {
                 return NotFound();
             }
 
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                _productService.UpdateProduct(product);
+                return NoContent();
             }
-
-            _productService.UpdateProduct(product);
-            return NoContent();
+            return BadRequest(ModelState);
         }
 
         [HttpDelete("{id}")]
