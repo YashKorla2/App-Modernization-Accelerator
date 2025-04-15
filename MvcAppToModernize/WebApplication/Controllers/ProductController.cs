@@ -1,10 +1,10 @@
+using Services;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Services;
-using Models;
 
 namespace WebApplication.Controllers
 {
@@ -64,7 +64,7 @@ namespace WebApplication.Controllers
             }
 
             _productService.AddProduct(product);
-            return CreatedAtAction(nameof(Details), new { id = product.Id }, product);
+            return CreatedAtAction(nameof(Details), new { id = product }, product);
         }
 
         [HttpPut("{id}")]
