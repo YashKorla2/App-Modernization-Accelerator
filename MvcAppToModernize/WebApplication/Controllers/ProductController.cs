@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -27,7 +28,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
-        public ActionResult<ProductViewModel> Index(string searchTerm)
+        public ActionResult<ProductViewModel> Index(string? searchTerm)
         {
             var products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
@@ -51,7 +52,7 @@ namespace WebApplication.Controllers
             {
                 return NotFound();
             }
-            return product;
+            return Ok(product);
         }
 
         [HttpPost]
