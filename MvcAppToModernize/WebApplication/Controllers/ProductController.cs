@@ -6,6 +6,7 @@ using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Net;
 
 namespace WebApplication.Controllers
 {
@@ -48,7 +49,7 @@ namespace WebApplication.Controllers
             {
                 return NotFound();
             }
-            return View(product);
+            return Ok(product);
         }
 
         public ActionResult Create()
