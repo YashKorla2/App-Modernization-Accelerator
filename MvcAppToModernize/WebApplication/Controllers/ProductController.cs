@@ -10,7 +10,7 @@ namespace WebApplication.Controllers
 {
     public class ProductViewModel
     {
-        public List<Product> Products { get; set; }
+        public IList<Product> Products { get; set; } = new List<Product>();
         public int CartItemCount { get; set; }
     }
 
@@ -30,7 +30,7 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult<ProductViewModel> Index(string? searchTerm)
         {
-            var products = string.IsNullOrEmpty(searchTerm)
+            IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
             var cartItems = _cartService.GetCarts();
