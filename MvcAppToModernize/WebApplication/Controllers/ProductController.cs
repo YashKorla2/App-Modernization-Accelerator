@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication.Controllers
 {
-public class ProductViewModel
-{
-    public IEnumerable<Product> Products { get; set; }
-    public int CartItemCount { get; set; }
-}
+    public class ProductViewModel
+    {
+        public List<Product> Products { get; set; }
+        public int CartItemCount { get; set; }
+    }
 
     [ApiController]
     [Route("[controller]")]
@@ -35,11 +35,11 @@ public class ProductViewModel
                 : _productService.SearchProducts(searchTerm);
             var cartItems = _cartService.GetCarts();
 
-var viewModel = new ProductViewModel
-{
-    Products = products,
-    CartItemCount = cartItems.Count
-};
+            var viewModel = new ProductViewModel
+            {
+                Products = products.ToList(),
+                CartItemCount = cartItems.Count
+            };
 
             return Ok(viewModel);
         }
