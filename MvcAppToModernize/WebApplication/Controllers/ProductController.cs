@@ -8,7 +8,7 @@ namespace WebApplication.Controllers
 {
     public class ProductViewModel
     {
-        public IEnumerable<Product> Products { get; set; }
+        public List<Product> Products { get; set; }
         public int CartItemCount { get; set; }
     }
 
@@ -27,22 +27,22 @@ namespace WebApplication.Controllers
             _cartService = cartService;
         }
 
-    [HttpGet]
-    public IActionResult Index(string searchTerm)
-    {
-        var products = string.IsNullOrEmpty(searchTerm)
-            ? _productService.GetAllProducts()
-            : _productService.SearchProducts(searchTerm);
-        var cartItems = _cartService.GetCarts();
-
-        var viewModel = new ProductViewModel
+        [HttpGet]
+        public IActionResult Index(string searchTerm)
         {
-            Products = products,
-            CartItemCount = cartItems.Count
-        };
+            var products = string.IsNullOrEmpty(searchTerm)
+                ? _productService.GetAllProducts()
+                : _productService.SearchProducts(searchTerm);
+            var cartItems = _cartService.GetCarts();
 
-        return Ok(viewModel);
-    }
+            var viewModel = new ProductViewModel
+            {
+                Products = products.ToList(),
+                CartItemCount = cartItems.Count
+            };
+
+            return Ok(viewModel);
+        }
 
         [HttpGet("{id}")]
         public IActionResult Details(int id)
