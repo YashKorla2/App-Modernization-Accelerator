@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace WebApplication.Controllers
 {
@@ -67,23 +68,23 @@ namespace WebApplication.Controllers
             return CreatedAtAction(nameof(Details), new { id = product }, product);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Edit(int id, [FromBody] Product product)
+    [HttpPut("{id}")]
+    public IActionResult Edit(int id, [FromBody] Product product)
+    {
+        var existingProduct = _productService.GetProductById(id);
+        if (existingProduct == null)
         {
-            var existingProduct = _productService.GetProductById(id);
-            if (existingProduct == null)
-            {
-                return NotFound();
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _productService.UpdateProduct(product);
-            return NoContent();
+            return NotFound();
         }
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        _productService.UpdateProduct(product);
+        return NoContent();
+    }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
