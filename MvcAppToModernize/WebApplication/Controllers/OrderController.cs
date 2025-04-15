@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Services;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +21,7 @@ namespace WebApplication.Controllers
                 ? _cartService.GetOrders()
                 : _cartService.SearchOrders(searchTerm);
 
-            int orderCount = orders.Count();
+            var orderCount = orders.Count();
 
             ViewBag.OrderCount = orderCount;
             ViewBag.SearchTerm = searchTerm;
