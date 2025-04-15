@@ -1,10 +1,9 @@
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
+using System;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -96,12 +95,6 @@ namespace WebApplication.Controllers
 
             _productService.DeleteProduct(id);
             return NoContent();
-        }
-
-        // Helper method to ensure System.Object is used
-        private object GetObject()
-        {
-            return new object();
         }
 
         [HttpPost("AddToCart")]
