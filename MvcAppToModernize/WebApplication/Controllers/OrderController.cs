@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using YourNamespace.Models; // Add this line, replace YourNamespace.Models with the actual namespace of the Order class
 
 
 namespace WebApplication.Controllers
@@ -16,18 +15,18 @@ namespace WebApplication.Controllers
             _cartService = cartService;
         }
 
-    public ActionResult Index(string searchTerm)
-    {
-        IEnumerable<Order> orders = string.IsNullOrEmpty(searchTerm)
-            ? _cartService.GetOrders()
-            : _cartService.SearchOrders(searchTerm);
+        public ActionResult Index(string searchTerm)
+        {
+            IEnumerable<object> orders = string.IsNullOrEmpty(searchTerm)
+                ? _cartService.GetOrders()
+                : _cartService.SearchOrders(searchTerm);
 
-        var orderCount = orders.Count();
+            var orderCount = orders.Count();
 
-        ViewBag.OrderCount = orderCount;
-        ViewBag.SearchTerm = searchTerm;
+            ViewBag.OrderCount = orderCount;
+            ViewBag.SearchTerm = searchTerm;
 
-        return View(orders);
-    }
+            return View(orders);
+        }
     }
 }
