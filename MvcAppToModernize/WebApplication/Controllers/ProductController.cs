@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Services;
@@ -9,7 +8,7 @@ namespace WebApplication.Controllers
 {
     public class ProductViewModel
     {
-        public List<Product> Products { get; set; } = new List<Product>();
+        public List<Product> Products { get; set; }
         public int CartItemCount { get; set; }
     }
 
@@ -20,10 +19,12 @@ namespace WebApplication.Controllers
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
 
+        public ProductController() {}
+
         public ProductController(IProductService productService, ICartService cartService)
         {
-            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
-            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
+            _productService = productService;
+            _cartService = cartService;
         }
 
         [HttpGet]
@@ -55,12 +56,12 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Product> Create([FromBody] Product product)
+        public IActionResult Create([FromBody] Product product)
         {
             if (ModelState.IsValid)
             {
                 _productService.AddProduct(product);
-                return CreatedAtAction(nameof(Details), new { id = product.Id }, product);
+                return CreatedAtAction(nameof(Details), new { id = product }, product);
             }
             return BadRequest(ModelState);
         }
