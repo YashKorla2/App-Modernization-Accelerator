@@ -1,8 +1,8 @@
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
+using System;
 using System.Linq;
 
 namespace WebApplication.Controllers
@@ -25,9 +25,6 @@ namespace WebApplication.Controllers
             _productService = productService ?? throw new ArgumentNullException(nameof(productService));
             _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
         }
-
-        // Ensure that int is recognized
-        private static int TestMethod() => 0;
 
         [HttpGet]
         public ActionResult<ProductViewModel> Index(string? searchTerm)
