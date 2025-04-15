@@ -12,7 +12,7 @@ namespace WebApplication.Controllers
 {
     public class ProductViewModel
     {
-        public System.Collections.Generic.List<Product> Products { get; set; }
+        public List<Product> Products { get; set; }
         public int CartItemCount { get; set; }
     }
 
@@ -41,7 +41,7 @@ namespace WebApplication.Controllers
 
             var viewModel = new ProductViewModel
             {
-                Products = products.ToList<Product>(),
+                Products = products.ToList(),
                 CartItemCount = cartItems.Count
             };
 
