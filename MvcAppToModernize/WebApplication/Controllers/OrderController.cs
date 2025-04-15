@@ -15,18 +15,18 @@ namespace WebApplication.Controllers
             _cartService = cartService;
         }
 
-    public ActionResult Index(string searchTerm)
-    {
-        var orders = string.IsNullOrEmpty(searchTerm)
-            ? _cartService.GetOrders()
-            : _cartService.SearchOrders(searchTerm);
+        public ActionResult Index(string searchTerm)
+        {
+            IEnumerable<object> orders = string.IsNullOrEmpty(searchTerm)
+                ? _cartService.GetOrders()
+                : _cartService.SearchOrders(searchTerm);
 
-        var orderCount = orders.Count();
+            var orderCount = orders.Count();
 
-        ViewBag.OrderCount = orderCount;
-        ViewBag.SearchTerm = searchTerm;
+            ViewBag.OrderCount = orderCount;
+            ViewBag.SearchTerm = searchTerm;
 
-        return View(orders);
-    }
+            return View(orders);
+        }
     }
 }
