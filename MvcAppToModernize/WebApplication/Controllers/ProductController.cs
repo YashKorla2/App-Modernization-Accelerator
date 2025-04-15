@@ -1,15 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 using Services;
 using Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace WebApplication.Controllers
 {
     public class ProductViewModel
     {
-        public List<Product> Products { get; set; } = new List<Product>();
+        public List<Product> Products { get; set; }
         public int CartItemCount { get; set; }
     }
 
@@ -22,8 +22,8 @@ namespace WebApplication.Controllers
 
         public ProductController(IProductService productService, ICartService cartService)
         {
-            _productService = productService ?? throw new System.ArgumentNullException(nameof(productService));
-            _cartService = cartService ?? throw new System.ArgumentNullException(nameof(cartService));
+            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
         }
 
         [HttpGet]
