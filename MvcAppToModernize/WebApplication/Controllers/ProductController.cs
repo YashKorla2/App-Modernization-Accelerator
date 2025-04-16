@@ -1,9 +1,7 @@
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace WebApplication.Controllers
 {
@@ -55,7 +53,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost("Create")]
-        public IActionResult Create([FromBody] Product product)
+        public IActionResult Create(Product product)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +75,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost("Edit")]
-        public IActionResult Edit([FromBody] Product product)
+        public IActionResult Edit(Product product)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +104,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost("AddToCart")]
-        public IActionResult AddToCart([FromBody] int productId, int quantity = 1)
+        public IActionResult AddToCart(int productId, int quantity = 1)
         {
             var product = _productService.GetProductById(productId);
             if (product != null)
