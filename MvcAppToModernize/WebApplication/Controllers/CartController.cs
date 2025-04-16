@@ -1,6 +1,7 @@
+using System;
+using System.Linq;
 using Services;
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace WebApplication.Controllers
 {
@@ -39,7 +40,7 @@ namespace WebApplication.Controllers
                 return RedirectToAction("Index");
 
             _cartService.Checkout(selectedItems);
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
     }
 }
