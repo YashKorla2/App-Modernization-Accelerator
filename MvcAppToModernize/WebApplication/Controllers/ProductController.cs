@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
-    [ApiController]
     [Route("[controller]")]
-    public class ProductController : ControllerBase
+    public class ProductController : Controller
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
+
+        public ProductController() {}
 
         public ProductController(IProductService productService, ICartService cartService)
         {
@@ -50,57 +51,70 @@ namespace WebApplication.Controllers
             return Ok(product);
         }
 
+        public ActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public ActionResult<Product> Create(Product product)
+        public ActionResult Create(Product product)
         {
             if (ModelState.IsValid)
             {
                 _productService.AddProduct(product);
-                return CreatedAtAction(nameof(Details), new { id = product.Id }, product);
+                return RedirectToAction("Index");
             }
-            return BadRequest(ModelState);
+            return View(product);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Edit(int id, Product product)
-        {
-            if (id != product.Id)
-            {
-                return BadRequest();
-            }
-
-            if (ModelState.IsValid)
-            {
-                _productService.UpdateProduct(product);
-                return NoContent();
-            }
-            return BadRequest(ModelState);
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public ActionResult Edit(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
             {
                 return NotFound();
             }
-
-            _productService.DeleteProduct(id);
-            return NoContent();
+            return View(product);
         }
 
-        [HttpPost("addtocart")]
-        public IActionResult AddToCart(int productId, int quantity = 1)
+        [HttpPost]
+        public ActionResult Edit(Product product)
         {
-            var product = _productService.GetProductById(productId);
+            if (ModelState.IsValid)
+            {
+                _productService.UpdateProduct(product);
+                return RedirectToAction("Index");
+            }
+            return View(product);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var product = _productService.GetProductById(id);
             if (product == null)
             {
                 return NotFound();
             }
+            return View(product);
+        }
 
-            _cartService.AddProductToCart(product, quantity);
-            return Ok();
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            _productService.DeleteProduct(id);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult AddToCart(int productId, int quantity = 1)
+        {
+            var product = _productService.GetProductById(productId);
+            if (product != null)
+            {
+                _cartService.AddProductToCart(product, quantity);
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
