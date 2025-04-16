@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Collections.Generic;
 
 namespace WebApplication.Controllers
 {
@@ -24,9 +22,9 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult<object> Index(string searchTerm)
         {
-            List<Product> products = (string.IsNullOrEmpty(searchTerm)
+            IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
-                : _productService.SearchProducts(searchTerm)).ToList();
+                : _productService.SearchProducts(searchTerm);
             var cartItems = _cartService.GetCarts();
 
             var viewModel = new
