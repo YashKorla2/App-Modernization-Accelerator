@@ -51,13 +51,13 @@ namespace WebApplication.Controllers
             return Ok(product);
         }
 
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(Product product)
+        public IActionResult Create(Product product)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +67,7 @@ namespace WebApplication.Controllers
             return View(product);
         }
 
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -78,7 +78,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Product product)
+        public IActionResult Edit(Product product)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace WebApplication.Controllers
             return View(product);
         }
 
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -99,14 +99,14 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             _productService.DeleteProduct(id);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult AddToCart(int productId, int quantity = 1)
+        public IActionResult AddToCart(int productId, int quantity = 1)
         {
             var product = _productService.GetProductById(productId);
             if (product != null)
