@@ -1,7 +1,9 @@
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WebApplication.Controllers
 {
@@ -14,8 +16,8 @@ namespace WebApplication.Controllers
 
         public ProductController(IProductService productService, ICartService cartService)
         {
-            _productService = productService;
-            _cartService = cartService;
+            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
         }
 
         [HttpGet]
