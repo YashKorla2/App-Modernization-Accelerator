@@ -1,3 +1,4 @@
+using System;
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
@@ -19,21 +20,21 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
-        public ActionResult<object> Index(string searchTerm)
+    public ActionResult<Object> Index(string searchTerm)
+    {
+        IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
+            ? _productService.GetAllProducts()
+            : _productService.SearchProducts(searchTerm);
+        var cartItems = _cartService.GetCarts();
+
+        var viewModel = new
         {
-            IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
-                ? _productService.GetAllProducts()
-                : _productService.SearchProducts(searchTerm);
-            var cartItems = _cartService.GetCarts();
+            Products = products,
+            CartItemCount = cartItems.Count()
+        };
 
-            var viewModel = new
-            {
-                Products = products,
-                CartItemCount = cartItems.Count()
-            };
-
-            return Ok(viewModel);
-        }
+        return Ok(viewModel);
+    }
 
         [HttpGet("{id}")]
         public ActionResult<Product> Details(int id)
