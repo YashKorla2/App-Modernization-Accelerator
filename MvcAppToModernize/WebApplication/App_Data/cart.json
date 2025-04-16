@@ -1,0 +1,37 @@
+[
+  {
+    "ProductId": 5,
+    "ProductName": "Gaming Console",
+    "Quantity": 1,
+    "ProductPrice": 499.99,
+    "TotalPrice": 499.99
+  },
+  {
+    "ProductId": 1,
+    "ProductName": "Smartphone",
+    "Quantity": 1,
+    "ProductPrice": 699.99,
+    "TotalPrice": 699.99
+  },
+  {
+    "ProductId": 2,
+    "ProductName": "Laptop",
+    "Quantity": 1,
+    "ProductPrice": 999.99,
+    "TotalPrice": 999.99
+  },
+  {
+    "ProductId": 3,
+    "ProductName": "Wireless Earbuds",
+    "Quantity": 1,
+    "ProductPrice": 129.99,
+    "TotalPrice": 129.99
+  },
+  {
+    "ProductId": 4,
+    "ProductName": "Smart TV",
+    "Quantity": 1,
+    "ProductPrice": 599.99,
+    "TotalPrice": 599.99
+  }
+]
