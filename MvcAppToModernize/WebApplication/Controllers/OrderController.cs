@@ -3,6 +3,7 @@ using System.Linq;
 using Services;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace WebApplication.Controllers
 {
     public class OrderController : Controller
@@ -20,7 +21,7 @@ namespace WebApplication.Controllers
                 ? _cartService.GetOrders()
                 : _cartService.SearchOrders(searchTerm);
 
-            int orderCount = orders.Count();
+            var orderCount = orders.Count();
 
             ViewBag.OrderCount = orderCount;
             ViewBag.SearchTerm = searchTerm;
