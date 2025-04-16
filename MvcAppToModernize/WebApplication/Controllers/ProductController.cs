@@ -5,6 +5,7 @@ using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -40,14 +41,15 @@ namespace WebApplication.Controllers
             return Ok(viewModel);
         }
 
-        public ActionResult Details(int id)
+        [HttpGet("{id}")]
+        public ActionResult<Product> Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
             {
                 return NotFound();
             }
-            return View(product);
+            return Ok(product);
         }
 
         public ActionResult Create()
