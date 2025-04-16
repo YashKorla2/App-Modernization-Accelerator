@@ -5,7 +5,6 @@ using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -35,7 +34,7 @@ namespace WebApplication.Controllers
             var viewModel = new ProductViewModel
             {
                 Products = products,
-                CartItemCount = Convert.ToInt32(cartItems.Count)
+                CartItemCount = cartItems.Count
             };
 
             return viewModel;
