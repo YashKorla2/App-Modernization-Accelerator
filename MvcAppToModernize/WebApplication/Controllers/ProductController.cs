@@ -23,22 +23,22 @@ namespace WebApplication.Controllers
             _cartService = cartService;
         }
 
-        [HttpGet]
-        public ActionResult<ProductViewModel> Index(string searchTerm)
+    [HttpGet]
+    public ActionResult<ProductViewModel> Index(string searchTerm)
+    {
+        IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
+            ? _productService.GetAllProducts()
+            : _productService.SearchProducts(searchTerm);
+        IEnumerable<Cart> cartItems = _cartService.GetCarts();
+
+        var viewModel = new ProductViewModel
         {
-            var products = string.IsNullOrEmpty(searchTerm)
-                ? _productService.GetAllProducts()
-                : _productService.SearchProducts(searchTerm);
-            var cartItems = _cartService.GetCarts();
+            Products = products.ToList(),
+            CartItemCount = cartItems.Count()
+        };
 
-            var viewModel = new ProductViewModel
-            {
-                Products = products,
-                CartItemCount = cartItems.Count
-            };
-
-            return viewModel;
-        }
+        return viewModel;
+    }
 
         public ActionResult Details(int id)
         {
