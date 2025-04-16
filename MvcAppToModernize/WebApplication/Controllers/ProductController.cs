@@ -27,15 +27,15 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult<ProductViewModel> Index(string searchTerm)
         {
-            IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
+            var products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
             var cartItems = _cartService.GetCarts();
 
             var viewModel = new ProductViewModel
             {
-                Products = products.ToList(),
-                CartItemCount = cartItems.Count()
+                Products = products,
+                CartItemCount = cartItems.Count
             };
 
             return Ok(viewModel);
