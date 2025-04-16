@@ -1,5 +1,7 @@
 using Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using Models;  // Assuming Cart is defined in the Models namespace
 
 
 namespace WebApplication.Controllers
@@ -15,7 +17,7 @@ namespace WebApplication.Controllers
         
         public ActionResult Index(string searchTerm)
         {
-            var Carts = string.IsNullOrEmpty(searchTerm)
+            IEnumerable<Cart> Carts = string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetCarts()
                 : _cartService.SearchCart(searchTerm);
 
