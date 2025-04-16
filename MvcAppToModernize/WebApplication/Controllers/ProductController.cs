@@ -5,6 +5,7 @@ using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -24,17 +25,17 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
-        public ActionResult<ProductViewModel> Index(string searchTerm)
+        public async Task<ActionResult<ProductViewModel>> Index(string searchTerm)
         {
             var products = string.IsNullOrEmpty(searchTerm)
-                ? _productService.GetAllProducts()
-                : _productService.SearchProducts(searchTerm);
-            var cartItems = _cartService.GetCarts();
+                ? await _productService.GetAllProductsAsync()
+                : await _productService.SearchProductsAsync(searchTerm);
+            var cartItems = await _cartService.GetCartsAsync();
 
             var viewModel = new ProductViewModel
             {
                 Products = products,
-                CartItemCount = cartItems.Count
+                CartItemCount = cartItems.Count()
             };
 
             return viewModel;
