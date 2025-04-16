@@ -6,7 +6,6 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Threading.Tasks;
-using System.Net;
 
 namespace WebApplication.Controllers
 {
@@ -42,7 +41,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Product> Details(System.Int32 id)
+        public ActionResult<Product> Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
