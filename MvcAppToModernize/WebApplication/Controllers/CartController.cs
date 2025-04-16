@@ -1,8 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Services;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace WebApplication.Controllers
 {
@@ -35,13 +33,13 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult Checkout(int[] selectedItems)
+        public ActionResult Checkout(int[] selectedItems)
         {
             if (selectedItems == null || selectedItems.Length == 0)
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
 
             _cartService.Checkout(selectedItems);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
     }
 }
