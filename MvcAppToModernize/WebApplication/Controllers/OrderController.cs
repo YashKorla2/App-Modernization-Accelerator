@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Services;
@@ -19,8 +18,8 @@ namespace WebApplication.Controllers
         public ActionResult Index(string searchTerm)
         {
             IEnumerable<object> orders = string.IsNullOrEmpty(searchTerm)
-                ? _cartService.GetOrders().ToList()
-                : _cartService.SearchOrders(searchTerm).ToList();
+                ? _cartService.GetOrders()
+                : _cartService.SearchOrders(searchTerm);
 
             var orderCount = orders.Count();
 
