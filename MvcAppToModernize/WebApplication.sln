@@ -2,20 +2,63 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+
+Project("{66A26720-8FB5-11D2-AA7E-00C04F688DDE}") = "Models", "Models", "{AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA}"
+EndProject
+Project("{66A26720-8FB5-11D2-AA7E-00C04F688DDE}") = "Repositories", "Repositories", "{BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB}"
+EndProject
+Project("{66A26720-8FB5-11D2-AA7E-00C04F688DDE}") = "Services", "Services", "{CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC}"
+EndProject
+Project("{66A26720-8FB5-11D2-AA7E-00C04F688DDE}") = "WebApplication", "WebApplication", "{DDDDDDDD-DDDD-DDDD-DDDD-DDDDDDDDDDDD}"
+EndProject
+
+
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBA}") = "Models", "Models\Models.csproj", "{12345678-1234-1234-1234-123456789010}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBB}") = "Services", "Services\Services.csproj", "{12345678-1234-1234-1234-123456789011}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "WebApplication\WebApplication.csproj", "{12345678-1234-1234-1234-123456789012}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBD}") = "Repositories", "Repositories\Repositories.csproj", "{12345678-1234-1234-1234-123456789013}"
 EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
+
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12345678-1234-1234-1234-123456789010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12345678-1234-1234-1234-123456789010}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12345678-1234-1234-1234-123456789010}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12345678-1234-1234-1234-123456789010}.Release|Any CPU.Build.0 = Release|Any CPU
+
+		{12345678-1234-1234-1234-123456789011}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12345678-1234-1234-1234-123456789011}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12345678-1234-1234-1234-123456789011}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12345678-1234-1234-1234-123456789011}.Release|Any CPU.Build.0 = Release|Any CPU
+
 		{12345678-1234-1234-1234-123456789012}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{12345678-1234-1234-1234-123456789012}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12345678-1234-1234-1234-123456789012}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12345678-1234-1234-1234-123456789012}.Release|Any CPU.Build.0 = Release|Any CPU
+
+		{12345678-1234-1234-1234-123456789013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12345678-1234-1234-1234-123456789013}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12345678-1234-1234-1234-123456789013}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12345678-1234-1234-1234-123456789013}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+
+	GlobalSection(NestedProjects) = preSolution
+		{12345678-1234-1234-1234-123456789010} = {AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA}
+		{12345678-1234-1234-1234-123456789011} = {CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC}
+		{12345678-1234-1234-1234-123456789012} = {DDDDDDDD-DDDD-DDDD-DDDD-DDDDDDDDDDDD}
+		{12345678-1234-1234-1234-123456789013} = {BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB}
+	EndGlobalSection
+
 EndGlobal
