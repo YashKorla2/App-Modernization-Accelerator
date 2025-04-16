@@ -27,8 +27,8 @@ namespace WebApplication.Controllers
         public ActionResult<ProductViewModel> Index(string searchTerm)
         {
             var products = string.IsNullOrEmpty(searchTerm)
-                ? _productService.GetAllProducts().ToList()
-                : _productService.SearchProducts(searchTerm).ToList();
+                ? _productService.GetAllProducts()
+                : _productService.SearchProducts(searchTerm);
             var cartItems = _cartService.GetCarts();
 
             var viewModel = new ProductViewModel
