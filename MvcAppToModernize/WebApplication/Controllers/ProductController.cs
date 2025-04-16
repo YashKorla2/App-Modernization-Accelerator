@@ -37,7 +37,7 @@ namespace WebApplication.Controllers
                 CartItemCount = cartItems.Count
             };
 
-            return viewModel;
+            return Ok(viewModel);
         }
 
         public ActionResult Details(int id)
