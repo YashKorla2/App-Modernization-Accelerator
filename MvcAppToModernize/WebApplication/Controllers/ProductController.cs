@@ -3,7 +3,6 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace WebApplication.Controllers
 {
@@ -30,7 +29,7 @@ namespace WebApplication.Controllers
 
             var viewModel = new
             {
-                Products = products.ToList(),
+                Products = products,
                 CartItemCount = cartItems.Count()
             };
 
