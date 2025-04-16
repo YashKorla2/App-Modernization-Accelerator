@@ -2,6 +2,8 @@ using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace WebApplication.Controllers
 {
@@ -21,7 +23,7 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult<object> Index(string searchTerm)
         {
-            IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
+            System.Collections.Generic.IEnumerable<Models.Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
             var cartItems = _cartService.GetCarts();
