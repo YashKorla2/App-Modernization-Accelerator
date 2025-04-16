@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
-    [ApiController]
     [Route("[controller]")]
-    public class ProductController : ControllerBase
+    public class ProductController : Controller
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
