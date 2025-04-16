@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
@@ -86,16 +88,16 @@ namespace WebApplication.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpGet("Delete/{id}")]
-        public IActionResult Delete(int id)
+    [HttpGet("Delete/{id}")]
+    public IActionResult Delete(int id)
+    {
+        var product = _productService.GetProductById(id);
+        if (product == null)
         {
-            var product = _productService.GetProductById(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return Ok(product);
+            return NotFound();
         }
+        return Ok(product);
+    }
 
         [HttpPost("Delete/{id}")]
         public IActionResult DeleteConfirmed(int id)
