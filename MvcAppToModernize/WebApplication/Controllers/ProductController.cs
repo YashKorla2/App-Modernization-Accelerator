@@ -2,6 +2,8 @@ using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace WebApplication.Controllers
 {
@@ -53,7 +55,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost("Create")]
-        public IActionResult Create(Product product)
+        public ActionResult Create(Product product)
         {
             if (ModelState.IsValid)
             {
