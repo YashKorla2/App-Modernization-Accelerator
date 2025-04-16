@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Services;
 using Microsoft.AspNetCore.Mvc;
-
+using Models; // Assuming Order is in the Models namespace
 
 namespace WebApplication.Controllers
 {
@@ -17,9 +17,9 @@ namespace WebApplication.Controllers
 
         public ActionResult Index(string searchTerm)
         {
-            IEnumerable<object> orders = string.IsNullOrEmpty(searchTerm)
-                ? _cartService.GetOrders()
-                : _cartService.SearchOrders(searchTerm);
+            IEnumerable<Order> orders = string.IsNullOrEmpty(searchTerm)
+                ? _cartService.GetOrders().Cast<Order>()
+                : _cartService.SearchOrders(searchTerm).Cast<Order>();
 
             var orderCount = orders.Count();
 
