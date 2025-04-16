@@ -18,8 +18,8 @@ namespace WebApplication.Controllers
         public ActionResult Index(string searchTerm)
         {
             IEnumerable<object> orders = string.IsNullOrEmpty(searchTerm)
-                ? _cartService.GetOrders().Cast<object>()
-                : _cartService.SearchOrders(searchTerm).Cast<object>();
+                ? _cartService.GetOrders()
+                : _cartService.SearchOrders(searchTerm);
 
             var orderCount = orders.Count();
 
