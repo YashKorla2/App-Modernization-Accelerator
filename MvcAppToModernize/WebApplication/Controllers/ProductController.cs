@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Models;
 using Services;
+using Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace WebApplication.Controllers
 {
@@ -26,7 +24,7 @@ namespace WebApplication.Controllers
             IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
-            IEnumerable<object> cartItems = _cartService.GetCarts();
+            var cartItems = _cartService.GetCarts();
 
             var viewModel = new
             {
