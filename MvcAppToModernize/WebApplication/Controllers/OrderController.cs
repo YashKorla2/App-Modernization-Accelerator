@@ -17,11 +17,11 @@ namespace WebApplication.Controllers
 
         public ActionResult Index(string searchTerm)
         {
-            List<object> orders = string.IsNullOrEmpty(searchTerm)
-                ? _cartService.GetOrders().ToList()
-                : _cartService.SearchOrders(searchTerm).ToList();
+            IEnumerable<object> orders = string.IsNullOrEmpty(searchTerm)
+                ? _cartService.GetOrders()
+                : _cartService.SearchOrders(searchTerm);
 
-            var orderCount = orders.Count;
+            var orderCount = orders.Count();
 
             ViewBag.OrderCount = orderCount;
             ViewBag.SearchTerm = searchTerm;
