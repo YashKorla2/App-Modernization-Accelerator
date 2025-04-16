@@ -1,7 +1,6 @@
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 
 namespace WebApplication.Controllers
@@ -67,7 +66,7 @@ namespace WebApplication.Controllers
         [HttpGet("Edit/{id}")]
         public IActionResult Edit(int id)
         {
-            Product product = _productService.GetProductById(id);
+            var product = _productService.GetProductById(id);
             if (product == null)
             {
                 return NotFound();
