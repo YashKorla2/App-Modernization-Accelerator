@@ -1,9 +1,7 @@
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace WebApplication.Controllers
 {
@@ -106,7 +104,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost("AddToCart")]
-        public ActionResult<int> AddToCart(int productId, int quantity = 1)
+        public IActionResult AddToCart(int productId, int quantity = 1)
         {
             var product = _productService.GetProductById(productId);
             if (product != null)
