@@ -1,4 +1,3 @@
-global using System;
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
