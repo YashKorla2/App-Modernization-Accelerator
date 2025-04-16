@@ -6,6 +6,7 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace WebApplication.Controllers
 {
@@ -35,7 +36,7 @@ namespace WebApplication.Controllers
             var viewModel = new ProductViewModel
             {
                 Products = products,
-                CartItemCount = cartItems.Count
+                CartItemCount = cartItems.Count()
             };
 
             return Ok(viewModel);
