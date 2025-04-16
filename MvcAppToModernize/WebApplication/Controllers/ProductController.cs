@@ -29,7 +29,7 @@ namespace WebApplication.Controllers
             var viewModel = new
             {
                 Products = products,
-                CartItemCount = cartItems.Count() // Ensure Count() is called as a method
+                CartItemCount = cartItems.Count()
             };
 
             return Ok(viewModel);
