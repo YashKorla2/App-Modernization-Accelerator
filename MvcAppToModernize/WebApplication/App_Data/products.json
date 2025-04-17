@@ -5,9 +5,9 @@
     "ProductDescription": "Latest model with high-end features.",
     "ProductCategory": "tech",
     "ProductRating": 4.5,
-    "ProductPrice": 699.99,
+    "ProductPrice": 700.00,
     "ProductAvailableQuantity": 50,
-    "ProductDiscount": 10.0
+    "ProductDiscount": 10.00
   },
   {
     "ProductId": 2,
@@ -192,11 +192,11 @@
   {
     "ProductId": 20,
     "ProductName": "Olive Oil",
-    "ProductDescription": "Cold-pressed extra virgin olive oil.",
-    "ProductCategory": "food",
-    "ProductRating": 4.8,
-    "ProductPrice": 24.99,
-    "ProductAvailableQuantity": 80,
-    "ProductDiscount": 5.0
+    "ProductDescription": "Olive oil",
+    "ProductCategory": "Household",
+    "ProductRating": 4.0,
+    "ProductPrice": 299.99,
+    "ProductAvailableQuantity": 100,
+    "ProductDiscount": 0.0
   }
 ]

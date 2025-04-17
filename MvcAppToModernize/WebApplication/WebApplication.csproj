@@ -88,16 +88,12 @@
     <Compile Include="Controllers\**\*.cs" />
     <Compile Include="Services\**\*.cs" />
     <Compile Include="Models\**\*.cs" />
+    <Compile Include="Repositories\**\*.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <None Include="obj\**\*.*" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Models\Models.csproj" />
-    <ProjectReference Include="..\Repositories\Repositories.csproj" />
-    <ProjectReference Include="..\Services\Services.csproj" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
