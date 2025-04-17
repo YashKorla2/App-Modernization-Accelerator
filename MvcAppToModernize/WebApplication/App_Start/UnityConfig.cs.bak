@@ -1,0 +1,38 @@
+using System;
+using Microsoft.Practices.Unity.Mvc; 
+using Services;
+using Repositories;
+using Microsoft.AspNetCore.Mvc;
+
+using Unity;
+
+
+namespace WebApplication
+{
+    public static class UnityConfig
+    {
+        private static Lazy<IUnityContainer> container = new Lazy<IUnityContainer>(() =>
+        {
+            var unityContainer = new UnityContainer();
+            RegisterDependencies(unityContainer);
+            return unityContainer;
+        });
+        public static IUnityContainer Container => container.Value;
+
+        private static void RegisterDependencies(IUnityContainer unityContainer)
+        {
+            // Register your services and repositories here
+            unityContainer.RegisterType<IProductRepository, ProductRepository>();
+            unityContainer.RegisterType<IProductService, ProductService>();
+            
+            unityContainer.RegisterType<ICartRepository, CartRepository>();
+            unityContainer.RegisterType<ICartService, CartService>();
+        }
+
+        public static void RegisterUnity()
+        {
+            /* Added by CTA: This method is not supported. Use the startup class to register dependency containers */
+DependencyResolver.SetResolver(new UnityDependencyResolver(Container));
+        }
+    }
+}

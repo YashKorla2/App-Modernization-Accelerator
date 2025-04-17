@@ -1,0 +1,202 @@
+[
+  {
+    "ProductId": 1,
+    "ProductName": "Smartphone",
+    "ProductDescription": "Latest model with high-end features.",
+    "ProductCategory": "tech",
+    "ProductRating": 4.5,
+    "ProductPrice": 700.00,
+    "ProductAvailableQuantity": 50,
+    "ProductDiscount": 10.00
+  },
+  {
+    "ProductId": 2,
+    "ProductName": "Laptop",
+    "ProductDescription": "Powerful laptop with an Intel i7 processor.",
+    "ProductCategory": "tech",
+    "ProductRating": 4.7,
+    "ProductPrice": 999.99,
+    "ProductAvailableQuantity": 30,
+    "ProductDiscount": 15.0
+  },
+  {
+    "ProductId": 3,
+    "ProductName": "Wireless Earbuds",
+    "ProductDescription": "Noise-canceling wireless earbuds with long battery life.",
+    "ProductCategory": "tech",
+    "ProductRating": 4.3,
+    "ProductPrice": 129.99,
+    "ProductAvailableQuantity": 100,
+    "ProductDiscount": 5.0
+  },
+  {
+    "ProductId": 4,
+    "ProductName": "Smart TV",
+    "ProductDescription": "4K Ultra HD Smart TV with streaming apps.",
+    "ProductCategory": "tech",
+    "ProductRating": 4.6,
+    "ProductPrice": 599.99,
+    "ProductAvailableQuantity": 20,
+    "ProductDiscount": 12.0
+  },
+  {
+    "ProductId": 5,
+    "ProductName": "Gaming Console",
+    "ProductDescription": "Next-gen gaming console with immersive graphics.",
+    "ProductCategory": "tech",
+    "ProductRating": 4.8,
+    "ProductPrice": 499.99,
+    "ProductAvailableQuantity": 15,
+    "ProductDiscount": 8.0
+  },
+  {
+    "ProductId": 6,
+    "ProductName": "Blender",
+    "ProductDescription": "Multi-speed blender for smoothies and juices.",
+    "ProductCategory": "household",
+    "ProductRating": 4.2,
+    "ProductPrice": 79.99,
+    "ProductAvailableQuantity": 60,
+    "ProductDiscount": 10.0
+  },
+  {
+    "ProductId": 7,
+    "ProductName": "Microwave Oven",
+    "ProductDescription": "High-power microwave oven with multiple modes.",
+    "ProductCategory": "household",
+    "ProductRating": 4.5,
+    "ProductPrice": 199.99,
+    "ProductAvailableQuantity": 25,
+    "ProductDiscount": 7.0
+  },
+  {
+    "ProductId": 8,
+    "ProductName": "Vacuum Cleaner",
+    "ProductDescription": "Lightweight vacuum cleaner with strong suction.",
+    "ProductCategory": "household",
+    "ProductRating": 4.4,
+    "ProductPrice": 149.99,
+    "ProductAvailableQuantity": 40,
+    "ProductDiscount": 9.0
+  },
+  {
+    "ProductId": 9,
+    "ProductName": "Office Chair",
+    "ProductDescription": "Ergonomic office chair with lumbar support.",
+    "ProductCategory": "household",
+    "ProductRating": 4.6,
+    "ProductPrice": 249.99,
+    "ProductAvailableQuantity": 35,
+    "ProductDiscount": 5.0
+  },
+  {
+    "ProductId": 10,
+    "ProductName": "LED Desk Lamp",
+    "ProductDescription": "Dimmable LED desk lamp with adjustable angles.",
+    "ProductCategory": "household",
+    "ProductRating": 4.3,
+    "ProductPrice": 39.99,
+    "ProductAvailableQuantity": 80,
+    "ProductDiscount": 3.0
+  },
+  {
+    "ProductId": 11,
+    "ProductName": "Running Shoes",
+    "ProductDescription": "Breathable and lightweight running shoes.",
+    "ProductCategory": "fashion",
+    "ProductRating": 4.5,
+    "ProductPrice": 89.99,
+    "ProductAvailableQuantity": 100,
+    "ProductDiscount": 12.0
+  },
+  {
+    "ProductId": 12,
+    "ProductName": "Leather Jacket",
+    "ProductDescription": "Stylish leather jacket for all seasons.",
+    "ProductCategory": "fashion",
+    "ProductRating": 4.7,
+    "ProductPrice": 199.99,
+    "ProductAvailableQuantity": 20,
+    "ProductDiscount": 15.0
+  },
+  {
+    "ProductId": 13,
+    "ProductName": "Wristwatch",
+    "ProductDescription": "Luxury wristwatch with water resistance.",
+    "ProductCategory": "fashion",
+    "ProductRating": 4.6,
+    "ProductPrice": 249.99,
+    "ProductAvailableQuantity": 25,
+    "ProductDiscount": 10.0
+  },
+  {
+    "ProductId": 14,
+    "ProductName": "Backpack",
+    "ProductDescription": "Spacious and durable travel backpack.",
+    "ProductCategory": "fashion",
+    "ProductRating": 4.4,
+    "ProductPrice": 69.99,
+    "ProductAvailableQuantity": 60,
+    "ProductDiscount": 8.0
+  },
+  {
+    "ProductId": 15,
+    "ProductName": "Sunglasses",
+    "ProductDescription": "Polarized sunglasses with UV protection.",
+    "ProductCategory": "fashion",
+    "ProductRating": 4.3,
+    "ProductPrice": 49.99,
+    "ProductAvailableQuantity": 75,
+    "ProductDiscount": 5.0
+  },
+  {
+    "ProductId": 16,
+    "ProductName": "Organic Coffee Beans",
+    "ProductDescription": "Freshly roasted organic coffee beans.",
+    "ProductCategory": "food",
+    "ProductRating": 4.8,
+    "ProductPrice": 19.99,
+    "ProductAvailableQuantity": 100,
+    "ProductDiscount": 2.0
+  },
+  {
+    "ProductId": 17,
+    "ProductName": "Dark Chocolate",
+    "ProductDescription": "Premium dark chocolate with 85% cocoa.",
+    "ProductCategory": "food",
+    "ProductRating": 4.7,
+    "ProductPrice": 9.99,
+    "ProductAvailableQuantity": 200,
+    "ProductDiscount": 4.0
+  },
+  {
+    "ProductId": 18,
+    "ProductName": "Protein Powder",
+    "ProductDescription": "High-quality whey protein for fitness enthusiasts.",
+    "ProductCategory": "food",
+    "ProductRating": 4.6,
+    "ProductPrice": 39.99,
+    "ProductAvailableQuantity": 50,
+    "ProductDiscount": 6.0
+  },
+  {
+    "ProductId": 19,
+    "ProductName": "Green Tea",
+    "ProductDescription": "Organic green tea leaves for a healthy lifestyle.",
+    "ProductCategory": "food",
+    "ProductRating": 4.5,
+    "ProductPrice": 14.99,
+    "ProductAvailableQuantity": 150,
+    "ProductDiscount": 3.0
+  },
+  {
+    "ProductId": 20,
+    "ProductName": "Olive Oil",
+    "ProductDescription": "Olive oil",
+    "ProductCategory": "Household",
+    "ProductRating": 4.0,
+    "ProductPrice": 299.99,
+    "ProductAvailableQuantity": 100,
+    "ProductDiscount": 0.0
+  }
+]

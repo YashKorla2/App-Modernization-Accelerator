@@ -1,0 +1,68 @@
+@model Models.ProductViewModel
+
+@{
+    ViewBag.Title = "Products";
+}
+
+<div class="d-flex justify-content-between">
+    <h2>Products</h2>
+
+    @using (Html.BeginForm("Index", "Product", FormMethod.Get)) 
+    {
+        <div class="d-flex align-items-center">
+            <input type="text" class="form-control mx-2" name="searchTerm" value="@ViewBag.SearchTerm" placeholder="Search products..." />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>   
+    }
+
+    <div class="d-flex align-items-center">
+        <p class="mx-2">
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+        </p>
+        <p class="mx-2">
+            @Html.ActionLink("Cart: " + @Model.CartItemCount, "Index", "Cart", null, new { @class = "btn btn-secondary" })
+        </p>
+        <p class="mx-2">
+            @Html.ActionLink("Orders", "Index", "Order", null, new { @class = "btn btn-dark" })
+        </p>
+    </div>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Products.First().ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Products.First().ProductDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Products.First().ProductPrice)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+@foreach (var item in Model.Products) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductPrice)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }, new { @class = "btn btn-primary btn-sm" }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProductId }, new { @class = "btn btn-info btn-sm" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId }, new { @class = "btn btn-danger btn-sm" }) |
+            <form action="@Url.Action("AddToCart", "Product")" method="post" class="d-inline">
+                <input type="hidden" name="productId" value="@item.ProductId" />
+                <input type="number" name="quantity" value="1" min="1" class="form-control d-inline w-25" />
+                <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
+            </form>
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,22 @@
+using System;
+using Microsoft.AspNetCore.Mvc;
+
+using Microsoft.AspNetCore.Routing;
+
+using Microsoft.AspNetCore.Http;
+
+using System.Threading.Tasks;
+
+
+namespace WebApplication
+{
+    public class MvcApplication     {
+RequestDelegate _next = null;        protected void Application_Start()
+        {
+            AreaRegistration.RegisterAllAreas();
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            UnityConfig.RegisterUnity();
+        }
+publicMvcApplication(RequestDelegatenext){}    }
+}
