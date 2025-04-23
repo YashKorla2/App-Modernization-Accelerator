@@ -42,7 +42,7 @@ namespace WebApplication.Controllers
 
             var viewModel = new ProductViewModel
             {
-                Products = products.ToList<Product>(),
+                Products = new System.Collections.Generic.List<Product>(products),
                 CartItemCount = cartItems.Count()
             };
 
