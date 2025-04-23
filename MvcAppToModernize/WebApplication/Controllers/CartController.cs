@@ -1,6 +1,7 @@
+using System;
+using System.Collections.Generic;
 using Services;
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace WebApplication.Controllers
 {
@@ -8,7 +9,9 @@ namespace WebApplication.Controllers
     /// Controller responsible for handling shopping cart related operations
     /// including viewing, searching, deleting items and checkout
     /// </summary>
-    public class CartController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class CartController : ControllerBase
     {
         private readonly ICartService _cartService;
 
@@ -21,21 +24,20 @@ namespace WebApplication.Controllers
         {
             _cartService = cartService;
         }
-        
+
         /// <summary>
         /// Displays the cart contents and handles search functionality
         /// </summary>
         /// <param name="searchTerm">Optional search term to filter cart items</param>
         /// <returns>View displaying cart items, filtered by search term if provided</returns>
-        public ActionResult Index(string searchTerm)
+        [HttpGet]
+        public IActionResult Index([FromQuery] string searchTerm)
         {
-            var Carts = string.IsNullOrEmpty(searchTerm)
+            var carts = string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetCarts()
                 : _cartService.SearchCart(searchTerm);
 
-            ViewBag.SearchTerm = searchTerm;
-
-            return View(Carts);
+            return Ok(new { SearchTerm = searchTerm, Carts = carts });
         }
 
         /// <summary>
@@ -43,9 +45,8 @@ namespace WebApplication.Controllers
         /// </summary>
         /// <param name="id">ID of the cart item to delete</param>
         /// <returns>Redirects back to cart index page</returns>
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
             _cartService.DeleteCartItem(id);
             return RedirectToAction("Index");
@@ -56,8 +57,8 @@ namespace WebApplication.Controllers
         /// </summary>
         /// <param name="selectedItems">Array of item IDs selected for checkout</param>
         /// <returns>Redirects back to cart index page after checkout</returns>
-        [HttpPost]
-        public ActionResult Checkout(int[] selectedItems)
+        [HttpPost("checkout")]
+        public IActionResult Checkout([FromBody] int[] selectedItems)
         {
             if (selectedItems == null || selectedItems.Length == 0)
                 return RedirectToAction("Index");
