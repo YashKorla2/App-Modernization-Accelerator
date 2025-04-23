@@ -1,7 +1,6 @@
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -53,7 +52,7 @@ namespace WebApplication.Controllers
         /// Displays detailed information for a specific product
         /// Returns 404 if product is not found
         /// </summary>
-        public IActionResult Details(int id)
+        public ActionResult Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -66,7 +65,7 @@ namespace WebApplication.Controllers
         /// <summary>
         /// Displays form for creating a new product
         /// </summary>
-        public IActionResult Create()
+        public ActionResult Create()
         {
             return View();
         }
@@ -76,7 +75,7 @@ namespace WebApplication.Controllers
         /// Validates the model and redirects to Index on success
         /// </summary>
         [HttpPost]
-        public IActionResult Create(Product product)
+        public ActionResult Create(Product product)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +89,7 @@ namespace WebApplication.Controllers
         /// Displays form for editing an existing product
         /// Returns 404 if product is not found
         /// </summary>
-        public IActionResult Edit(int id)
+        public ActionResult Edit(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -105,7 +104,7 @@ namespace WebApplication.Controllers
         /// Validates the model and redirects to Index on success
         /// </summary>
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public ActionResult Edit(Product product)
         {
             if (ModelState.IsValid)
             {
@@ -119,7 +118,7 @@ namespace WebApplication.Controllers
         /// Displays confirmation page for deleting a product
         /// Returns 404 if product is not found
         /// </summary>
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -134,7 +133,7 @@ namespace WebApplication.Controllers
         /// Redirects to Index after deletion
         /// </summary>
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
             _productService.DeleteProduct(id);
             return RedirectToAction("Index");
@@ -145,7 +144,7 @@ namespace WebApplication.Controllers
         /// Accepts product ID and optional quantity (defaults to 1)
         /// </summary>
         [HttpPost]
-        public IActionResult AddToCart(int productId, int quantity = 1)
+        public ActionResult AddToCart(int productId, int quantity = 1)
         {
             var product = _productService.GetProductById(productId);
             if (product != null)
