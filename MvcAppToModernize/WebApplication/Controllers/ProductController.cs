@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -57,7 +59,7 @@ namespace WebApplication.Controllers
             {
                 return NotFound();
             }
-            return View((object)product);
+            return View(product);
         }
 
         /// <summary>
@@ -104,12 +106,12 @@ namespace WebApplication.Controllers
         /// Validates the model and redirects to Index on success
         /// </summary>
         [HttpPost("Edit")]
-        public ActionResult<object> Edit(Product product)
+        public ActionResult<Product> Edit(Product product)
         {
             if (ModelState.IsValid)
             {
                 _productService.UpdateProduct(product);
-                return Ok(new { message = "Product updated successfully" });
+                return Ok(product);
             }
             return BadRequest(ModelState);
         }
