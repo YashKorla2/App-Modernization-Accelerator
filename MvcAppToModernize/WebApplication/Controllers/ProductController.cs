@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
+using System.Web;
 
 namespace WebApplication.Controllers
 {
@@ -121,7 +122,7 @@ namespace WebApplication.Controllers
         /// Displays confirmation page for deleting a product
         /// Returns 404 if product is not found
         /// </summary>
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -132,7 +133,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
-        public ActionResult DeleteConfirmation(int id)
+        public IActionResult DeleteConfirmation(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -147,7 +148,7 @@ namespace WebApplication.Controllers
         /// Redirects to Index after deletion
         /// </summary>
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             _productService.DeleteProduct(id);
             return RedirectToAction("Index");
@@ -158,7 +159,7 @@ namespace WebApplication.Controllers
         /// Accepts product ID and optional quantity (defaults to 1)
         /// </summary>
         [HttpPost]
-        public ActionResult AddToCart(int productId, int quantity = 1)
+        public IActionResult AddToCart(int productId, int quantity = 1)
         {
             var product = _productService.GetProductById(productId);
             if (product != null)
