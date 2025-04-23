@@ -1,10 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
-using Models;
-using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Models;
+using Services;
 
 namespace WebApplication.Controllers
 {
@@ -22,8 +22,8 @@ namespace WebApplication.Controllers
         /// </summary>
         public ProductController(IProductService productService, ICartService cartService)
         {
-            _productService = productService;
-            _cartService = cartService;
+            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
         }
 
         /// <summary>
