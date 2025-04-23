@@ -83,7 +83,7 @@ namespace WebApplication.Controllers
                 _productService.AddProduct(product);
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return Ok(product);
         }
 
         /// <summary>
