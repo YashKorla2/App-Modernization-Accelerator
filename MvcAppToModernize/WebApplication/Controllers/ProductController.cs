@@ -1,6 +1,8 @@
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace WebApplication.Controllers
 {
@@ -30,20 +32,20 @@ namespace WebApplication.Controllers
         /// Returns a view with products and cart item count
         /// </summary>
         [HttpGet]
-        public ActionResult<ProductViewModel> Index(string? searchTerm)
+        public IActionResult Index(string? searchTerm)
         {
-            var products = string.IsNullOrEmpty(searchTerm)
+            IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
-            var cartItems = _cartService.GetCarts();
+            IEnumerable<Cart> cartItems = _cartService.GetCarts();
 
             var viewModel = new ProductViewModel
             {
-                Products = products,
+                Products = products.ToList(),
                 CartItemCount = cartItems.Count()
             };
 
-            return Ok(viewModel);
+            return View(viewModel);
         }
 
         /// <summary>
