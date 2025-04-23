@@ -45,7 +45,7 @@ namespace WebApplication.Controllers
             var viewModel = new ProductViewModel
             {
                 Products = products,
-                CartItemCount = cartItems.Count
+                CartItemCount = (cartItems as ICollection<Cart>)?.Count ?? cartItems.Count()
             };
 
             return Ok(viewModel);
