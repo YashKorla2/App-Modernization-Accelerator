@@ -42,11 +42,11 @@ namespace WebApplication.Controllers
 
             var viewModel = new ProductViewModel
             {
-                Products = products.ToList(),
+                Products = products.ToList<Product>(),
                 CartItemCount = cartItems.Count()
             };
 
-            return View((object)viewModel);
+            return View(viewModel);
         }
 
         /// <summary>
