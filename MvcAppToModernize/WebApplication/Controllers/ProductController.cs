@@ -11,7 +11,9 @@ namespace WebApplication.Controllers
     /// Controller responsible for handling all product-related operations including
     /// viewing, creating, editing, deleting products and managing shopping cart
     /// </summary>
-    public class ProductController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
@@ -53,14 +55,15 @@ namespace WebApplication.Controllers
         /// Displays detailed information for a specific product
         /// Returns 404 if product is not found
         /// </summary>
-        public ActionResult Details(int id)
+        [HttpGet("{id}")]
+        public ActionResult<Product> Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
             {
                 return NotFound();
             }
-            return View(product);
+            return product;
         }
 
         /// <summary>
