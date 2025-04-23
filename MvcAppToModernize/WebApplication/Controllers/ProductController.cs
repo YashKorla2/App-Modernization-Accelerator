@@ -1,10 +1,10 @@
-using Services;
-using Models;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Models;
+using Services;
 
 namespace WebApplication.Controllers
 {
@@ -18,9 +18,6 @@ namespace WebApplication.Controllers
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
-
-        // Default parameterless constructor
-        public ProductController() {}
 
         /// <summary>
         /// Constructor that initializes product and cart services through dependency injection
