@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebApplication.ViewModels; // Assuming ProductViewModel is in this namespace
 
 namespace WebApplication.Controllers
 {
@@ -43,7 +42,7 @@ namespace WebApplication.Controllers
 
             var viewModel = new ProductViewModel
             {
-                Products = products.ToList(),
+                Products = products.ToList<Product>(),
                 CartItemCount = cartItems.Count()
             };
 
