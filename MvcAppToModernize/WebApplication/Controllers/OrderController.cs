@@ -8,7 +8,6 @@ using System.Linq;
 using Services;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace WebApplication.Controllers
 {
     // Controller responsible for handling order-related operations and views
@@ -30,9 +29,9 @@ namespace WebApplication.Controllers
         public ActionResult Index(string searchTerm)
         {
             // Get either all orders or search results based on search term
-            var orders = string.IsNullOrEmpty(searchTerm)
-                ? _cartService.GetOrders()
-                : _cartService.SearchOrders(searchTerm);
+            IEnumerable<object> orders = string.IsNullOrEmpty(searchTerm)
+                ? (IEnumerable<object>)_cartService.GetOrders()
+                : (IEnumerable<object>)_cartService.SearchOrders(searchTerm);
 
             var orderCount = orders.Count();
 
