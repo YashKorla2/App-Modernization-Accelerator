@@ -18,9 +18,6 @@ namespace WebApplication.Controllers
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
 
-        // Default parameterless constructor
-        public ProductController() {}
-
         /// <summary>
         /// Constructor that initializes product and cart services through dependency injection
         /// </summary>
@@ -35,7 +32,7 @@ namespace WebApplication.Controllers
         /// Returns a view with products and cart item count
         /// </summary>
         [HttpGet]
-        public ActionResult<object> Index(string? searchTerm)
+        public IActionResult Index(string? searchTerm)
         {
             IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
@@ -48,7 +45,7 @@ namespace WebApplication.Controllers
                 CartItemCount = cartItems.Count()
             };
 
-            return Ok(viewModel);
+            return View(viewModel);
         }
 
         /// <summary>
@@ -56,20 +53,21 @@ namespace WebApplication.Controllers
         /// Returns 404 if product is not found
         /// </summary>
         [HttpGet("{id}")]
-        public ActionResult<Product> Details(int id)
+        public IActionResult Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
             {
                 return NotFound();
             }
-            return Ok(product);
+            return View(product);
         }
 
         /// <summary>
         /// Displays form for creating a new product
         /// </summary>
-        public ActionResult Create()
+        [HttpGet]
+        public IActionResult Create()
         {
             return View();
         }
@@ -79,12 +77,13 @@ namespace WebApplication.Controllers
         /// Validates the model and redirects to Index on success
         /// </summary>
         [HttpPost]
-        public ActionResult Create(Product product)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Product product)
         {
             if (ModelState.IsValid)
             {
                 _productService.AddProduct(product);
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             return View(product);
         }
