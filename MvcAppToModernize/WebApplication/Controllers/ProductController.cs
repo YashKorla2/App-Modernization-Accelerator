@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace WebApplication.Controllers
 {
@@ -68,10 +69,10 @@ namespace WebApplication.Controllers
         /// <summary>
         /// Displays form for creating a new product
         /// </summary>
-        public ActionResult Create()
-        {
-            return View();
-        }
+    public IActionResult Create()
+    {
+        return View();
+    }
 
         /// <summary>
         /// Handles the POST request to create a new product
@@ -92,15 +93,15 @@ namespace WebApplication.Controllers
         /// Displays form for editing an existing product
         /// Returns 404 if product is not found
         /// </summary>
-        public ActionResult Edit(int id)
+    public IActionResult Edit(int id)
+    {
+        var product = _productService.GetProductById(id);
+        if (product == null)
         {
-            var product = _productService.GetProductById(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return View(product);
+            return NotFound();
         }
+        return View(product);
+    }
 
         /// <summary>
         /// Handles the POST request to update an existing product
@@ -121,15 +122,15 @@ namespace WebApplication.Controllers
         /// Displays confirmation page for deleting a product
         /// Returns 404 if product is not found
         /// </summary>
-        public ActionResult Delete(int id)
+    public IActionResult Delete(int id)
+    {
+        var product = _productService.GetProductById(id);
+        if (product == null)
         {
-            var product = _productService.GetProductById(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return View(product);
+            return NotFound();
         }
+        return View(product);
+    }
 
         /// <summary>
         /// Handles the POST request to delete a product
@@ -146,16 +147,16 @@ namespace WebApplication.Controllers
         /// Handles adding products to the shopping cart
         /// Accepts product ID and optional quantity (defaults to 1)
         /// </summary>
-        [HttpPost]
-        public ActionResult AddToCart(int productId, int quantity = 1)
+    [HttpPost]
+    public IActionResult AddToCart(int productId, int quantity = 1)
+    {
+        var product = _productService.GetProductById(productId);
+        if (product != null)
         {
-            var product = _productService.GetProductById(productId);
-            if (product != null)
-            {
-                _cartService.AddProductToCart(product, quantity);
-            }
-
-            return RedirectToAction("Index");
+            _cartService.AddProductToCart(product, quantity);
         }
+
+        return RedirectToAction("Index");
+    }
     }
 }
