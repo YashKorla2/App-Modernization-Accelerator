@@ -19,6 +19,11 @@
     <OutputType>Library</OutputType>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Unity" Version="*" />
+    <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters" Version="1.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="obj\**\*.*" />
   </ItemGroup>
   <ItemGroup>
@@ -31,10 +36,5 @@
     <!-- Reference to Services project containing business logic and application services -->
     <!-- This project is located in the MvcAppToModernize\Services directory -->
     <ProjectReference Include="..\Services\Services.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Unity" Version="*" />
-    <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters" Version="1.4.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 </Project>
