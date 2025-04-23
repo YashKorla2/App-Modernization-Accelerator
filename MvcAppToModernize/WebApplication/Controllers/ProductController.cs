@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Services;
 using Models;
+using Microsoft.AspNetCore.Mvc;
+
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 
 namespace WebApplication.Controllers
@@ -34,23 +32,23 @@ namespace WebApplication.Controllers
         /// Displays list of all products with optional search functionality
         /// Returns a view with products and cart item count
         /// </summary>
-public ActionResult Index(string searchTerm)
-{
-    IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
-        ? _productService.GetAllProducts()
-        : _productService.SearchProducts(searchTerm);
-    IEnumerable<Cart> cartItems = _cartService.GetCarts();
+        public ActionResult Index(string searchTerm)
+        {
+            var products = string.IsNullOrEmpty(searchTerm)
+                ? _productService.GetAllProducts()
+                : _productService.SearchProducts(searchTerm);
+            var cartItems = _cartService.GetCarts();
 
-    var viewModel = new ProductViewModel
-    {
-        Products = products,
-        CartItemCount = cartItems.Count()
-    };
+            var viewModel = new ProductViewModel
+            {
+                Products = products,
+                CartItemCount = cartItems.Count
+            };
 
-    ViewBag.SearchTerm = searchTerm;
+            ViewBag.SearchTerm = searchTerm;
 
-    return View(viewModel);
-}
+            return View(viewModel);
+        }
 
         /// <summary>
         /// Displays detailed information for a specific product
