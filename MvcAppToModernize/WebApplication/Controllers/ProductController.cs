@@ -4,7 +4,6 @@ using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Linq;
 
 namespace WebApplication.Controllers
 {
