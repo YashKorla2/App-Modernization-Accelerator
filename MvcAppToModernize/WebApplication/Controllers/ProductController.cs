@@ -1,8 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace WebApplication.Controllers
 {
@@ -85,19 +86,19 @@ namespace WebApplication.Controllers
             return Ok(product);
         }
 
-        /// <summary>
-        /// Displays form for editing an existing product
-        /// Returns 404 if product is not found
-        /// </summary>
-        public IActionResult Edit(int id)
+    /// <summary>
+    /// Displays form for editing an existing product
+    /// Returns 404 if product is not found
+    /// </summary>
+    public IActionResult Edit(int id)
+    {
+        var product = _productService.GetProductById(id);
+        if (product == null)
         {
-            var product = _productService.GetProductById(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return View(product);
+            return NotFound();
         }
+        return View(product);
+    }
 
         /// <summary>
         /// Handles the POST request to update an existing product
