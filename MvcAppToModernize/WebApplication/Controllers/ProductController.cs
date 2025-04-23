@@ -147,7 +147,7 @@ namespace WebApplication.Controllers
         /// Redirects to Index after deletion
         /// </summary>
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
             _productService.DeleteProduct(id);
             return RedirectToAction("Index");
@@ -158,7 +158,7 @@ namespace WebApplication.Controllers
         /// Accepts product ID and optional quantity (defaults to 1)
         /// </summary>
         [HttpPost]
-        public IActionResult AddToCart(int productId, int quantity = 1)
+        public ActionResult AddToCart(int productId, int quantity = 1)
         {
             var product = _productService.GetProductById(productId);
             if (product != null)
