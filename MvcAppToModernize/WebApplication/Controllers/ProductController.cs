@@ -1,9 +1,9 @@
+global using System;
+global using System.Collections.Generic;
+global using System.Linq;
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace WebApplication.Controllers
 {
@@ -54,7 +54,7 @@ namespace WebApplication.Controllers
         /// Returns 404 if product is not found
         /// </summary>
         [HttpGet("{id}")]
-        public ActionResult<Product> Details(int id)
+        public IActionResult Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
