@@ -1,9 +1,8 @@
-using System;
+using Services;
+using Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Models;
-using Services;
 
 namespace WebApplication.Controllers
 {
