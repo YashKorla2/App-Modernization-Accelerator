@@ -14,7 +14,7 @@ namespace WebApplication.Controllers
     /// viewing, creating, editing, deleting products and managing shopping cart
     /// </summary>
     [Route("[controller]")]
-    public class ProductController : Controller
+    public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
@@ -93,7 +93,7 @@ namespace WebApplication.Controllers
         /// Displays form for editing an existing product
         /// Returns 404 if product is not found
         /// </summary>
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -122,7 +122,7 @@ namespace WebApplication.Controllers
         /// Displays confirmation page for deleting a product
         /// Returns 404 if product is not found
         /// </summary>
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
@@ -133,7 +133,7 @@ namespace WebApplication.Controllers
         }
 
         [HttpGet]
-        public ActionResult DeleteConfirmation(int id)
+        public IActionResult DeleteConfirmation(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
