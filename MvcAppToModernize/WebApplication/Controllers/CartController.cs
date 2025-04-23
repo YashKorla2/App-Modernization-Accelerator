@@ -1,5 +1,6 @@
 using Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 
 namespace WebApplication.Controllers
@@ -27,15 +28,15 @@ namespace WebApplication.Controllers
         /// </summary>
         /// <param name="searchTerm">Optional search term to filter cart items</param>
         /// <returns>View displaying cart items, filtered by search term if provided</returns>
-        public ActionResult Index(string searchTerm)
+        public IActionResult Index(string searchTerm)
         {
-            var Carts = string.IsNullOrEmpty(searchTerm)
+            IEnumerable<CartItem> carts = string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetCarts()
                 : _cartService.SearchCart(searchTerm);
 
             ViewBag.SearchTerm = searchTerm;
 
-            return View(Carts);
+            return View(carts);
         }
 
         /// <summary>
