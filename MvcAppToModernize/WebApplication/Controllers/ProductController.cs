@@ -61,7 +61,7 @@ namespace WebApplication.Controllers
             {
                 return NotFound();
             }
-            return product;
+            return Ok(product);
         }
 
         /// <summary>
