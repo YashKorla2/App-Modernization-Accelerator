@@ -40,9 +40,9 @@ namespace WebApplication.Controllers
                 : _productService.SearchProducts(searchTerm);
             IEnumerable<Cart> cartItems = _cartService.GetCarts();
 
-            var viewModel = new ProductViewModel
+            var viewModel = new
             {
-                Products = products.ToList<Product>(),
+                Products = products.ToList(),
                 CartItemCount = cartItems.Count()
             };
 
