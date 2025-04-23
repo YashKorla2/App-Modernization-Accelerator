@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -77,7 +78,7 @@ namespace WebApplication.Controllers
         /// Validates the model and redirects to Index on success
         /// </summary>
         [HttpPost]
-        public ActionResult Create(Product product)
+        public IActionResult Create(Product product)
         {
             if (ModelState.IsValid)
             {
