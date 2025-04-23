@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication.Controllers
 {
