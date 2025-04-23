@@ -55,7 +55,7 @@ namespace WebApplication.Controllers
         /// Displays detailed information for a specific product
         /// Returns 404 if product is not found
         /// </summary>
-        public ActionResult Details(int id)
+        public ActionResult Details(System.Int32 id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
