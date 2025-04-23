@@ -33,15 +33,15 @@ namespace WebApplication.Controllers
         [HttpGet]
         public IActionResult Index(string? searchTerm)
         {
-            List<Product> products = string.IsNullOrEmpty(searchTerm)
-                ? _productService.GetAllProducts().ToList()
-                : _productService.SearchProducts(searchTerm).ToList();
-            List<Cart> cartItems = _cartService.GetCarts().ToList();
+            IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
+                ? _productService.GetAllProducts()
+                : _productService.SearchProducts(searchTerm);
+            IEnumerable<Cart> cartItems = _cartService.GetCarts();
 
             var viewModel = new
             {
-                Products = products,
-                CartItemCount = cartItems.Count
+                Products = products.ToList(),
+                CartItemCount = cartItems.Count()
             };
 
             return View(viewModel);
