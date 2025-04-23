@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -92,9 +91,9 @@ namespace WebApplication.Controllers
         /// Displays form for editing an existing product
         /// Returns 404 if product is not found
         /// </summary>
-        public async Task<IActionResult> Edit(int id)
+        public ActionResult Edit(int id)
         {
-            var product = await _productService.GetProductByIdAsync(id);
+            var product = _productService.GetProductById(id);
             if (product == null)
             {
                 return NotFound();
