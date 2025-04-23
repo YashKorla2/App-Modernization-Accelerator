@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
 using Services;
 
@@ -11,7 +12,9 @@ namespace WebApplication.Controllers
     /// Controller responsible for handling all product-related operations including
     /// viewing, creating, editing, deleting products and managing shopping cart
     /// </summary>
-    public class ProductController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
@@ -30,7 +33,7 @@ namespace WebApplication.Controllers
         /// Returns a view with products and cart item count
         /// </summary>
         [HttpGet]
-        public IActionResult Index(string? searchTerm)
+        public ActionResult<object> Index(string? searchTerm)
         {
             IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
@@ -43,7 +46,7 @@ namespace WebApplication.Controllers
                 CartItemCount = cartItems.Count()
             };
 
-            return View(viewModel);
+            return Ok(viewModel);
         }
 
         /// <summary>
@@ -51,39 +54,38 @@ namespace WebApplication.Controllers
         /// Returns 404 if product is not found
         /// </summary>
         [HttpGet("{id}")]
-        public IActionResult Details(int id)
+        public ActionResult<object> Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
             {
                 return NotFound();
             }
-            return View((object)product);
+            return Ok(product);
         }
 
         /// <summary>
         /// Displays form for creating a new product
         /// </summary>
-        [HttpGet]
-        public IActionResult Create()
+        [HttpGet("Create")]
+        public ActionResult<object> Create()
         {
-            return View();
+            return Ok(new { message = "Create form loaded" });
         }
 
         /// <summary>
         /// Handles the POST request to create a new product
         /// Validates the model and redirects to Index on success
         /// </summary>
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(Product product)
+        [HttpPost("Create")]
+        public ActionResult<object> Create(Product product)
         {
             if (ModelState.IsValid)
             {
                 _productService.AddProduct(product);
-                return RedirectToAction(nameof(Index));
+                return CreatedAtAction(nameof(Details), new { id = product.Id }, product);
             }
-            return View(product);
+            return BadRequest(ModelState);
         }
 
         /// <summary>
