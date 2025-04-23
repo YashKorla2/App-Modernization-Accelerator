@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Net;
 
 namespace WebApplication.Controllers
 {
@@ -164,9 +163,9 @@ namespace WebApplication.Controllers
             if (product != null)
             {
                 _cartService.AddProductToCart(product, quantity);
-                return RedirectToAction("Index");
             }
-            return StatusCode((int)HttpStatusCode.BadRequest, "Product not found");
+
+            return RedirectToAction("Index");
         }
     }
 }
