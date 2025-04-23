@@ -58,7 +58,7 @@ namespace WebApplication.Controllers
             {
                 return NotFound();
             }
-            return View(product as System.Object);
+            return View((object)product);
         }
 
         /// <summary>
