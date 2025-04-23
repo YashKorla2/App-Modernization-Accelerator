@@ -38,8 +38,8 @@ namespace WebApplication.Controllers
 
             var viewModel = new
             {
-                Products = products.ToList(),
-                CartItemCount = cartItems.Count()
+                Products = new System.Collections.Generic.List<Product>(products),
+                CartItemCount = new System.Collections.Generic.List<Cart>(cartItems).Count
             };
 
             return View(viewModel);
