@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Services;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 
 
 namespace WebApplication.Controllers
@@ -31,7 +30,7 @@ namespace WebApplication.Controllers
         public ActionResult Index(string searchTerm)
         {
             // Get either all orders or search results based on search term
-            IEnumerable<Order> orders = string.IsNullOrEmpty(searchTerm)
+            var orders = string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetOrders()
                 : _cartService.SearchOrders(searchTerm);
 
