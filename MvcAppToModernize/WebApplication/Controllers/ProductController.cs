@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
@@ -18,13 +15,16 @@ namespace WebApplication.Controllers
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
 
+        // Default parameterless constructor
+        public ProductController() {}
+
         /// <summary>
         /// Constructor that initializes product and cart services through dependency injection
         /// </summary>
         public ProductController(IProductService productService, ICartService cartService)
         {
-            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
-            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
+            _productService = productService;
+            _cartService = cartService;
         }
 
         /// <summary>
