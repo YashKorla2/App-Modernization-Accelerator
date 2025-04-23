@@ -4,7 +4,6 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
-using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -52,7 +51,7 @@ namespace WebApplication.Controllers
         /// Returns 404 if product is not found
         /// </summary>
         [HttpGet("{id}")]
-        public IActionResult Details([FromRoute] int id)
+        public IActionResult Details(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
