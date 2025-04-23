@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace WebApplication.Controllers
 {
@@ -122,6 +123,17 @@ namespace WebApplication.Controllers
         /// Returns 404 if product is not found
         /// </summary>
         public ActionResult Delete(int id)
+        {
+            var product = _productService.GetProductById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+
+        [HttpGet]
+        public ActionResult DeleteConfirmation(int id)
         {
             var product = _productService.GetProductById(id);
             if (product == null)
