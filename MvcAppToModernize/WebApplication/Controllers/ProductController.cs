@@ -1,9 +1,9 @@
+using System;
+using System.Collections.Generic;
 using Services;
 using Models;
 using Microsoft.AspNetCore.Mvc;
-
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-
 
 namespace WebApplication.Controllers
 {
@@ -11,7 +11,9 @@ namespace WebApplication.Controllers
     /// Controller responsible for handling all product-related operations including
     /// viewing, creating, editing, deleting products and managing shopping cart
     /// </summary>
-    public class ProductController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
@@ -32,7 +34,8 @@ namespace WebApplication.Controllers
         /// Displays list of all products with optional search functionality
         /// Returns a view with products and cart item count
         /// </summary>
-        public ActionResult Index(string searchTerm)
+        [HttpGet]
+        public ActionResult<ProductViewModel> Index(string searchTerm)
         {
             var products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
@@ -45,9 +48,7 @@ namespace WebApplication.Controllers
                 CartItemCount = cartItems.Count
             };
 
-            ViewBag.SearchTerm = searchTerm;
-
-            return View(viewModel);
+            return Ok(viewModel);
         }
 
         /// <summary>
