@@ -12,8 +12,7 @@ namespace WebApplication.Controllers
     /// Controller responsible for handling all product-related operations including
     /// viewing, creating, editing, deleting products and managing shopping cart
     /// </summary>
-    [Route("[controller]")]
-    public class ProductController : ControllerBase
+    public class ProductController : Controller
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
@@ -76,17 +75,17 @@ namespace WebApplication.Controllers
 
         /// <summary>
         /// Handles the POST request to create a new product
-        /// Validates the model and returns created product on success
+        /// Validates the model and redirects to Index on success
         /// </summary>
         [HttpPost]
-        public ActionResult<Product> Create(Product product)
+        public ActionResult Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                var createdProduct = _productService.AddProduct(product);
-                return CreatedAtAction(nameof(Details), new { id = createdProduct.Id }, createdProduct);
+                _productService.AddProduct(product);
+                return RedirectToAction("Index");
             }
-            return BadRequest(ModelState);
+            return View(product);
         }
 
         /// <summary>
