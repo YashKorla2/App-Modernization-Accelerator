@@ -42,7 +42,7 @@ namespace WebApplication.Controllers
             var products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
                 : _productService.SearchProducts(searchTerm);
-            var cartItems = _cartService.GetCarts();
+            var cartItems = _cartService.GetCarts().ToList();  // Ensure we have a List<> here
 
             var viewModel = new ProductViewModel
             {
