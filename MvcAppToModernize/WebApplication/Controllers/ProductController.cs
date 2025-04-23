@@ -4,7 +4,6 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
-using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -22,8 +21,8 @@ namespace WebApplication.Controllers
         /// </summary>
         public ProductController(IProductService productService, ICartService cartService)
         {
-            _productService = productService ?? throw new ArgumentNullException(nameof(productService));
-            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
+            _productService = productService;
+            _cartService = cartService;
         }
 
         /// <summary>
