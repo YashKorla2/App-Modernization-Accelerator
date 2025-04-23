@@ -27,21 +27,21 @@ namespace WebApplication.Controllers
         // Parameters:
         //   searchTerm - Optional search string to filter orders
         // Returns: View containing filtered or all orders
-        public ActionResult Index(string searchTerm)
-        {
-            // Get either all orders or search results based on search term
-            var orders = string.IsNullOrEmpty(searchTerm)
-                ? _cartService.GetOrders()
-                : _cartService.SearchOrders(searchTerm);
+    public ActionResult Index(string searchTerm)
+    {
+        // Get either all orders or search results based on search term
+        IEnumerable<object> orders = string.IsNullOrEmpty(searchTerm)
+            ? _cartService.GetOrders()
+            : _cartService.SearchOrders(searchTerm);
 
-            var orderCount = orders.Count();
+        var orderCount = orders.Count();
 
-            // Pass order count and search term to view via ViewBag
-            ViewBag.OrderCount = orderCount;
-            ViewBag.SearchTerm = searchTerm;
+        // Pass order count and search term to view via ViewBag
+        ViewBag.OrderCount = orderCount;
+        ViewBag.SearchTerm = searchTerm;
 
-            // Return view with orders as model
-            return View(orders);
-        }
+        // Return view with orders as model
+        return View(orders);
+    }
     }
 }
