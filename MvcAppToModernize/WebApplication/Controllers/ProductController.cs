@@ -1,11 +1,11 @@
+using Services;
+using Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using Microsoft.AspNetCore.Mvc;
-using Models;
-using Services;
 
 namespace WebApplication.Controllers
 {
@@ -13,7 +13,7 @@ namespace WebApplication.Controllers
     /// Controller responsible for handling all product-related operations including
     /// viewing, creating, editing, deleting products and managing shopping cart
     /// </summary>
-    public class ProductController : Microsoft.AspNetCore.Mvc.Controller
+    public class ProductController : Controller
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
