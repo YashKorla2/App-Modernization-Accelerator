@@ -13,7 +13,9 @@ namespace WebApplication.Controllers
     /// Controller responsible for handling all product-related operations including
     /// viewing, creating, editing, deleting products and managing shopping cart
     /// </summary>
-    public class ProductController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
@@ -146,8 +148,8 @@ namespace WebApplication.Controllers
         /// Handles the POST request to delete a product
         /// Redirects to Index after deletion
         /// </summary>
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost("Delete/{id}")]
+        public IActionResult DeleteConfirmed(int id)
         {
             _productService.DeleteProduct(id);
             return RedirectToAction("Index");
@@ -157,8 +159,8 @@ namespace WebApplication.Controllers
         /// Handles adding products to the shopping cart
         /// Accepts product ID and optional quantity (defaults to 1)
         /// </summary>
-        [HttpPost]
-        public ActionResult AddToCart(int productId, int quantity = 1)
+        [HttpPost("AddToCart")]
+        public IActionResult AddToCart(int productId, int quantity = 1)
         {
             var product = _productService.GetProductById(productId);
             if (product != null)
