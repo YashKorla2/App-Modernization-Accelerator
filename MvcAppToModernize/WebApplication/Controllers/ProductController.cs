@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Runtime.CompilerServices;
 
 namespace WebApplication.Controllers
 {
@@ -26,7 +25,6 @@ namespace WebApplication.Controllers
         /// <summary>
         /// Constructor that initializes product and cart services through dependency injection
         /// </summary>
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public ProductController(IProductService productService, ICartService cartService)
         {
             _productService = productService;
