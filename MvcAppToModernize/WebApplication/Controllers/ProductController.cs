@@ -13,9 +13,8 @@ namespace WebApplication.Controllers
     /// Controller responsible for handling all product-related operations including
     /// viewing, creating, editing, deleting products and managing shopping cart
     /// </summary>
-    [ApiController]
     [Route("[controller]")]
-    public class ProductController : ControllerBase
+    public class ProductController : Controller
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
