@@ -30,7 +30,7 @@ namespace WebApplication.Controllers
         public ActionResult Index(string searchTerm)
         {
             // Get either all orders or search results based on search term
-            var orders = string.IsNullOrEmpty(searchTerm)
+            IEnumerable<object> orders = string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetOrders()
                 : _cartService.SearchOrders(searchTerm);
 
