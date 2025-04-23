@@ -17,9 +17,6 @@ namespace WebApplication.Controllers
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
 
-        // Default parameterless constructor
-        public ProductController() {}
-
         /// <summary>
         /// Constructor that initializes product and cart services through dependency injection
         /// </summary>
