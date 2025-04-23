@@ -3,6 +3,7 @@ using Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using Models;  // Ensure Models namespace is explicitly imported
 
 namespace WebApplication.Controllers
 {
