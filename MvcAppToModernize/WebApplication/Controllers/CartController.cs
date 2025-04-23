@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Services;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace WebApplication.Controllers
 {
@@ -24,13 +21,13 @@ namespace WebApplication.Controllers
         {
             _cartService = cartService;
         }
-
+        
         /// <summary>
         /// Displays the cart contents and handles search functionality
         /// </summary>
         /// <param name="searchTerm">Optional search term to filter cart items</param>
         /// <returns>View displaying cart items, filtered by search term if provided</returns>
-        public IActionResult Index(string searchTerm)
+        public ActionResult Index(string searchTerm)
         {
             var Carts = string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetCarts()
@@ -48,10 +45,10 @@ namespace WebApplication.Controllers
         /// <returns>Redirects back to cart index page</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id)
+        public ActionResult Delete(int id)
         {
             _cartService.DeleteCartItem(id);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
 
         /// <summary>
@@ -60,13 +57,13 @@ namespace WebApplication.Controllers
         /// <param name="selectedItems">Array of item IDs selected for checkout</param>
         /// <returns>Redirects back to cart index page after checkout</returns>
         [HttpPost]
-        public IActionResult Checkout(int[] selectedItems)
+        public ActionResult Checkout(int[] selectedItems)
         {
             if (selectedItems == null || selectedItems.Length == 0)
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
 
             _cartService.Checkout(selectedItems);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
     }
 }
