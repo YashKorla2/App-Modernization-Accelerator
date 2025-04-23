@@ -1,9 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Models;
-using Services;
+global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using Microsoft.AspNetCore.Mvc;
+global using Models;
+global using Services;
+global using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
