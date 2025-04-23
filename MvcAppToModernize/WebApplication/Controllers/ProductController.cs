@@ -39,7 +39,7 @@ namespace WebApplication.Controllers
 
             var viewModel = new
             {
-                Products = products.ToList(),
+                Products = products,
                 CartItemCount = cartItems.Count()
             };
 
