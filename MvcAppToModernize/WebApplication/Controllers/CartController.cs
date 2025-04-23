@@ -1,6 +1,7 @@
 using Services;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Collections.Generic;
+using Models; // Assuming this is where cart-related classes are defined
 
 namespace WebApplication.Controllers
 {
@@ -27,16 +28,16 @@ namespace WebApplication.Controllers
         /// </summary>
         /// <param name="searchTerm">Optional search term to filter cart items</param>
         /// <returns>View displaying cart items, filtered by search term if provided</returns>
-        public ActionResult Index(string searchTerm)
-        {
-            var Carts = string.IsNullOrEmpty(searchTerm)
-                ? _cartService.GetCarts()
-                : _cartService.SearchCart(searchTerm);
+    public ActionResult Index(string searchTerm)
+    {
+        IEnumerable<Cart> carts = string.IsNullOrEmpty(searchTerm)
+            ? _cartService.GetCarts()
+            : _cartService.SearchCart(searchTerm);
 
-            ViewBag.SearchTerm = searchTerm;
+        ViewBag.SearchTerm = searchTerm;
 
-            return View(Carts);
-        }
+        return View(carts);
+    }
 
         /// <summary>
         /// Removes a specific item from the cart
