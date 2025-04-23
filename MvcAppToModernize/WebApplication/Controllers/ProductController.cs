@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -11,7 +12,9 @@ namespace WebApplication.Controllers
     /// Controller responsible for handling all product-related operations including
     /// viewing, creating, editing, deleting products and managing shopping cart
     /// </summary>
-    public class ProductController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
@@ -33,7 +36,7 @@ namespace WebApplication.Controllers
         /// Returns a view with products and cart item count
         /// </summary>
         [HttpGet]
-        public IActionResult Index(string? searchTerm)
+        public ActionResult<object> Index(string? searchTerm)
         {
             IEnumerable<Product> products = string.IsNullOrEmpty(searchTerm)
                 ? _productService.GetAllProducts()
@@ -46,7 +49,7 @@ namespace WebApplication.Controllers
                 CartItemCount = cartItems.Count()
             };
 
-            return View(viewModel);
+            return Ok(viewModel);
         }
 
         /// <summary>
@@ -105,15 +108,15 @@ namespace WebApplication.Controllers
         /// Handles the POST request to update an existing product
         /// Validates the model and redirects to Index on success
         /// </summary>
-        [HttpPost]
-        public ActionResult Edit(Product product)
+        [HttpPost("Edit")]
+        public ActionResult<object> Edit(Product product)
         {
             if (ModelState.IsValid)
             {
                 _productService.UpdateProduct(product);
-                return RedirectToAction("Index");
+                return Ok(new { message = "Product updated successfully" });
             }
-            return View(product);
+            return BadRequest(ModelState);
         }
 
         /// <summary>
