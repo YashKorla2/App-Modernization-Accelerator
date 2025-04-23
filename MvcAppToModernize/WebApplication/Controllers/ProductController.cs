@@ -12,7 +12,7 @@ namespace WebApplication.Controllers
     /// viewing, creating, editing, deleting products and managing shopping cart
     /// </summary>
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -45,7 +45,7 @@ namespace WebApplication.Controllers
             var viewModel = new ProductViewModel
             {
                 Products = products,
-                CartItemCount = cartItems.Count()
+                CartItemCount = cartItems.Count
             };
 
             return Ok(viewModel);
