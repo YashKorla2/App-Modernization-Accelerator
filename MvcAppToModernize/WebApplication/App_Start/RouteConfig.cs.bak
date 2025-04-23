@@ -1,7 +1,7 @@
-// This class handles the configuration of URL routing in the ASP.NET MVC application
-// It defines how URLs are mapped to controller actions
-using System.Web.Mvc;
-using System.Web.Routing;
+using Microsoft.AspNetCore.Mvc;
+
+using Microsoft.AspNetCore.Routing;
+
 
 namespace WebApplication
 {

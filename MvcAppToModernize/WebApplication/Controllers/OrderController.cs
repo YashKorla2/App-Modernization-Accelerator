@@ -3,8 +3,9 @@
 /// which is also available in the MvcAppToModernize\Services directory.
 
 using System.Collections.Generic;
-using System.Web.Mvc;
 using Services;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace WebApplication.Controllers
 {
