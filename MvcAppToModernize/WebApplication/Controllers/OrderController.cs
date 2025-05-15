@@ -42,7 +42,23 @@ namespace WebApplication.Controllers
 
             // Pass order count and search term to view via ViewBag
             ViewBag.OrderCount = orderCount;
-            ViewBag.SearchTerm = searchTerm;
+// using System.Web; // Import System.Web for HttpUtility.HtmlEncode()
+        public ActionResult Index(string searchTerm)
+        {
+            // Get either all orders or search results based on search term
+            var orders = string.IsNullOrEmpty(searchTerm)
+                ? _cartService.GetOrders()
+                : _cartService.SearchOrders(searchTerm);
+            
+            var orderCount = orders.Count;
+
+            // Pass order count and search term to view via ViewBag
+            ViewBag.OrderCount = orderCount;
+            ViewBag.SearchTerm = HttpUtility.HtmlEncode(searchTerm);
+
+            // Return view with orders as model
+            return View(orders);
+        }
 
             // Return view with orders as model
             return View(orders);
