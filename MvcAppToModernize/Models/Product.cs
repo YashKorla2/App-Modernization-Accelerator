@@ -18,7 +18,33 @@ namespace Models
     public class Product
     {
         // Unique identifier for the product
-        public int ProductId { get; set; }
+public class Product
+    {
+        // Unique identifier for the product
+        public int Id { get; set; }
+
+        // Display name shown in product listings and details
+        public string Name { get; set; }
+
+        // Detailed product information shown on product details page
+        public string Description { get; set; }
+
+        // Used for product filtering and navigation
+        public string Category { get; set; }
+
+        // Average customer rating (0-5 scale)
+        public double Rating { get; set; }
+
+        // Current selling price
+        public decimal Price { get; set; }
+
+        // Current stock level, updated during order processing
+        public int AvailableQuantity { get; set; }
+
+        // Applied discount amount or percentage
+        public decimal Discount { get; set; }
+    }
+}
 
         // Display name shown in product listings and details
         public string ProductName { get; set; }
