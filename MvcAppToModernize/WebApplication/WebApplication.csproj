@@ -94,10 +94,21 @@
     <None Include="obj\**\*.*" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!-- Project References section defines dependencies on other projects in the solution -->
+<!-- These references allow this project to use types defined in the referenced projects -->
+<ItemGroup>
+    <!-- Reference to Models project containing domain model classes and DTOs -->
+    <!-- This project is located in the MvcAppToModernize\Models directory -->
     <ProjectReference Include="..\Models\Models.csproj" />
+
+    <!-- Reference to Repositories project containing data access and persistence logic -->
+    <!-- This project is located in the MvcAppToModernize\Repositories directory -->
     <ProjectReference Include="..\Repositories\Repositories.csproj" />
+
+    <!-- Reference to Services project containing business logic and application services -->
+    <!-- This project is located in the MvcAppToModernize\Services directory -->
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
+
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
