@@ -31,7 +31,14 @@ namespace WebApplication.Controllers
                 ? _cartService.GetOrders()
                 : _cartService.SearchOrders(searchTerm);
             
-            var orderCount = orders.Count;
+? _cartService.GetOrders()
+                : _cartService.SearchOrders(searchTerm);
+            
+            // Pass order count and search term to view via ViewBag
+            ViewBag.OrderCount = orders.Count;
+            ViewBag.SearchTerm = searchTerm;
+
+            // Return view with orders as model
 
             // Pass order count and search term to view via ViewBag
             ViewBag.OrderCount = orderCount;
