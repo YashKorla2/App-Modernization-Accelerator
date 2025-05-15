@@ -3,7 +3,7 @@ name: Post Modernization Checks
 on:
   push:
     branches:
-      - 'modernized/**'
+      - 'amazon-q-*'
 
 permissions:
   contents: write
