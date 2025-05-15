@@ -48,7 +48,53 @@ namespace WebApplication.Controllers
         /// <returns>Redirects back to cart index page</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
+/// </summary>
+        /// <param name="id">ID of the cart item to delete</param>
+        /// <returns>Redirects back to cart index page</returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
+        {
+            try
+            {
+                _cartService.DeleteCartItem(id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                // TODO: Implement proper logging mechanism
+                ModelState.AddModelError("", "An error occurred while deleting the item.");
+                return RedirectToAction("Index");
+            }
+        }
+
+        /// <summary>
+        /// Processes checkout for selected cart items
+        /// </summary>
+        /// <param name="selectedItems">Array of item IDs selected for checkout</param>
+        /// <returns>Redirects back to cart index page after checkout</returns>
+        [HttpPost]
+        public ActionResult Checkout(int[] selectedItems)
+        {
+            if (selectedItems == null || selectedItems.Length == 0)
+                return RedirectToAction("Index");
+
+            try
+            {
+                _cartService.Checkout(selectedItems);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                // TODO: Implement proper logging mechanism
+                ModelState.AddModelError("", "An error occurred during checkout.");
+                return RedirectToAction("Index");
+            }
+        }
+    }
+}
         {
             _cartService.DeleteCartItem(id);
             return RedirectToAction("Index");
