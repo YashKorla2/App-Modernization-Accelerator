@@ -63,7 +63,55 @@ namespace Repositories
         /// Retrieves all orders history from the JSON file
         /// Returns empty list if file doesn't exist
         /// </summary>
+/// Retrieves all orders history from the JSON file
+        /// Returns empty list if file doesn't exist
+        /// </summary>
         public List<List<Cart>> GetOrders()
+        {
+            try
+            {
+                if (!File.Exists(_orderFilePath))
+                    return new List<List<Cart>>();
+
+                string json = File.ReadAllText(_orderFilePath);
+                return JsonConvert.DeserializeObject<List<List<Cart>>>(json) ?? new List<List<Cart>>();
+            }
+            catch (IOException ex)
+            {
+                // TODO: Log the exception
+                return new List<List<Cart>>();
+            }
+            catch (JsonException ex)
+            {
+                // TODO: Log the exception
+                return new List<List<Cart>>();
+            }
+        }
+
+        /// <summary>
+        /// Saves the orders history to JSON file
+        /// </summary>
+        /// <param name="orders">List of orders to save</param>
+        public void SaveOrders(List<List<Cart>> orders)
+        {
+            try
+            {
+                string json = JsonConvert.SerializeObject(orders, Formatting.Indented);
+                File.WriteAllText(_orderFilePath, json);
+            }
+            catch (IOException ex)
+            {
+                // TODO: Log the exception
+            }
+            catch (JsonException ex)
+            {
+                // TODO: Log the exception
+            }
+        }
+
+    }
+
+}
         {
             if (!File.Exists(_orderFilePath))
                 return new List<List<Cart>>();
