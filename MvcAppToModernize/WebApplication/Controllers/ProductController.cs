@@ -1,4 +1,6 @@
-/// Hint for Q: Assume that the ICartService and IProductService interfaces are available in the 
+using System.Web.Mvc;
+using Services;
+using Models;
 /// MvcAppToModernize\Services directory.
 /// The cartService object uses the methods of the ICartService interface which are implemented in the 
 /// CartService class which is also available in the MvcAppToModernize\Services directory.
