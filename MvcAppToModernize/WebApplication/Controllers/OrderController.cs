@@ -2,9 +2,14 @@
 /// The cartService object uses the methods of the ICartService interface which are implemented in the CartService class
 /// which is also available in the MvcAppToModernize\Services directory.
 
+using System;
 using System.Collections.Generic;
-using System.Web.Mvc;
+using System.Collections;
 using Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using System.Linq;
+using System.Net;
 
 namespace WebApplication.Controllers
 {
@@ -27,38 +32,15 @@ namespace WebApplication.Controllers
         public ActionResult Index(string searchTerm)
         {
             // Get either all orders or search results based on search term
-            var orders = string.IsNullOrEmpty(searchTerm)
+            IEnumerable<object> orders = string.IsNullOrEmpty(searchTerm)
                 ? _cartService.GetOrders()
                 : _cartService.SearchOrders(searchTerm);
-            
-? _cartService.GetOrders()
-                : _cartService.SearchOrders(searchTerm);
-            
-            // Pass order count and search term to view via ViewBag
-            ViewBag.OrderCount = orders.Count;
-            ViewBag.SearchTerm = searchTerm;
 
-            // Return view with orders as model
+            var orderCount = orders.Count();
 
             // Pass order count and search term to view via ViewBag
             ViewBag.OrderCount = orderCount;
-// using System.Web; // Import System.Web for HttpUtility.HtmlEncode()
-        public ActionResult Index(string searchTerm)
-        {
-            // Get either all orders or search results based on search term
-            var orders = string.IsNullOrEmpty(searchTerm)
-                ? _cartService.GetOrders()
-                : _cartService.SearchOrders(searchTerm);
-            
-            var orderCount = orders.Count;
-
-            // Pass order count and search term to view via ViewBag
-            ViewBag.OrderCount = orderCount;
-            ViewBag.SearchTerm = HttpUtility.HtmlEncode(searchTerm);
-
-            // Return view with orders as model
-            return View(orders);
-        }
+            ViewBag.SearchTerm = WebUtility.HtmlEncode(searchTerm);
 
             // Return view with orders as model
             return View(orders);

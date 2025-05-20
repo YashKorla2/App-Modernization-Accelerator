@@ -1,15 +1,11 @@
-using System.Web.Mvc;
 using Services;
 using Models;
-/// MvcAppToModernize\Services directory.
-/// The cartService object uses the methods of the ICartService interface which are implemented in the 
-/// CartService class which is also available in the MvcAppToModernize\Services directory.
-/// The productService object uses the methods of the IProductService interface which are implemented in the 
-/// ProductService class which is also available in the MvcAppToModernize\Services directory.
+using Services;
+using Models;
+using Microsoft.AspNetCore.Mvc;
 
-using System.Web.Mvc;
-using Services;
-using Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+
 
 namespace WebApplication.Controllers
 {
@@ -65,7 +61,7 @@ namespace WebApplication.Controllers
             var product = _productService.GetProductById(id);
             if (product == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(product);
         }
@@ -102,7 +98,7 @@ namespace WebApplication.Controllers
             var product = _productService.GetProductById(id);
             if (product == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(product);
         }
@@ -131,7 +127,7 @@ namespace WebApplication.Controllers
             var product = _productService.GetProductById(id);
             if (product == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(product);
         }

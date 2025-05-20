@@ -1,9 +1,7 @@
-/// Hint for Q: Assume that the ICartService interface is available in the MvcAppToModernize\Services directory
-/// The cartService object uses the methods of the ICartService interface which are implemented in the CartService class
-/// which is also available in the MvcAppToModernize\Services directory.
-
-using System.Web.Mvc;
 using Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
 
 namespace WebApplication.Controllers
 {
@@ -24,7 +22,7 @@ namespace WebApplication.Controllers
         {
             _cartService = cartService;
         }
-        
+
         /// <summary>
         /// Displays the cart contents and handles search functionality
         /// </summary>
@@ -44,11 +42,6 @@ namespace WebApplication.Controllers
         /// <summary>
         /// Removes a specific item from the cart
         /// </summary>
-        /// <param name="id">ID of the cart item to delete</param>
-        /// <returns>Redirects back to cart index page</returns>
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-/// </summary>
         /// <param name="id">ID of the cart item to delete</param>
         /// <returns>Redirects back to cart index page</returns>
         [HttpPost]
@@ -92,27 +85,6 @@ namespace WebApplication.Controllers
                 ModelState.AddModelError("", "An error occurred during checkout.");
                 return RedirectToAction("Index");
             }
-        }
-    }
-}
-        {
-            _cartService.DeleteCartItem(id);
-            return RedirectToAction("Index");
-        }
-
-        /// <summary>
-        /// Processes checkout for selected cart items
-        /// </summary>
-        /// <param name="selectedItems">Array of item IDs selected for checkout</param>
-        /// <returns>Redirects back to cart index page after checkout</returns>
-        [HttpPost]
-        public ActionResult Checkout(int[] selectedItems)
-        {
-            if (selectedItems == null || selectedItems.Length == 0)
-                return RedirectToAction("Index");
-
-            _cartService.Checkout(selectedItems);
-            return RedirectToAction("Index");
         }
     }
 }

@@ -1,15 +1,19 @@
 // This is the main application class that serves as the entry point for the ASP.NET MVC application
 // It inherits from HttpApplication which provides the base functionality for handling HTTP requests
 using System;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
+using Microsoft.AspNetCore.Mvc;
+
+using Microsoft.AspNetCore.Routing;
+
+using Microsoft.AspNetCore.Http;
+
+using System.Threading.Tasks;
+
 
 namespace WebApplication
 {
-    public class MvcApplication : System.Web.HttpApplication
-    {
-        // Application_Start is called once when the application first starts up
+    public class MvcApplication     {
+RequestDelegate _next = null;        // Application_Start is called once when the application first starts up
         // It handles all the necessary configuration and initialization
         protected void Application_Start()
         {
@@ -24,5 +28,5 @@ namespace WebApplication
             // This sets up dependency injection for the application
             UnityConfig.RegisterUnity();
         }
-    }
+publicMvcApplication(RequestDelegatenext){}    }
 }
